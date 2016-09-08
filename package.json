@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/kunruch/mmpilot/issues"
   },
-  "homepage": "https://github.com/kunruch/mmpilot#readme"
+  "homepage": "https://github.com/kunruch/mmpilot#readme",
+  "dependencies": {
+    "commander": "^2.9.0"
+  }
 }
