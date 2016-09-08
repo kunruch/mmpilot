@@ -1,4 +1,5 @@
 var fs = require('fs');
+var logger = require('./../lib/logger');
 var markoc = require('marko/compiler');
 // The following line installs the Node.js require extension
 // for `.marko` files. Once installed, `*.marko` files can be

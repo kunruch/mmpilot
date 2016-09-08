@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 var program = require('commander');
-var chalk = require('chalk');
+
+var logger = require('./lib/logger');
 
 var Config = require('./lib/config');
 var config = new Config();
@@ -18,7 +19,7 @@ program
 
 
 if (program.build) {
-    console.log(chalk.cyan('Building HTML files..'));
+    logger.info('Building HTML files..');
     html.build();
 }
-console.log(chalk.green('Done'));
+logger.done('Done');
