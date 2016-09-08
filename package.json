@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/kunruch/mmpilot#readme",
   "dependencies": {
+    "chalk": "^1.1.3",
     "commander": "^2.9.0",
     "marko": "^3.10.0"
   }

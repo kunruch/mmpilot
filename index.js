@@ -5,6 +5,7 @@
  */
 //External modules
 var program = require('commander');
+var chalk = require('chalk');
 
 // Our modules
 var html = require('./html');
@@ -17,7 +18,7 @@ program
 
 
 if (program.build) {
-    console.log('Building HTML files..');
+    console.log(chalk.cyan('Building HTML files..'));
     html.build();
 }
-console.log('Done');
+console.log(chalk.green('Done'));
