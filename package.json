@@ -1,0 +1,24 @@
+{
+  "name": "mmpilot",
+  "version": "0.1.0",
+  "description": "A minimal modern static website generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kunruch/mmpilot.git"
+  },
+  "keywords": [
+    "blog",
+    "website",
+    "cms"
+  ],
+  "author": "Kanishk Kunal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kunruch/mmpilot/issues"
+  },
+  "homepage": "https://github.com/kunruch/mmpilot#readme"
+}
