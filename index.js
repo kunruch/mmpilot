@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-//External modules
 var program = require('commander');
 var chalk = require('chalk');
 
-// Our modules
-var html = require('./html');
-var pkg = require('./package.json');
+var Config = require('./lib/config');
+var config = new Config();
+config.load();
+
+var Html = require('./tasks/html');
+var html = new Html(config);
+
 
 program
-    .version(pkg.version)
+    .version(config.package.version)
     .option('-b, --build', 'Builds the project')
     .parse(process.argv);
 

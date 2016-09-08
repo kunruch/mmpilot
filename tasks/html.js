@@ -1,33 +1,31 @@
-var config  = require('./config.json');
-var package = require('./../package.json')
-var gulp    = require('gulp');
-var jade = require('gulp-jade');
+var fs = require('fs');
+var markoc = require('marko/compiler');
+// The following line installs the Node.js require extension
+// for `.marko` files. Once installed, `*.marko` files can be
+// required just like any other JavaScript modules.
+require('marko/node-require').install();
 
-/**
- * Generate HTML
- */
-gulp.task('html', function () {
-    return gulp.src(config.html.SRC)
-        .pipe(jade({ 
-                pretty: true,
-                data: { 
-                    package: package
-                }
-              }))
-        .pipe(gulp.dest(config.html.DEST))
-});
+function Html (config) {
+  this.config = config
 
+  markoc.configure({
+      writeToDisk: false,
+      preserveWhitespace: !this.config.project.html.minify
+  });
+}
 
-/**
- * Generate Minified HTML
- */
-gulp.task('html-min', function () {
-    return gulp.src(config.html.SRC)
-        .pipe(jade({ 
-                pretty: false,
-                data: { 
-                    package: package
-                }
-              }))
-        .pipe(gulp.dest(config.html.DEST))
-});
+var p = Html.prototype
+
+p.build = function() {
+    var template = require('./../web/index.marko');
+    var out = fs.createWriteStream('public/index.html', {
+        encoding: 'utf8'
+    });
+
+    // Render the template to 'index.html'
+    template.render({
+        name: 'World!'
+    }, out);
+};
+
+module.exports = Html;
