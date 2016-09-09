@@ -3,6 +3,7 @@ var fs = require('fs');
 var path = require('path');
 var glob = require("glob");
 var shell = require('shelljs');
+var sm = require('sitemap')
 
 var markoc = require('marko/compiler');
 // The following line installs the Node.js require extension
@@ -10,7 +11,8 @@ var markoc = require('marko/compiler');
 // required just like any other JavaScript modules.
 require('marko/node-require').install();
 
-var html_src_path,html_dest_path;
+var html_src_path, html_dest_path;
+var sitemap_urls = [];
 
 exports.build = function() {
     markoc.configure({
@@ -19,43 +21,81 @@ exports.build = function() {
     });
 
     html_src_path = path.join(global.config.project_root, global.config.project.html);
-    html_dest_path =path.join(global.config.project_root, global.config.project.dest, global.config.project.html);
+    html_dest_path = path.join(global.config.project_root, global.config.project.dest, global.config.project.html);
 
     processDir(html_src_path);
+    generateSiteMap(path.join(html_dest_path, 'sitemap.xml'));
 };
 
 function processDir(src) {
-   var globMatch = path.join('/**/!(_)*.marko');
-   var templateFiles = glob.sync(globMatch, { root: html_src_path });
+    var globMatch = path.join('/**/!(_)*.marko');
+    var templateFiles = glob.sync(globMatch, {
+        root: html_src_path
+    });
 
-   templateFiles.forEach(function(templatePath) {
-     processTemplateFile(templatePath);
-   });
+    templateFiles.forEach(function(templatePath) {
+        processTemplateFile(templatePath);
+    });
 }
 
 function processTemplateFile(templatePath) {
 
-  var templateRelativePath = path.relative(html_src_path, templatePath);
-  var templateInPath = path.join(html_src_path, templateRelativePath);
-  var templateOutDir = path.dirname(path.join(html_dest_path, templateRelativePath));
-  var templateOutPath = path.join(templateOutDir, path.parse(templatePath).name + ".html");
+    var templateRelativePath = path.relative(html_src_path, templatePath);
+    var templateInPath = path.join(html_src_path, templateRelativePath);
+    var templateOutDir = path.dirname(path.join(html_dest_path, templateRelativePath));
+    var templateOutName = path.parse(templatePath).name + ".html";
+    var templateOutPath = path.join(templateOutDir, templateOutName);
 
-  logger.debug("Template In Path: " + templateInPath);
-  logger.debug("Template Out Path: " + templateOutPath);
+    logger.debug("Template In Path: " + templateInPath);
+    logger.debug("Template Out Path: " + templateOutPath);
 
-  shell.mkdir('-p', templateOutDir);
+    addToSitemap(templateRelativePath, templateOutName, templateInPath);
 
-  var template = require(templatePath);
-  var out = fs.createWriteStream(templateOutPath, {
-      encoding: 'utf8'
-  });
+    shell.mkdir('-p', templateOutDir);
 
-  var data = {};
+    var template = require(templatePath);
+    var out = fs.createWriteStream(templateOutPath, {
+        encoding: 'utf8'
+    });
 
-  try {
-    template.render(data, out);
-  }
-  catch (e) {
-    logger.error(e);
-  }
+    var data = {};
+
+    try {
+        template.render(data, out);
+    } catch (e) {
+        logger.error(e);
+    }
+}
+
+function addToSitemap(templateRelativePath, templateOutName, templateInPath) {
+    var relativeURL = '/' + (path.dirname(templateRelativePath).replace(/\\/g, "/"));
+
+    if (templateOutName != 'index.html') {
+        relativeURL = relativeURL + '/' + templateOutName;
+    }
+
+    if(relativeURL == "/.") {
+      relativeURL = "/";
+    }
+
+    logger.debug("Adding to sitemap: " + relativeURL + " orig: " + templateInPath);
+    var sitemapURL = {
+        url: relativeURL,
+        lastmodrealtime: true,
+        lastmodfile: templateInPath
+    }
+
+    sitemap_urls.push(sitemapURL);
+}
+
+function generateSiteMap(sitemap_path) {
+    var sitemap = sm.createSitemap({
+        hostname: global.config.project.url,
+        cacheTime: 600000, //600 sec (10 min) cache purge period
+        urls: sitemap_urls
+    });
+
+    logger.debug("Generating sitemap at: " + sitemap_path);
+
+    fs.writeFileSync(sitemap_path, sitemap.toString());
 }
