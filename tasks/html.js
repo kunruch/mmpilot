@@ -19,7 +19,7 @@ var p = Html.prototype
 
 p.build = function() {
     var template = require('./../web/index.marko');
-    var out = fs.createWriteStream('public/index.html', {
+    var out = fs.createWriteStream('./web/public/index.html', {
         encoding: 'utf8'
     });
 
