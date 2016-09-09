@@ -2,12 +2,13 @@ var logger = require('./../lib/logger');
 var shell = require('shelljs');
 var path = require('path');
 
-shell.config.verbose = true;
 
 //Tasks required by this command
 var html = require('./../tasks/html');
 
 exports.execute = function() {
+    shell.config.verbose = global.config.project.debug;
+
     var dest_path = path.join(global.config.project_root, global.config.project.dest);
 
     // Clean destination Folder
