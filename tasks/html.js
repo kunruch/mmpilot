@@ -1,17 +1,17 @@
-var fs = require('fs');
 var logger = require('./../lib/logger');
+var fs = require('fs');
+
 var markoc = require('marko/compiler');
 // The following line installs the Node.js require extension
 // for `.marko` files. Once installed, `*.marko` files can be
 // required just like any other JavaScript modules.
 require('marko/node-require').install();
 
-function Html (config) {
-  this.config = config
+function Html () {
 
   markoc.configure({
       writeToDisk: false,
-      preserveWhitespace: !this.config.project.html.minify
+      preserveWhitespace: !global.config.project.html.minify
   });
 }
 
