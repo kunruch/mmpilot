@@ -7,17 +7,12 @@ var markoc = require('marko/compiler');
 // required just like any other JavaScript modules.
 require('marko/node-require').install();
 
-function Html () {
+exports.build = function() {
+    markoc.configure({
+        writeToDisk: false,
+        preserveWhitespace: !global.config.project.minify
+    });
 
-  markoc.configure({
-      writeToDisk: false,
-      preserveWhitespace: !global.config.project.html.minify
-  });
-}
-
-var p = Html.prototype
-
-p.build = function() {
     var template = require('./../web/index.marko');
     var out = fs.createWriteStream('./web/public/index.html', {
         encoding: 'utf8'
@@ -28,5 +23,3 @@ p.build = function() {
         name: 'World!'
     }, out);
 };
-
-module.exports = Html;

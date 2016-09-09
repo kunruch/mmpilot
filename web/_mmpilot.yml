@@ -1,4 +1,1 @@
-src: web
-dest: public
-html:
-  minify: true
+minify: false

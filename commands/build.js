@@ -3,25 +3,19 @@ var mkdirp = require('mkdirp');
 var path = require('path');
 
 //Tasks required by this command
-var Html = require('./../tasks/html');
+var html = require('./../tasks/html');
+var clean = require('./../tasks/clean');
 
-function Build() {
-    this.name = "build";
-}
-
-var p = Build.prototype
-
-p.execute = function() {
+exports.execute = function() {
     var dest_path = path.join(global.config.project_root, global.config.project.dest);
 
     //Generate destination folder
-    mkdirp.sync(dest_path);
+    if(!mkdirp.sync(dest_path)) {
+      //Folder already exists. Clean it
+      clean.clean([dest_path + "/**", "!" + dest_path]);
+    }
 
     //Generate HTML
     logger.info('Building HTML..');
-
-    var html = new Html();
     html.build();
 };
-
-module.exports = Build;

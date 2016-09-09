@@ -10,21 +10,20 @@ program
     .version(global.config.package.version)
     .option('-d, --dir <path>', 'Specify custom directory path to use instead of the current direcory')
 
-var Command;
+var command;
 
 program
     .command('build')
     .description('run build command')
     .action(function() {
-        Command = require('./../commands/build');
+        command = require('./../commands/build');
     });
 
 program.parse(process.argv);
 
-if (Command) {
+if (command) {
     //load user's config file if present
     if (config.load(program.dir)) {
-        var command = new Command();
         command.execute();
         logger.done('Done');
     }
