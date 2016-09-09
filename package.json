@@ -8,7 +8,7 @@
     "mmpilot": "bin/mmpilot.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "mm build -d web"
   },
   "repository": {
     "type": "git",

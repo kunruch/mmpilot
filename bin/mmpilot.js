@@ -8,7 +8,7 @@ global.config = new Config(); //Global variable so that we don't have to pass th
 
 program
     .version(global.config.package.version)
-    .option('-c, --config <path>', 'Specify custom config path')
+    .option('-d, --dir <path>', 'Specify custom directory path to use instead of the current direcory')
 
 var Command;
 
@@ -23,7 +23,7 @@ program.parse(process.argv);
 
 if (Command) {
     //load user's config file if present
-    if (config.load(program.config)) {
+    if (config.load(program.dir)) {
         var command = new Command();
         command.execute();
         logger.done('Done');
