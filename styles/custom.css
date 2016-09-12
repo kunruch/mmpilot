@@ -1,0 +1,24 @@
+body {
+  font-size: 110%;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+:-webkit-full-screen a {
+  display: flex;
+}
+
+:-moz-full-screen a {
+  display: flex;
+}
+
+:-ms-fullscreen a {
+  display: -ms-flexbox;
+  display: flex;
+}
+
+:fullscreen a {
+  display: -ms-flexbox;
+  display: flex;
+}
+/*# sourceMappingURL=custom.css.map */
