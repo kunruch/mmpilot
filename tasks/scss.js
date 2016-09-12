@@ -1,9 +1,11 @@
 var logger = require('./../lib/logger');
-var sass = require('node-sass');
 var glob = require("glob");
 var fs = require('fs');
 var path = require('path');
 var shell = require('shelljs');
+var sass = require('node-sass');
+var postcss = require('postcss');
+var autoprefixer = require('autoprefixer');
 var config = require('./../lib/config').config;
 
 exports.build = function() {
@@ -37,28 +39,44 @@ function processScssFile(scssPath) {
 
     shell.mkdir('-p', scssOutDir);
 
-    var result = sass.renderSync({
-        file: scssInPath,
-        outputStyle: config.minify ? 'compressed' : 'expanded',
-        includePaths: [path.join(config.root, "node_modules")], //Add project's node_modules in include paths
-        outFile: scssOutPath,
-        sourceMap: true, // or an absolute or relative (to outFile) path
-    });
+    var result = "";
+    //Compile SCSS
+    try {
+        result = sass.renderSync({
+            file: scssInPath,
+            outputStyle: config.minify ? 'compressed' : 'expanded',
+            includePaths: [path.join(config.root, "node_modules/")], //Add project's node_modules in include paths
+            outFile: scssOutPath,
+            sourceMap: true, // or an absolute or relative (to outFile) path
+        });
+    } catch (error) {
+        logger.debug(error.status);
+        logger.debug(error.column);
+        logger.debug(error.message);
+        logger.debug(error.line);
+    }
 
+    // Post CSS processing
     if (result.css) {
-        fs.writeFile(scssOutPath, result.css, function(err) {
-            if (err) {
-                logger.error(err);
-            }
-        });
+        try {
+            postcss([autoprefixer({ browsers: ['last 2 versions'] })])
+                .process(result.css, {
+                    from: scssInPath,
+                    to: scssOutPath,
+                    map: {
+                        inline: false,
+                        prev: result.map.toString()
+                    },
+                })
+                .then(function(result) {
+                    fs.writeFileSync(scssOutPath, result.css);
+                    if (result.map) fs.writeFileSync(scssMapOutPath, result.map);
+                });
+
+        } catch (error) {
+            logger.debug(error);
+        }
     }
 
-    if (result.map) {
-        fs.writeFile(scssMapOutPath, result.map, function(err) {
-            if (err) {
-                logger.error(err);
-            }
-        });
-    }
     logger.debug(result.stats);
 }
