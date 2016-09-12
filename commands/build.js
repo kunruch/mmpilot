@@ -19,7 +19,7 @@ exports.execute = function() {
     shell.mkdir('-p', config.dest);
 
     logger.log('Copying assets..');
-    shell.cp('-r', config.assets, config.dest);
+    shell.cp('-r', path.join(config.assets, "*"), config.dest);
 
     // Generate HTML
     logger.info('Building HTML..');

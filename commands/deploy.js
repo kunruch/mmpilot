@@ -4,8 +4,18 @@ var ghpages = require('gh-pages');
 
 
 exports.execute = function() {
-    ghpages.publish(config.dest,
+    logger.info("Publishing to gh-pages..");
+    ghpages.publish(config.dest, {
+            logger: function(message) {
+                logger.log(message);
+            },
+        },
         function(err) {
-            logger.error("Error while deploying: " + err);
+            if (err) {
+                logger.error("Error while deploying: " + err);
+            }
+            else {
+              logger.done("Published!");
+            }
         });
 }
