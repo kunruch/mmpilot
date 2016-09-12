@@ -10,7 +10,7 @@
   "scripts": {
     "build": "mm build -d web",
     "watch": "mm build -d web -w",
-    "deploy": "mm deploy -d web"
+    "deploy": "npm run build && mm deploy -d web"
   },
   "repository": {
     "type": "git",
