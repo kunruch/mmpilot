@@ -13,6 +13,7 @@ exports.execute = function() {
         function(err) {
             if (err) {
                 logger.error("Error while deploying: " + err);
+                process.exit(1);
             }
             else {
               logger.done("Published!");

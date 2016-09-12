@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kunruch/mmpilot.svg?branch=master)](https://travis-ci.org/kunruch/mmpilot)
+
 # MMPilot
 
 MMPilot is a minimal modern static website generator powered by [Node.js](https://nodejs.org).
