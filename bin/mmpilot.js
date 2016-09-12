@@ -2,13 +2,11 @@
 
 var program = require('commander');
 var logger = require('./../lib/logger');
-var Config = require('./../lib/config');
+var config = require('./../lib/config').config;
 var chokidar = require('chokidar');
 
-global.config = new Config(); //Global variable so that we don't have to pass this to all tasks and commands
-
 program
-    .version(global.config.package.version)
+    .version(config.version)
     .option('-d, --dir <path>', 'Specify custom directory path to use instead of the current direcory')
 
 var command;
@@ -29,9 +27,9 @@ if (command) {
         logger.done('Done');
 
         var watcher = chokidar.watch('**/*.marko', {
-            ignored: global.config.project.dest,
+            ignored: config.dest,
             ignoreInitial: true,
-            cwd: global.config.project_root,
+            cwd: config.root,
         }).on('all', (event, filepath) => {
             console.log(event, filepath);
             command.executeOnFile(filepath);

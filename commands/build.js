@@ -1,28 +1,24 @@
 var logger = require('./../lib/logger');
 var shell = require('shelljs');
 var path = require('path');
+var config = require('./../lib/config').config;
 
 
 //Tasks required by this command
 var html = require('./../tasks/html');
 
 exports.execute = function() {
-    shell.config.verbose = global.config.project.debug;
-
-    var dest_path = path.join(global.config.project_root, global.config.project.dest);
-    var asset_src_path = path.join(global.config.project_root, global.config.project.assets, "*");
-
     // Clean destination Folder
-    logger.log('Cleaning directory : ' + dest_path);
-    shell.rm('-rf', path.join(dest_path, "*"));
+    logger.log('Cleaning directory : ' + config.dest);
+    shell.rm('-rf', path.join(config.dest, "*"));
 
     // Copy Asset files
 
     // Generate destination folder
-    shell.mkdir('-p', dest_path);
+    shell.mkdir('-p', config.dest);
 
     logger.log('Copying assets..');
-    shell.cp('-r', asset_src_path, dest_path);
+    shell.cp('-r', config.assets, config.dest);
 
     // Generate HTML
     logger.info('Building HTML..');
@@ -30,6 +26,5 @@ exports.execute = function() {
 };
 
 exports.executeOnFile = function(filepath) {
-    var absoluteFilepath = path.resolve(global.config.project_root, filepath);
-    html.buildFile(absoluteFilepath);
+    html.buildFile(filepath);
 }

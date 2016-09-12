@@ -1,42 +1,42 @@
 var logger = require('./../lib/logger');
 var fs = require('fs');
-var path = require('path');
 var glob = require("glob");
+var path = require('path');
 var shell = require('shelljs');
 var sm = require('sitemap')
+var config = require('./../lib/config').config;
 
 var markoc = require('marko/compiler');
+var marko_hot_reload = require('marko/hot-reload');
 // The following line installs the Node.js require extension
 // for `.marko` files. Once installed, `*.marko` files can be
 // required just like any other JavaScript modules.
 require('marko/node-require').install();
-require('marko/hot-reload').enable();
 
-var html_src_path, html_dest_path;
 var sitemap_urls = [];
 
 exports.build = function() {
     markoc.configure({
         writeToDisk: false,
-        preserveWhitespace: !global.config.project.minify
+        preserveWhitespace: !config.minify
     });
 
-    html_src_path = path.join(global.config.project_root, global.config.project.html);
-    html_dest_path = path.join(global.config.project_root, global.config.project.dest, global.config.project.html);
+    marko_hot_reload.enable();
 
-    processDir(html_src_path);
-    generateSiteMap(path.join(html_dest_path, 'sitemap.xml'));
+    processDir(config.html);
+    generateSiteMap(config.sitemap);
 };
 
 exports.buildFile = function(filepath) {
-  require('marko/hot-reload').handleFileModified(filepath);
-  processTemplateFile(filepath);
+  var absolutePath = config.absolutePath(filepath);
+  marko_hot_reload.handleFileModified(absolutePath);
+  processTemplateFile(absolutePath);
 }
 
 function processDir(src) {
     var globMatch = path.join('/**/!(_)*.marko');
     var templateFiles = glob.sync(globMatch, {
-        root: html_src_path
+        root: config.html
     });
 
     templateFiles.forEach(function(templatePath) {
@@ -47,9 +47,9 @@ function processDir(src) {
 
 function processTemplateFile(templatePath) {
 
-    var templateRelativePath = path.relative(html_src_path, templatePath);
-    var templateInPath = path.join(html_src_path, templateRelativePath);
-    var templateOutDir = path.dirname(path.join(html_dest_path, templateRelativePath));
+    var templateRelativePath = path.relative(config.html, templatePath);
+    var templateInPath = path.join(config.html, templateRelativePath);
+    var templateOutDir = path.dirname(path.join(config.html_dest, templateRelativePath));
     var templateOutName = path.parse(templatePath).name + ".html";
     var templateOutPath = path.join(templateOutDir, templateOutName);
 
@@ -97,8 +97,7 @@ function addToSitemap(templateRelativePath, templateOutName, templateInPath) {
 
 function generateSiteMap(sitemap_path) {
     var sitemap = sm.createSitemap({
-        hostname: global.config.project.url,
-        cacheTime: 600000, //600 sec (10 min) cache purge period
+        hostname: config.url,
         urls: sitemap_urls
     });
 
