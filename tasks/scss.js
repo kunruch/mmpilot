@@ -40,6 +40,7 @@ function processScssFile(scssPath) {
     var result = sass.renderSync({
         file: scssInPath,
         outputStyle: config.minify ? 'compressed' : 'expanded',
+        includePaths: [path.join(config.root, "node_modules")], //Add project's node_modules in include paths
         outFile: scssOutPath,
         sourceMap: true, // or an absolute or relative (to outFile) path
     });
