@@ -5,7 +5,8 @@ var config = require('./../lib/config').config;
 
 
 //Tasks required by this command
-var html = require('./../tasks/html');
+var marko = require('./../tasks/marko');
+var scss = require('./../tasks/scss');
 
 exports.execute = function() {
     // Clean destination Folder
@@ -22,7 +23,11 @@ exports.execute = function() {
 
     // Generate HTML
     logger.info('Building HTML..');
-    html.build();
+    marko.build();
+
+    // Generate Styles
+    logger.info('Building Styles..');
+    scss.build();
 };
 
 exports.executeOnFile = function(filepath) {
