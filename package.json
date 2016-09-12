@@ -10,6 +10,7 @@
   "scripts": {
     "build": "mm build -d web",
     "watch": "mm build -d web -w",
+    "serve": "npm run build && mm serve -d web",
     "deploy": "npm run build && mm deploy -d web"
   },
   "repository": {
@@ -29,6 +30,7 @@
   "homepage": "https://github.com/kunruch/mmpilot#readme",
   "dependencies": {
     "autoprefixer": "^6.4.1",
+    "browser-sync": "^2.15.0",
     "chalk": "^1.1.3",
     "chokidar": "^1.6.0",
     "commander": "^2.9.0",

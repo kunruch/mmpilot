@@ -27,6 +27,14 @@ program
         command = require('./../commands/deploy');
     });
 
+
+program
+    .command('serve')
+    .description('Serves built files accesible via localhost:3001')
+    .action(function() {
+        command = require('./../commands/serve');
+    });
+
 program.parse(process.argv);
 
 if (command) {
