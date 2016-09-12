@@ -1,11 +1,11 @@
-var config  = require('./config.json');
-var gulp    = require('gulp');
-var ghPages = require('gulp-gh-pages');
+var logger = require('./../lib/logger');
+var config = require('./../lib/config').config;
+var ghpages = require('gh-pages');
 
-/**
- * Deploy to server
- */
-gulp.task('gh-pages-deploy', function () {
-    return gulp.src(config.deploy.SRC)
-        .pipe(ghPages());
-});
+
+exports.execute = function() {
+    ghpages.publish(config.dest,
+        function(err) {
+            logger.error("Error while deploying: " + err);
+        });
+}

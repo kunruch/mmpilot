@@ -19,6 +19,14 @@ program
         command = require('./../commands/build');
     });
 
+
+program
+    .command('deploy')
+    .description('deploy built files to github pages branch')
+    .action(function() {
+        command = require('./../commands/deploy');
+    });
+
 program.parse(process.argv);
 
 if (command) {

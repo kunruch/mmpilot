@@ -59,7 +59,7 @@ function processScssFile(scssPath) {
     // Post CSS processing
     if (result.css) {
         try {
-            postcss([autoprefixer({ browsers: ['last 2 versions'] })])
+            postcss([autoprefixer({ browsers: ['last 2 versions'] }) ])
                 .process(result.css, {
                     from: scssInPath,
                     to: scssOutPath,
