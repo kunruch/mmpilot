@@ -10,6 +10,7 @@ var markoc = require('marko/compiler');
 // for `.marko` files. Once installed, `*.marko` files can be
 // required just like any other JavaScript modules.
 require('marko/node-require').install();
+require('marko/hot-reload').enable();
 
 var html_src_path, html_dest_path;
 var sitemap_urls = [];
@@ -27,6 +28,11 @@ exports.build = function() {
     generateSiteMap(path.join(html_dest_path, 'sitemap.xml'));
 };
 
+exports.buildFile = function(filepath) {
+  require('marko/hot-reload').handleFileModified(filepath);
+  processTemplateFile(filepath);
+}
+
 function processDir(src) {
     var globMatch = path.join('/**/!(_)*.marko');
     var templateFiles = glob.sync(globMatch, {
@@ -37,6 +43,7 @@ function processDir(src) {
         processTemplateFile(templatePath);
     });
 }
+
 
 function processTemplateFile(templatePath) {
 
@@ -54,16 +61,16 @@ function processTemplateFile(templatePath) {
     shell.mkdir('-p', templateOutDir);
 
     var template = require(templatePath);
-    var out = fs.createWriteStream(templateOutPath, {
-        encoding: 'utf8'
-    });
-
-    var data = {};
 
     try {
+        var out = fs.createWriteStream(templateOutPath, {
+            encoding: 'utf8'
+        });
+
+        var data = {};
         template.render(data, out);
     } catch (e) {
-        logger.error(e);
+        logger.error("Cant compile" + e);
     }
 }
 

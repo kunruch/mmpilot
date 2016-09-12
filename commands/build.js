@@ -10,14 +10,13 @@ exports.execute = function() {
     shell.config.verbose = global.config.project.debug;
 
     var dest_path = path.join(global.config.project_root, global.config.project.dest);
+    var asset_src_path = path.join(global.config.project_root, global.config.project.assets, "*");
 
     // Clean destination Folder
     logger.log('Cleaning directory : ' + dest_path);
     shell.rm('-rf', path.join(dest_path, "*"));
 
-
     // Copy Asset files
-    var asset_src_path = path.join(global.config.project_root, global.config.project.assets, "*");
 
     // Generate destination folder
     shell.mkdir('-p', dest_path);
@@ -29,3 +28,8 @@ exports.execute = function() {
     logger.info('Building HTML..');
     html.build();
 };
+
+exports.executeOnFile = function(filepath) {
+    var absoluteFilepath = path.resolve(global.config.project_root, filepath);
+    html.buildFile(absoluteFilepath);
+}

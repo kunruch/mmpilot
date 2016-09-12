@@ -3,6 +3,7 @@
 var program = require('commander');
 var logger = require('./../lib/logger');
 var Config = require('./../lib/config');
+var chokidar = require('chokidar');
 
 global.config = new Config(); //Global variable so that we don't have to pass this to all tasks and commands
 
@@ -26,5 +27,16 @@ if (command) {
     if (config.load(program.dir)) {
         command.execute();
         logger.done('Done');
+
+        var watcher = chokidar.watch('**/*.marko', {
+            ignored: global.config.project.dest,
+            ignoreInitial: true,
+            cwd: global.config.project_root,
+        }).on('all', (event, filepath) => {
+            console.log(event, filepath);
+            command.executeOnFile(filepath);
+        }).on('ready', function() {
+            console.log('Watched paths:', watcher.getWatched());
+        });
     }
 }
