@@ -5,6 +5,7 @@ language: node_js
 node_js:
 - '4'
 before_script:
+- npm link
 - git remote set-url origin "https://${GH_TOKEN}@github.com/kunruch/mmpilot.git"
 - git config --global user.email "kanishk.kunal@hotmail.com"
 - git config --global user.name "Travis-CI"
