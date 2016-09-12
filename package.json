@@ -8,7 +8,8 @@
     "mmpilot": "bin/mmpilot.js"
   },
   "scripts": {
-    "build": "mm build -d web"
+    "build": "mm build -d web",
+    "watch": "mm build -d web -w"
   },
   "repository": {
     "type": "git",

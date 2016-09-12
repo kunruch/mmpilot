@@ -8,6 +8,7 @@ var chokidar = require('chokidar');
 program
     .version(config.version)
     .option('-d, --dir <path>', 'Specify custom directory path to use instead of the current direcory')
+    .option("-w, --watch", "Watch for changes and do incremental build")
 
 var command;
 
@@ -26,15 +27,17 @@ if (command) {
         command.execute();
         logger.done('Done');
 
-        var watcher = chokidar.watch('**/*.marko', {
-            ignored: config.dest,
-            ignoreInitial: true,
-            cwd: config.root,
-        }).on('all', (event, filepath) => {
-            console.log(event, filepath);
-            command.executeOnFile(filepath);
-        }).on('ready', function() {
-            console.log('Watched paths:', watcher.getWatched());
-        });
+        if(program.watch) {
+          var watcher = chokidar.watch('**/*.marko', {
+              ignored: config.dest,
+              ignoreInitial: true,
+              cwd: config.root,
+          }).on('all', (event, filepath) => {
+              console.log(event, filepath);
+              command.executeOnFile(filepath);
+          }).on('ready', function() {
+              console.log('Watched paths:', watcher.getWatched());
+          });
+        }
     }
 }
