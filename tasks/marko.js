@@ -7,7 +7,10 @@ var sm = require('sitemap')
 var config = require('./../lib/config').config;
 
 var markoc = require('marko/compiler');
+
 var marko_hot_reload = require('marko/hot-reload');
+marko_hot_reload.enable();
+
 // The following line installs the Node.js require extension
 // for `.marko` files. Once installed, `*.marko` files can be
 // required just like any other JavaScript modules.
@@ -15,22 +18,29 @@ require('marko/node-require').install();
 
 var sitemap_urls = [];
 
-exports.build = function() {
-    markoc.configure({
-        writeToDisk: false,
-        preserveWhitespace: !config.minify
-    });
+exports.watch_pattern = '**/*.marko';
+exports.watch_dir = function () {
+  return config.html; // export as function to get loaded result
+};
 
-    marko_hot_reload.enable();
+exports.init = function () {
+  markoc.configure({
+      writeToDisk: false,
+      preserveWhitespace: !config.minify
+  });
+}
 
+exports.processAll = function() {
+    logger.info("Processing HTML template files..");
     processDir(config.html);
     generateSiteMap(config.sitemap);
 };
 
-exports.buildFile = function(filepath) {
+exports.processFile = function(filepath) {
+  logger.info("Processing HTML template: " + filepath);
   var absolutePath = config.absolutePath(filepath);
   marko_hot_reload.handleFileModified(absolutePath);
-  processTemplateFile(absolutePath);
+  processTemplateFile(absolutePath, false);
 }
 
 function processDir(src) {
@@ -40,12 +50,12 @@ function processDir(src) {
     });
 
     templateFiles.forEach(function(templatePath) {
-        processTemplateFile(templatePath);
+        processTemplateFile(templatePath, true);
     });
 }
 
 
-function processTemplateFile(templatePath) {
+function processTemplateFile(templatePath, includeInSitemap) {
 
     var templateRelativePath = path.relative(config.html, templatePath);
     var templateInPath = path.join(config.html, templateRelativePath);
@@ -56,7 +66,9 @@ function processTemplateFile(templatePath) {
     logger.debug("Template In Path: " + templateInPath);
     logger.debug("Template Out Path: " + templateOutPath);
 
-    addToSitemap(templateRelativePath, templateOutName, templateInPath);
+    if(includeInSitemap) {
+      addToSitemap(templateRelativePath, templateOutName, templateInPath);
+    }
 
     shell.mkdir('-p', templateOutDir);
 

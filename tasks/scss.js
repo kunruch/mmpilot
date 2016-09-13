@@ -8,9 +8,21 @@ var postcss = require('postcss');
 var autoprefixer = require('autoprefixer');
 var config = require('./../lib/config').config;
 
-exports.build = function() {
+var postcssProcessor = postcss([autoprefixer({ browsers: ['last 2 versions'] }) ]);
+
+exports.init = function () {
+}
+
+exports.processAll = function() {
+    logger.info("Processing SCSS files..");
     processDir(config.styles);
 };
+
+exports.processFile = function(filepath) {
+  logger.info("Processing SCSS file: " + filepath);
+  var absolutePath = config.absolutePath(filepath);
+  processScssFile(absolutePath);
+}
 
 function processDir(src) {
     var globMatch = path.join('/**/!(_)*.scss');
@@ -59,7 +71,7 @@ function processScssFile(scssPath) {
     // Post CSS processing
     if (result.css) {
         try {
-            postcss([autoprefixer({ browsers: ['last 2 versions'] }) ])
+            postcssProcessor
                 .process(result.css, {
                     from: scssInPath,
                     to: scssOutPath,

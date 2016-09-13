@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "mm build -d web",
-    "watch": "mm build -d web -w",
+    "watch": "mm watch -d web",
     "serve": "mm serve -d web",
     "deploy": "npm run build && mm deploy -d web",
     "dev": "npm-run-all build --parallel watch serve"

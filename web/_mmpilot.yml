@@ -1,2 +1,3 @@
 url: "http://mmpilot.kunruchcreations.com/"
 minify: false
+log: info
