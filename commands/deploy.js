@@ -7,7 +7,7 @@ exports.execute = function() {
     logger.info("Publishing to gh-pages..");
     ghpages.publish(config.dest, {
             logger: function(message) {
-                logger.log(message);
+                logger.info(message);
             },
         },
         function(err) {
@@ -16,7 +16,7 @@ exports.execute = function() {
                 process.exit(1);
             }
             else {
-              logger.done("Published!");
+              logger.info("Published!");
             }
         });
 }
