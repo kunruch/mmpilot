@@ -37,10 +37,14 @@ exports.processAll = function() {
 };
 
 exports.processFile = function(filepath) {
-  logger.info("Processing HTML template: " + filepath);
-  var absolutePath = config.absolutePath(filepath);
-  marko_hot_reload.handleFileModified(absolutePath);
-  processTemplateFile(absolutePath, false);
+    logger.info("Processing HTML template: " + filepath);
+    var absolutePath = config.absolutePath(filepath);
+    marko_hot_reload.handleFileModified(absolutePath);
+    processTemplateFile(absolutePath, false);
+}
+
+exports.processSourceDeleted = function(filepath) {
+  //Do nothing for now, a fresh build should not generate this file anyways
 }
 
 function processDir(src) {

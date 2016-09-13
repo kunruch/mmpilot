@@ -24,6 +24,10 @@ exports.processFile = function(filepath) {
   processScssFile(absolutePath);
 }
 
+exports.processSourceDeleted = function(filepath) {
+  //Do nothing for now, a fresh build should not generate this file anyways
+}
+
 function processDir(src) {
     var globMatch = path.join('/**/!(_)*.scss');
     var scssFiles = glob.sync(globMatch, {
