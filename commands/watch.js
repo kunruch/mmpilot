@@ -4,7 +4,7 @@ var config = require('./../lib/config').config;
 var chokidar = require('chokidar');
 
 //Tasks required by this command
-var tasks = [require('./../tasks/assets'), require('./../tasks/marko')];
+var tasks = [require('./../tasks/assets'), require('./../tasks/marko'), require('./../tasks/scss')];
 
 exports.execute = function() {
     logger.info("Setting up Watch..");

@@ -10,6 +10,11 @@ var config = require('./../lib/config').config;
 
 var postcssProcessor = postcss([autoprefixer({ browsers: ['last 2 versions'] }) ]);
 
+exports.watch_pattern = '**/*.scss';
+exports.watch_dir = function () {
+  return config.styles; // export as function to get loaded result
+};
+
 exports.init = function () {
 }
 
@@ -20,7 +25,7 @@ exports.processAll = function() {
 
 exports.processFile = function(filepath) {
   logger.info("Processing SCSS file: " + filepath);
-  var absolutePath = config.absolutePath(filepath);
+  var absolutePath = path.join(config.styles, filepath);
   processScssFile(absolutePath);
 }
 

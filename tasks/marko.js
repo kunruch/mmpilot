@@ -38,7 +38,7 @@ exports.processAll = function() {
 
 exports.processFile = function(filepath) {
     logger.info("Processing HTML template: " + filepath);
-    var absolutePath = config.absolutePath(filepath);
+    var absolutePath = path.join(config.html, filepath);
     marko_hot_reload.handleFileModified(absolutePath);
     processTemplateFile(absolutePath, false);
 }
