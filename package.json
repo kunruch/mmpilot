@@ -8,10 +8,11 @@
     "mmpilot": "bin/mmpilot.js"
   },
   "scripts": {
-    "build": "mm build -d web --verbose",
+    "build": "mm build -d web",
     "watch": "mm build -d web -w",
-    "serve": "npm run build && mm serve -d web",
-    "deploy": "npm run build && mm deploy -d web"
+    "serve": "mm serve -d web",
+    "deploy": "npm run build && mm deploy -d web",
+    "dev": "npm-run-all build --parallel watch serve"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
-    "gh-pages": "^0.11.0"
+    "gh-pages": "^0.11.0",
+    "npm-run-all": "^3.1.0"
   }
 }

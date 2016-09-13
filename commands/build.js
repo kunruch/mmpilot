@@ -31,5 +31,5 @@ exports.execute = function() {
 };
 
 exports.executeOnFile = function(filepath) {
-    html.buildFile(filepath);
+    marko.buildFile(filepath);
 }
