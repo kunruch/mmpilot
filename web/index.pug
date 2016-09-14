@@ -1,21 +1,21 @@
 extends ./_layout.pug
 
 block vars
-    - var title = 'Minimal Modern CSS Framework'
-    - var description = 'A Minimal Modern CSS Framework for front-end Web Development. WordPress Compatible and built with SASS/SCSS'
+    - var title = 'Minimal Modern Static Site Generator'
+    - var description = 'A modern static website generator powered by Node.js. Fast and easy to use with live reload. Code in Jade and SCSS.'
     - var path = ''
 
 block content
     div.section-hero.sub-header.text-center
         .container-content
             //include partials/_mmcss.svg
-            h2 A Minimal Modern CSS Framework
-            p.text-center.text-muted latest release #{site.version} - #{site.license} License
+            h2 A Minimal Modern Static Site Generator
+            p.text-center.text-muted Powered by <a href="https://nodejs.org/" target="_blank">Node.js</a> - Latest release #{site.version} - #{site.license} License
             .text-center
                 a.button.button-primary(href="#quickstart") Quickstart
     .section-large.section-highlight
         .container-content
-            h3.text-center Why use MMCSS?
+            h3.text-center Why use MMPilot?
             .grid
                 .one-third.section
                     .media.media-left

@@ -1,3 +1,7 @@
-url: "http://mmpilot.kunruchcreations.com/"
+url: "https://mmpilot.kunruchcreations.com/"
 minify: false
 log: info
+
+## additional data for site
+github: "https://github.com/kunruch/mmpilot/"
+twitter: "https://twitter.com/kanishkkunal"
