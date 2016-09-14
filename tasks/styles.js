@@ -8,16 +8,18 @@ var postcss = require('postcss');
 var autoprefixer = require('autoprefixer');
 var config = require('./../lib/config').config;
 
-var postcssProcessor = postcss([autoprefixer({ browsers: ['last 2 versions'] }) ]);
+var postcssProcessor = postcss([autoprefixer({
+    browsers: ['last 2 versions']
+})]);
 var includePaths;
 
 exports.watch_pattern = '**/*.scss';
-exports.watch_dir = function () {
-  return config.styles; // export as function to get loaded result
+exports.watch_dir = function() {
+    return config.styles; // export as function to get loaded result
 };
 
-exports.init = function () {
-  includePaths = ["node_modules/"]; //Add project's node_modules in include paths
+exports.init = function() {
+    includePaths = ["node_modules/"]; //Add project's node_modules in include paths
 }
 
 exports.processAll = function() {
@@ -26,13 +28,20 @@ exports.processAll = function() {
 };
 
 exports.processFile = function(filepath) {
-  logger.info("Processing SCSS file: " + filepath);
-  var absolutePath = path.join(config.styles, filepath);
-  processScssFile(absolutePath);
+    if (path.parse(filepath).name.startsWith("_")) {
+        //In case of files starting with '_', compile entire dir as they can be included from multiple sources
+        //We can improve this to compile only files that are needed.
+        logger.info("Partial file has been changed.. Processing all files.");
+        processDir(config.styles);
+    } else {
+        logger.info("Processing SCSS file: " + filepath);
+        var absolutePath = path.join(config.styles, filepath);
+        processScssFile(absolutePath);
+    }
 }
 
 exports.processFileDeleted = function(filepath) {
-  //Do nothing for now, a fresh build should not generate this file anyways
+    //Do nothing for now, a fresh build should not generate this file anyways
 }
 
 function processDir(src) {
@@ -65,7 +74,7 @@ function processScssFile(scssPath) {
     var result = "";
     //Compile SCSS
     try {
-      console.log("Included: " + includePaths);
+        console.log("Included: " + includePaths);
         result = sass.renderSync({
             file: scssInPath,
             outputStyle: config.minify ? 'compressed' : 'expanded',

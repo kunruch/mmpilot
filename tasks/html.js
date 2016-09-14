@@ -16,24 +16,35 @@ exports.init = function() {
 }
 
 exports.processAll = function() {
-    logger.info("Processing HTML template files..");
-    var templateFiles = glob.sync(transform.include_pattern, {
-        root: config.html
-    });
-
-    templateFiles.forEach(function(templatePath) {
-        executeTransform(templatePath, false);
-    });
-
-    sitemap.generateSiteMap(config.sitemap);
+  processDir(false);
+  sitemap.generateSiteMap(config.sitemap);
 };
 
 exports.processFile = function(filepath) {
-  executeTransform(path.join(config.html, filepath), true);
+  if(path.parse(filepath).name.startsWith("_")) {
+      //In case of files starting with '_', compile entire dir as they can be included from multiple sources
+      //We can improve this to compile only files that are needed.
+      logger.info("Partial file has been changed.. Processing all files.");
+      processDir(true);
+  }
+  else {
+    executeTransform(path.join(config.html, filepath), true);
+  }
 }
 
 exports.processFileDeleted = function(filepath) {
     //Do nothing for now, a fresh build should not generate this file anyways
+}
+
+function processDir(incremental) {
+  logger.info("Processing HTML template files..");
+  var templateFiles = glob.sync(transform.include_pattern, {
+      root: config.html
+  });
+
+  templateFiles.forEach(function(templatePath) {
+      executeTransform(templatePath, incremental);
+  });
 }
 
 function executeTransform(filepath, incremental) {

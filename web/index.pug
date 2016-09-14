@@ -1,8 +1,85 @@
-doctype
-html(lang='en')
-head
-    title MMPilot
-    link(href='styles/main.css', rel='stylesheet')
-body
-  h1 Hello World!
-  p This is a paragaraph! This is a new line.
+extends ./_layout.pug
+
+block vars
+    - var title = 'Minimal Modern CSS Framework'
+    - var description = 'A Minimal Modern CSS Framework for front-end Web Development. WordPress Compatible and built with SASS/SCSS'
+    - var path = ''
+
+block content
+    div.section-hero.sub-header.text-center
+        .container-content
+            //include partials/_mmcss.svg
+            h2 A Minimal Modern CSS Framework
+            p.text-center.text-muted latest release #{site.version} - #{site.license} License
+            .text-center
+                a.button.button-primary(href="#quickstart") Quickstart
+    .section-large.section-highlight
+        .container-content
+            h3.text-center Why use MMCSS?
+            .grid
+                .one-third.section
+                    .media.media-left
+                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#9ccc65;")
+                            <svg class="icon icon-github"><use xlink:href="#icon-desktop"></use></svg>
+                        .media-body
+                            h4.h5 Minimalist Design
+                            p MMCSS is built with minimalism in mind. Build modern and fast websites which users love.
+                .one-third.section
+                    .media.media-left
+                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#f06292;")
+                            <svg class="icon icon-github"><use xlink:href="#icon-folder-o"></use></svg>
+                        .media-body
+                            h4.h5 Lightweight
+                            p Just 4kb gzipped. Right amount of styles and components to build a great looking website.
+
+                .one-third.section
+                    .media.media-left
+                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#9845dc;")
+                            <svg class="icon icon-github"><use xlink:href="#icon-tablet"></use></svg>
+                        .media-body
+                            h4.h5 Mobile Friendly
+                            p MMCSS is mobile friendly CSS Framework. Build responsive websites for all screens with ease.
+
+                .one-third.section
+                    .media.media-left
+                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#ffd54f;")
+                            <svg class="icon icon-github"><use xlink:href="#icon-thumbs-o-up"></use></svg>
+                        .media-body
+                            h4.h5 Vanilla JavaScript
+                            p No dependency on heavy JavaScript libraries. MMCSS rely on plain JavaScript code.
+
+                .one-third.section
+                    .media.media-left
+                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#0087be;")
+                            <svg class="icon icon-github"><use xlink:href="#icon-wordpress"></use></svg>
+                        .media-body
+                            h4.h5 WordPress Compatible
+                            p MMCSS is 100% compatible with WordPress. No need of writing nav-walkers or other workarounds.
+
+
+                .one-third.section
+                    .media.media-left
+                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#2ab9b3;")
+                            <svg class="icon icon-github"><use xlink:href="#icon-check"></use></svg>
+                        .media-body
+                            h4.h5 MIT License
+                            p Open source code with open and friendly MIT License. Free for personal as well as commercial use.
+
+    #quickstart.section-large
+        .container-readable
+            h3.text-center Quickstart Guide
+            ul
+                li
+                    a(href='/demos/text.html') Text
+                li
+                    a(href='/demos/markup-and-formatting.html') Markup and Formatting
+                li
+                    a(href='/demos/lists.html') Lists
+                li
+                    a(href='/demos/forms.html') Forms
+                li
+                    a(href='/demos/buttons.html') Buttons
+                li
+                    a(href='/demos/grid.html') Grid
+                li
+                    a(href='/demos/searchform.html') Search Form
