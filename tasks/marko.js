@@ -1,9 +1,9 @@
 var logger = require('./../lib/logger');
+var sitemap = require('./../lib/sitemap')
 var fs = require('fs');
 var glob = require("glob");
 var path = require('path');
 var shell = require('shelljs');
-var sm = require('sitemap')
 var config = require('./../lib/config').config;
 
 var markoc = require('marko/compiler');
@@ -15,8 +15,6 @@ marko_hot_reload.enable();
 // for `.marko` files. Once installed, `*.marko` files can be
 // required just like any other JavaScript modules.
 require('marko/node-require').install();
-
-var sitemap_urls = [];
 
 exports.watch_pattern = '**/*.marko';
 exports.watch_dir = function () {
@@ -34,7 +32,7 @@ exports.init = function () {
 exports.processAll = function() {
     logger.info("Processing HTML template files..");
     processDir(config.html);
-    generateSiteMap(config.sitemap);
+    sitemap.generateSiteMap(config.sitemap);
 };
 
 exports.processFile = function(filepath) {
@@ -72,7 +70,7 @@ function processTemplateFile(templatePath, includeInSitemap) {
     logger.debug("Template Out Path: " + templateOutPath);
 
     if(includeInSitemap) {
-      addToSitemap(templateRelativePath, templateOutName, templateInPath);
+      sitemap.addToSitemap(templateRelativePath, templateOutName, templateInPath);
     }
 
     shell.mkdir('-p', templateOutDir);
@@ -89,36 +87,4 @@ function processTemplateFile(templatePath, includeInSitemap) {
     } catch (e) {
         logger.error("Cant compile" + e);
     }
-}
-
-function addToSitemap(templateRelativePath, templateOutName, templateInPath) {
-    var relativeURL = '/' + (path.dirname(templateRelativePath).replace(/\\/g, "/"));
-
-    if (templateOutName != 'index.html') {
-        relativeURL = relativeURL + '/' + templateOutName;
-    }
-
-    if(relativeURL == "/.") {
-      relativeURL = "/";
-    }
-
-    logger.debug("Adding to sitemap: " + relativeURL + " orig: " + templateInPath);
-    var sitemapURL = {
-        url: relativeURL,
-        lastmodrealtime: true,
-        lastmodfile: templateInPath
-    }
-
-    sitemap_urls.push(sitemapURL);
-}
-
-function generateSiteMap(sitemap_path) {
-    var sitemap = sm.createSitemap({
-        hostname: config.url,
-        urls: sitemap_urls
-    });
-
-    logger.debug("Generating sitemap at: " + sitemap_path);
-
-    fs.writeFileSync(sitemap_path, sitemap.toString());
 }
