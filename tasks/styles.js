@@ -31,7 +31,7 @@ exports.processFile = function(filepath) {
   processScssFile(absolutePath);
 }
 
-exports.processSourceDeleted = function(filepath) {
+exports.processFileDeleted = function(filepath) {
   //Do nothing for now, a fresh build should not generate this file anyways
 }
 
@@ -42,7 +42,7 @@ function processDir(src) {
     });
 
     scssFiles.forEach(function(scssPath) {
-        logger.debug("Processing SCSS file: " + scssPath);
+        logger.debug("Processing Stylesheet: " + scssPath);
         processScssFile(scssPath);
     });
 }

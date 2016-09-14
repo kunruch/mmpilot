@@ -21,7 +21,7 @@ exports.processFile = function(filepath) {
     shell.cp(path.join(config.assets, filepath), path.join(config.assets_dest, filepath));
 }
 
-exports.processSourceDeleted = function(filepath) {
+exports.processFileDeleted = function(filepath) {
   //Delete destination file
   shell.rm(path.join(config.assets_dest, filepath));
 }

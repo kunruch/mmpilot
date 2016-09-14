@@ -4,7 +4,7 @@ var path = require('path');
 var config = require('./../lib/config').config;
 
 //Tasks required by this command
-var tasks = [require('./../tasks/assets'), require('./../tasks/marko'), require('./../tasks/scss')];
+var tasks = [require('./../tasks/assets'), require('./../tasks/html'), require('./../tasks/styles')];
 
 exports.execute = function() {
     logger.start("Build");
@@ -17,8 +17,10 @@ exports.execute = function() {
     shell.mkdir('-p', config.dest);
 
     tasks.forEach(function(task) {
+      logger.start(task.watch_pattern);
       task.init();
       task.processAll();
+      logger.end(task.watch_pattern);
     });
 
     logger.end("Build");
