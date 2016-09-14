@@ -9,6 +9,7 @@ var autoprefixer = require('autoprefixer');
 var config = require('./../lib/config').config;
 
 var postcssProcessor = postcss([autoprefixer({ browsers: ['last 2 versions'] }) ]);
+var includePaths;
 
 exports.watch_pattern = '**/*.scss';
 exports.watch_dir = function () {
@@ -16,6 +17,7 @@ exports.watch_dir = function () {
 };
 
 exports.init = function () {
+  includePaths = ["node_modules/"]; //Add project's node_modules in include paths
 }
 
 exports.processAll = function() {
@@ -63,10 +65,11 @@ function processScssFile(scssPath) {
     var result = "";
     //Compile SCSS
     try {
+      console.log("Included: " + includePaths);
         result = sass.renderSync({
             file: scssInPath,
             outputStyle: config.minify ? 'compressed' : 'expanded',
-            includePaths: [path.join(config.root, "node_modules/")], //Add project's node_modules in include paths
+            includePaths: includePaths,
             outFile: scssOutPath,
             sourceMap: true, // or an absolute or relative (to outFile) path
         });

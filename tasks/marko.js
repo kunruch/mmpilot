@@ -25,6 +25,7 @@ exports.watch_dir = function () {
 
 exports.init = function () {
   markoc.configure({
+      checkUpToDate: false,
       writeToDisk: false,
       preserveWhitespace: !config.minify
   });
