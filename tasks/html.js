@@ -4,7 +4,7 @@ var glob = require("glob");
 var path = require('path');
 var shell = require('shelljs');
 var config = require('./../lib/config').config;
-var transform = require('./../transforms/marko.js');
+var transform = require('./../transforms/pug.js');
 
 exports.watch_pattern = transform.watch_pattern;
 exports.watch_dir = function() {

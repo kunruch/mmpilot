@@ -1,3 +1,5 @@
+// marko is not currently used in MMPilot but is left here as an example of how to write alternative transforms
+
 var logger = require('./../lib/logger');
 var fs = require('fs');
 var path = require('path');
