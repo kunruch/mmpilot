@@ -11,7 +11,7 @@ exports.execute = function() {
 
     logger.info("Publishing " + config.publish.src + " to gh-pages..");
     ghpages.publish(config.publish.src, {
-            repo: config.publish.repo,
+            clone: config.publish.temp,
             logger: function(message) {
                 logger.info(message);
             },
