@@ -12,8 +12,8 @@ exports.execute = function() {
     tasks.forEach(function(task) {
         task.init();
         chokidar.watch(task.watch_pattern, {
-
-                ignored: config.dest,
+          
+                ignored: [config.html.dest, config.assets.dest, config.styles.dest, config.scripts.dest],
                 ignoreInitial: true,
                 cwd: task.watch_dir(),
 

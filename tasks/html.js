@@ -8,7 +8,7 @@ var transform = require('./../transforms/pug.js');
 
 exports.watch_pattern = transform.watch_pattern;
 exports.watch_dir = function() {
-    return config.html; // export as function to get loaded result
+    return config.html.src; // export as function to get loaded result
 };
 
 exports.init = function() {
@@ -16,8 +16,12 @@ exports.init = function() {
 }
 
 exports.processAll = function() {
+  logger.start("Processing HTML");
+
   processDir(false);
-  sitemap.generateSiteMap(config.sitemap);
+  sitemap.generateSiteMap(path.join(config.html.dest, config.html.sitemap));
+
+  logger.end("Processing HTML");
 };
 
 exports.processFile = function(filepath) {
@@ -28,7 +32,7 @@ exports.processFile = function(filepath) {
       processDir(true);
   }
   else {
-    executeTransform(path.join(config.html, filepath), true);
+    executeTransform(path.join(config.html.src, filepath), true);
   }
 }
 
@@ -37,23 +41,21 @@ exports.processFileDeleted = function(filepath) {
 }
 
 function processDir(incremental) {
-  logger.start("Build HTML");
   var templateFiles = glob.sync(transform.include_pattern, {
-      root: config.html
+      root: config.html.src
   });
 
   templateFiles.forEach(function(templatePath) {
       executeTransform(templatePath, incremental);
   });
-  logger.end("Build HTML");
 }
 
 function executeTransform(filepath, incremental) {
     logger.info("Processing HTML template: " + filepath);
 
     var templateInPath = filepath;
-    var templateRelativePath = path.relative(config.html, templateInPath);
-    var templateOutDir = path.dirname(path.join(config.html_dest, templateRelativePath));
+    var templateRelativePath = path.relative(config.html.src, templateInPath);
+    var templateOutDir = path.dirname(path.join(config.html.dest, templateRelativePath));
     var templateOutName = path.parse(templateInPath).name + ".html";
     var templateOutPath = path.join(templateOutDir, templateOutName);
 

@@ -15,7 +15,7 @@ var includePaths;
 
 exports.watch_pattern = '**/*.scss';
 exports.watch_dir = function() {
-    return config.styles; // export as function to get loaded result
+    return config.styles.src; // export as function to get loaded result
 };
 
 exports.init = function() {
@@ -23,9 +23,11 @@ exports.init = function() {
 }
 
 exports.processAll = function() {
-    logger.start("Build SCSS");
-    processDir(config.styles);
-    logger.end("Build SCSS");
+    logger.start("Processing Styles");
+
+    processDir(config.styles.src);
+
+    logger.end("Processing Styles");
 };
 
 exports.processFile = function(filepath) {
@@ -33,10 +35,10 @@ exports.processFile = function(filepath) {
         //In case of files starting with '_', compile entire dir as they can be included from multiple sources
         //We can improve this to compile only files that are needed.
         logger.info("Partial file has been changed.. Processing all files.");
-        processDir(config.styles);
+        processDir(config.styles.src);
     } else {
         logger.info("Processing SCSS file: " + filepath);
-        var absolutePath = path.join(config.styles, filepath);
+        var absolutePath = path.join(config.styles.src, filepath);
         processScssFile(absolutePath);
     }
 }
@@ -46,9 +48,9 @@ exports.processFileDeleted = function(filepath) {
 }
 
 function processDir(src) {
-    var globMatch = path.join('/**/!(_)*.scss');
+    var globMatch = '/**/!(_)*.scss';
     var scssFiles = glob.sync(globMatch, {
-        root: config.styles
+        root: config.styles.src
     });
 
     scssFiles.forEach(function(scssPath) {
@@ -58,9 +60,9 @@ function processDir(src) {
 }
 
 function processScssFile(scssPath) {
-    var scssRelativePath = path.relative(config.styles, scssPath);
-    var scssInPath = path.join(config.styles, scssRelativePath);
-    var scssOutDir = path.dirname(path.join(config.styles_dest, scssRelativePath));
+    var scssRelativePath = path.relative(config.styles.src, scssPath);
+    var scssInPath = path.join(config.styles.src, scssRelativePath);
+    var scssOutDir = path.dirname(path.join(config.styles.dest, scssRelativePath));
     var scssOutName = path.parse(scssPath).name + ".css";
     var scssMapOutName = path.parse(scssPath).name + ".css.map";
     var scssOutPath = path.join(scssOutDir, scssOutName);
@@ -78,7 +80,7 @@ function processScssFile(scssPath) {
     var result = "";
     //Compile SCSS
     try {
-        console.debug("Included: " + includePaths);
+        logger.debug("Included: " + includePaths);
         result = sass.renderSync({
             file: scssInPath,
             outputStyle: config.minify ? 'compressed' : 'expanded',
@@ -87,10 +89,7 @@ function processScssFile(scssPath) {
             sourceMap: true, // or an absolute or relative (to outFile) path
         });
     } catch (error) {
-        logger.debug(error.status);
-        logger.debug(error.column);
-        logger.debug(error.message);
-        logger.debug(error.line);
+        logger.error(error.toString);
     }
 
     // Post CSS processing

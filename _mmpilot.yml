@@ -1,0 +1,16 @@
+## data for building project
+html:
+  src: "web"
+styles:
+  src: "web/styles"
+assets:
+  src: "web/assets"
+
+minify: false
+log: debug
+
+## additional data for site available as site.{key} in pug templates
+site:
+  url: "https://mmpilot.kunruchcreations.com/"
+  github: "https://github.com/kunruch/mmpilot/"
+  twitter: "https://twitter.com/kanishkkunal"

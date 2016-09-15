@@ -4,14 +4,21 @@ var program = require('commander');
 var config = require('./../lib/config').config;
 
 program
-    .version(config.version)
-    .option('-d, --dir <path>', 'Specify custom directory path to use instead of the current direcory')
+    .version(config.package.version)
+    .option('-c, --config <path>', 'Specify a custom config file to use instead of looking for _mmpilot.yml in current direcory')
 
 var command;
 
 program
+    .command('clean')
+    .description('Cleans output directories')
+    .action(function() {
+        command = require('./../commands/clean');
+    });
+
+program
     .command('build')
-    .description('run build command')
+    .description('Executes build of project')
     .action(function() {
         command = require('./../commands/build');
     });
@@ -25,7 +32,7 @@ program
 
 program
     .command('serve')
-    .description('Serves built files accesible via localhost:3001')
+    .description('Serves built files accesible via localhost:3000')
     .action(function() {
         command = require('./../commands/serve');
     });
@@ -39,8 +46,10 @@ program
 
 program.parse(process.argv);
 
+if (!program.args.length) program.help();
+
 if (command) {
-    if (config.load(program.dir)) {
+    if (config.load(program.config)) {
         command.execute();
     }
 }

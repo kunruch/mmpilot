@@ -7,15 +7,15 @@ exports.execute = function() {
 		logger.info("Starting webserver..");
 
 		// Listen to change events on HTML and reload
-		browserSync.watch(path.join(config.html_dest, "**/*.html")).on("change", browserSync.reload);
+		browserSync.watch(path.join(config.html.dest, "**/*.html")).on("change", browserSync.reload);
 
 		// Listen to change events on JS and reload
-		browserSync.watch(path.join(config.scripts_dest, "**/*.js")).on("change", browserSync.reload);
+		browserSync.watch(path.join(config.scripts.dest, "**/*.js")).on("change", browserSync.reload);
 
 		// Provide a callback to capture ALL events to CSS
 		// files - then filter for 'change' and reload all
 		// css files on the page.
-		browserSync.watch(path.join(config.styles_dest, "**/*.css"), function (event, file) {
+		browserSync.watch(path.join(config.styles.dest, "**/*.css"), function (event, file) {
 		    if (event === "change") {
 		        browserSync.reload("*.css");
 		    }
@@ -23,6 +23,6 @@ exports.execute = function() {
 
     // Start the server
     browserSync.init({
-        server: config.dest
+        server: config.html.dest
     });
 }

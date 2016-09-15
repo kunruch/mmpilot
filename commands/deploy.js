@@ -4,8 +4,13 @@ var ghpages = require('gh-pages');
 
 
 exports.execute = function() {
-    logger.info("Publishing to gh-pages..");
-    ghpages.publish(config.dest, {
+    if(config.publish.dest != "gh-pages") {
+      logger.error("Publish destination is not yet supported!");
+      process.exit(1);
+    }
+
+    logger.info("Publishing " + config.publish.src + " to gh-pages..");
+    ghpages.publish(config.publish.src, {
             logger: function(message) {
                 logger.info(message);
             },

@@ -8,10 +8,10 @@
     "mmpilot": "bin/mmpilot.js"
   },
   "scripts": {
-    "build": "mm build -d web",
-    "watch": "mm watch -d web",
-    "serve": "mm serve -d web",
-    "deploy": "npm run build && mm deploy -d web",
+    "build": "mm clean && mm build",
+    "watch": "mm watch",
+    "serve": "mm serve",
+    "deploy": "npm run build && mm deploy",
     "dev": "npm-run-all build --parallel watch serve"
   },
   "repository": {
