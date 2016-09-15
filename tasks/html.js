@@ -37,7 +37,7 @@ exports.processFileDeleted = function(filepath) {
 }
 
 function processDir(incremental) {
-  logger.info("Processing HTML template files..");
+  logger.start("Build HTML");
   var templateFiles = glob.sync(transform.include_pattern, {
       root: config.html
   });
@@ -45,6 +45,7 @@ function processDir(incremental) {
   templateFiles.forEach(function(templatePath) {
       executeTransform(templatePath, incremental);
   });
+  logger.end("Build HTML");
 }
 
 function executeTransform(filepath, incremental) {

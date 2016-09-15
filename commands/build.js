@@ -17,10 +17,8 @@ exports.execute = function() {
     shell.mkdir('-p', config.dest);
 
     tasks.forEach(function(task) {
-      logger.start(task.watch_pattern);
       task.init();
       task.processAll();
-      logger.end(task.watch_pattern);
     });
 
     logger.end("Build");

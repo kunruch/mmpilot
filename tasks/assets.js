@@ -12,8 +12,10 @@ exports.init = function () {
 }
 
 exports.processAll = function() {
-    logger.info("Processing asset files..");
+    logger.start("Copy Assets");
+    logger.info("Copying asset files from: " + config.assets + " to: " + config.assets_dest);
 		shell.cp('-r', path.join(config.assets, "*"), config.assets_dest);
+    logger.end("Copy Assets");
 };
 
 exports.processFile = function(filepath) {

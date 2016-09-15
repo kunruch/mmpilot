@@ -23,8 +23,9 @@ exports.init = function() {
 }
 
 exports.processAll = function() {
-    logger.info("Processing SCSS files..");
+    logger.start("Build SCSS");
     processDir(config.styles);
+    logger.end("Build SCSS");
 };
 
 exports.processFile = function(filepath) {
@@ -65,6 +66,9 @@ function processScssFile(scssPath) {
     var scssOutPath = path.join(scssOutDir, scssOutName);
     var scssMapOutPath = path.join(scssOutDir, scssMapOutName);
 
+
+    logger.info("Processing SCSS file: " + scssInPath);
+
     logger.debug("SCSS In Path: " + scssInPath);
     logger.debug("SCSS Out Path: " + scssOutPath);
     logger.debug("SCSS Map Out Path: " + scssMapOutPath);
@@ -74,7 +78,7 @@ function processScssFile(scssPath) {
     var result = "";
     //Compile SCSS
     try {
-        console.log("Included: " + includePaths);
+        console.debug("Included: " + includePaths);
         result = sass.renderSync({
             file: scssInPath,
             outputStyle: config.minify ? 'compressed' : 'expanded',
