@@ -13,16 +13,16 @@ html(lang='en-US')
         meta(property='og:image', content=site.url + 'img/mmcss-featured.png')
         link(rel='canonical', href=site.url + path)
         link(href='/styles/main.css', rel='stylesheet')
-        //style
-        //    include ./partials/_icons.css
+        style
+            include ./partials/_icons.css
         block styles
         link(rel='icon', href=site.url + 'img/mmcss-favicon-32x32.png', sizes='32x32')
         link(rel='icon', href=site.url + 'img/mmcss-favicon-192x192.png', sizes='192x192')
         link(rel='apple-touch-icon-precomposed', href=site.url + 'img/mmcss-favicon-180x180.png')
         meta(name='msapplication-TileImage', content=site.url + 'img/mmcss-favicon-270x270.png')
     body#top
-        //include partials/_icons.svg
-        header.header
+        include partials/_icons.svg
+        header.header.header-dark
             .container
                 .header-left
                     a(href='/').site-branding
@@ -64,7 +64,7 @@ html(lang='en-US')
         block content
         footer.footer
             .container-content.section-large.text-center
-                p Made for the modern web by <a href="http://kunruchcreations.com/">KunRuch Creations</a>.
+                p Built for the modern web by <a href="http://kunruchcreations.com/">KunRuch Creations</a>.
                     br
                     | Licensed under the <a href=site.github + "blob/master/LICENSE.md" target="blank">MIT License</a>.
                 div
