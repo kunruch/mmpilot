@@ -3,9 +3,13 @@
 var program = require('commander');
 var config = require('./../lib/config').config;
 
+function list(val) {
+  return val.split(',');
+}
+
 program
     .version(config.package.version)
-    .option('-c, --config <path>', 'Specify a custom config file to use instead of looking for _mmpilot.yml in current direcory')
+    .option('-c, --config <paths>', 'Specify custom config file(s) to use instead of looking for _mmpilot.yml in current direcory', list)
 
 var command;
 
