@@ -12,7 +12,6 @@ var pugParams = {};
 exports.init = function () {
 	pugParams = {
 		pretty:  !config.minify,
-		package: config.package,
 		site: config.site
 	}
 }
