@@ -10,19 +10,19 @@ html(lang='en-US')
         meta(property='og:title', content=title)
         meta(property='og:type', content='website')
         meta(property='og:url', content=site.url + path)
-        meta(property='og:image', content=site.url + 'img/mmcss-featured.png')
+        meta(property='og:image', content=site.url + 'img/mmpilot-featured.png')
         link(rel='canonical', href=site.url + path)
         link(href='/styles/main.css', rel='stylesheet')
         style
             include ./partials/_icons.css
         block styles
-        link(rel='icon', href=site.url + 'img/mmcss-favicon-32x32.png', sizes='32x32')
-        link(rel='icon', href=site.url + 'img/mmcss-favicon-192x192.png', sizes='192x192')
-        link(rel='apple-touch-icon-precomposed', href=site.url + 'img/mmcss-favicon-180x180.png')
-        meta(name='msapplication-TileImage', content=site.url + 'img/mmcss-favicon-270x270.png')
+        link(rel='icon', href=site.url + 'img/mmpilot-logo-32x32.png', sizes='32x32')
+        link(rel='icon', href=site.url + 'img/mmpilot-logo-192x192.png', sizes='192x192')
+        link(rel='apple-touch-icon-precomposed', href=site.url + 'img/mmpilot-logo-180x180.png')
+        meta(name='msapplication-TileImage', content=site.url + 'img/mmpilot-logo-270x270.png')
     body#top
         include partials/_icons.svg
-        header.header.header-dark
+        header.header-dark
             .container
                 .header-left
                     a(href='/').site-branding

@@ -2,7 +2,9 @@
 
 # MMPilot
 
-MMPilot is a minimal modern static website generator powered by [Node.js](https://nodejs.org).
+[![alt MMPilot - Minimal Modern Static Site Generator](https://mmpilot.kunruchcreations.com/img/mmpilot-featured.png "MMPilot - Minimal Modern Static Site Generator")](https://mmpilot.kunruchcreations.com/)
+
+MMPilot is a minimal modern static site generator powered by [Node.js](https://nodejs.org).
 
 **Currently under development. Things may change without notice.**
 
