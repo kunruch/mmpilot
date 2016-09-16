@@ -89,7 +89,7 @@ function processScssFile(scssPath) {
             sourceMap: true, // or an absolute or relative (to outFile) path
         });
     } catch (error) {
-        logger.error(error.toString);
+        logger.error(error);
     }
 
     // Post CSS processing
