@@ -2,7 +2,7 @@ extends ./_layout.pug
 
 block vars
     - var title = 'Minimal Modern Static Site Generator'
-    - var description = 'A modern static website generator powered by Node.js. Fast and easy to use with live reload. Code in Jade and SCSS.'
+    - var description = 'A modern static website generator powered by Node.js. Fast and easy to use with live reload. Code in Pug and SCSS.'
     - var path = ''
 
 block content
@@ -10,76 +10,47 @@ block content
         .container-content
             h2 A Minimal Modern Static Site Generator
             p.text-center.text-muted Powered by <a href="https://nodejs.org/" target="_blank">Node.js</a> - MIT License
-            .text-center
-                a.button.button-primary(href="#quickstart") Quickstart
-    .section-large.highlight
+            .text-center(style="margin-top:40px;")
+                a.button.button-primary(href="#quickstart") Quickstart Guide
+    .section.highlight
         .container-content
-            include partials/_mmpilot.svg
-            h3.text-center Why use MMPilot?
             .grid
-                .one-third.section
-                    .media.media-left
-                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#9ccc65;")
-                            <svg class="icon icon-github"><use xlink:href="#icon-desktop"></use></svg>
-                        .media-body
-                            h4.h5 Minimalist Design
-                            p MMCSS is built with minimalism in mind. Build modern and fast websites which users love.
-                .one-third.section
-                    .media.media-left
-                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#f06292;")
-                            <svg class="icon icon-github"><use xlink:href="#icon-folder-o"></use></svg>
-                        .media-body
-                            h4.h5 Lightweight
-                            p Just 4kb gzipped. Right amount of styles and components to build a great looking website.
+                .one-fourth.section
+                    .media
+                        .thumbnail.thumbnail-medium.aligncenter
+                            <svg class="icon icon-github" style="color: #444;"><use xlink:href="#icon-desktop"></use></svg>
+                        .media-body.text-center
+                            h3.h6 Static Sites
+                            p In-built support for <a href="https://pugjs.org/" target="_blank">Pug</a> and <a href="http://sass-lang.com/" target="_blank">Sass</a> for modern web templating and styling workflow. Build static sites in no time.
+                .one-fourth.section
+                    .media
+                        .thumbnail.thumbnail-medium.aligncenter
+                            <svg class="icon icon-github" style="color: #444;"><use xlink:href="#icon-folder-o"></use></svg>
+                        .media-body.text-center
+                            h3.h6 Beginner Friendly
+                            p No complex setup or build scripts to learn. Simple configuration file and project structure. Become a pro in minutes.
 
-                .one-third.section
-                    .media.media-left
-                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#9845dc;")
-                            <svg class="icon icon-github"><use xlink:href="#icon-tablet"></use></svg>
-                        .media-body
-                            h4.h5 Mobile Friendly
-                            p MMCSS is mobile friendly CSS Framework. Build responsive websites for all screens with ease.
+                .one-fourth.section
+                    .media
+                        .thumbnail.thumbnail-medium.aligncenter
+                            <svg class="icon icon-github" style="color: #444;"><use xlink:href="#icon-tablet"></use></svg>
+                        .media-body.text-center
+                            h3.h6 Easy Deploy
+                            p.
+                              Deploy to  free hosting offered
+                              by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+                              and <a href="https://pages.gitlab.io/" target="_blank">GitLab Pages</a>
+                              with a single command
 
-                .one-third.section
-                    .media.media-left
-                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#ffd54f;")
-                            <svg class="icon icon-github"><use xlink:href="#icon-thumbs-o-up"></use></svg>
-                        .media-body
-                            h4.h5 Vanilla JavaScript
-                            p No dependency on heavy JavaScript libraries. MMCSS rely on plain JavaScript code.
-
-                .one-third.section
-                    .media.media-left
-                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#0087be;")
-                            <svg class="icon icon-github"><use xlink:href="#icon-wordpress"></use></svg>
-                        .media-body
-                            h4.h5 WordPress Compatible
-                            p MMCSS is 100% compatible with WordPress. No need of writing nav-walkers or other workarounds.
-
-
-                .one-third.section
-                    .media.media-left
-                        .thumbnail.thumbnail-small.thumbnail-rounded(style="background-color:#2ab9b3;")
-                            <svg class="icon icon-github"><use xlink:href="#icon-check"></use></svg>
-                        .media-body
-                            h4.h5 MIT License
-                            p Open source code with open and friendly MIT License. Free for personal as well as commercial use.
+                .one-fourth.section
+                    .media
+                        .thumbnail.thumbnail-medium.aligncenter
+                            <svg class="icon icon-github" style="color: #444;"><use xlink:href="#icon-thumbs-o-up"></use></svg>
+                        .media-body.text-center
+                            h3.h6 Fast Builds
+                            p MMPilot can watch for and build incrmental changes. Test sites on localhost, browser auto reloads on changes like magic!
 
     #quickstart.section-large
         .container-readable
             h3.text-center Quickstart Guide
-            ul
-                li
-                    a(href='/demos/text.html') Text
-                li
-                    a(href='/demos/markup-and-formatting.html') Markup and Formatting
-                li
-                    a(href='/demos/lists.html') Lists
-                li
-                    a(href='/demos/forms.html') Forms
-                li
-                    a(href='/demos/buttons.html') Buttons
-                li
-                    a(href='/demos/grid.html') Grid
-                li
-                    a(href='/demos/searchform.html') Search Form
+            code(style="font-size:120%; padding: 5px 32px; display: inline-block; margin: 16px 16px 32px 0;") Coming Soon..
