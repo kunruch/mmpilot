@@ -5,11 +5,11 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Minimal Modern Static Site Generator - MMPilot</title>
-    <meta name="description" content="A modern static website generator powered by Node.js. Fast and easy to use with live reload. Code in Jade and SCSS.">
+    <meta name="description" content="A modern static website generator powered by Node.js. Fast and easy to use with live reload. Code in Pug and SCSS.">
     <meta property="og:title" content="Minimal Modern Static Site Generator">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mmpilot.kunruchcreations.com/">
-    <meta property="og:image" content="https://mmpilot.kunruchcreations.com/img/mmcss-featured.png">
+    <meta property="og:image" content="https://mmpilot.kunruchcreations.com/img/mmpilot-featured.png">
     <link rel="canonical" href="https://mmpilot.kunruchcreations.com/">
     <link href="/styles/main.css" rel="stylesheet">
     <style>.icon {
@@ -45,10 +45,10 @@
   width: 0.9285712838172913em;
 }
     </style>
-    <link rel="icon" href="https://mmpilot.kunruchcreations.com/img/mmcss-favicon-32x32.png" sizes="32x32">
-    <link rel="icon" href="https://mmpilot.kunruchcreations.com/img/mmcss-favicon-192x192.png" sizes="192x192">
-    <link rel="apple-touch-icon-precomposed" href="https://mmpilot.kunruchcreations.com/img/mmcss-favicon-180x180.png">
-    <meta name="msapplication-TileImage" content="https://mmpilot.kunruchcreations.com/img/mmcss-favicon-270x270.png">
+    <link rel="icon" href="https://mmpilot.kunruchcreations.com/img/mmpilot-logo-32x32.png" sizes="32x32">
+    <link rel="icon" href="https://mmpilot.kunruchcreations.com/img/mmpilot-logo-192x192.png" sizes="192x192">
+    <link rel="apple-touch-icon-precomposed" href="https://mmpilot.kunruchcreations.com/img/mmpilot-logo-180x180.png">
+    <meta name="msapplication-TileImage" content="https://mmpilot.kunruchcreations.com/img/mmpilot-logo-270x270.png">
   </head>
   <body id="top"><svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -87,7 +87,7 @@
     </symbol>
   </defs>
 </svg>
-    <header class="header">
+    <header class="header-dark">
       <div class="container">
         <div class="header-left"><a class="site-branding" href="/">
             <h1 class="title">MMPilot</h1></a></div>
@@ -118,65 +118,52 @@
     <div class="section-hero sub-header-dark text-center">
       <div class="container-content">
         <h2>A Minimal Modern Static Site Generator</h2>
-        <p class="text-center text-muted">Powered by <a href="https://nodejs.org/" target="_blank">Node.js</a> - Latest release  -  License</p>
-        <div class="text-center"><a class="button button-primary" href="#quickstart">Quickstart</a></div>
+        <p class="text-center text-muted">Powered by <a href="https://nodejs.org/" target="_blank">Node.js</a> - MIT License</p>
+        <div class="text-center" style="margin-top:40px"><a class="button button-primary" href="#quickstart">Quickstart Guide</a></div>
       </div>
     </div>
-    <div class="section-large section-highlight">
+    <div class="section highlight">
       <div class="container-content">
-        <h3 class="text-center">Why use MMPilot?</h3>
         <div class="grid">
-          <div class="one-third section">
-            <div class="media media-left">
-              <div class="thumbnail thumbnail-small thumbnail-rounded" style="background-color:#9ccc65"><svg class="icon icon-github"><use xlink:href="#icon-desktop"></use></svg></div>
-              <div class="media-body">
-                <h4 class="h5">Minimalist Design</h4>
-                <p>MMCSS is built with minimalism in mind. Build modern and fast websites which users love.</p>
+          <div class="one-fourth section">
+            <div class="media">
+              <div class="thumbnail thumbnail-medium aligncenter"><svg class="icon icon-github" style="color: #444;"><use xlink:href="#icon-desktop"></use></svg></div>
+              <div class="media-body text-center">
+                <h3 class="h6">Static Sites</h3>
+                <p>In-built support for <a href="https://pugjs.org/" target="_blank">Pug</a> and <a href="http://sass-lang.com/" target="_blank">Sass</a> for modern web templating and styling workflow. Build static sites in no time.</p>
               </div>
             </div>
           </div>
-          <div class="one-third section">
-            <div class="media media-left">
-              <div class="thumbnail thumbnail-small thumbnail-rounded" style="background-color:#f06292"><svg class="icon icon-github"><use xlink:href="#icon-folder-o"></use></svg></div>
-              <div class="media-body">
-                <h4 class="h5">Lightweight</h4>
-                <p>Just 4kb gzipped. Right amount of styles and components to build a great looking website.</p>
+          <div class="one-fourth section">
+            <div class="media">
+              <div class="thumbnail thumbnail-medium aligncenter"><svg class="icon icon-github" style="color: #444;"><use xlink:href="#icon-folder-o"></use></svg></div>
+              <div class="media-body text-center">
+                <h3 class="h6">Beginner Friendly</h3>
+                <p>No complex setup or build scripts to learn. Simple configuration file and project structure. Become a pro in minutes.</p>
               </div>
             </div>
           </div>
-          <div class="one-third section">
-            <div class="media media-left">
-              <div class="thumbnail thumbnail-small thumbnail-rounded" style="background-color:#9845dc"><svg class="icon icon-github"><use xlink:href="#icon-tablet"></use></svg></div>
-              <div class="media-body">
-                <h4 class="h5">Mobile Friendly</h4>
-                <p>MMCSS is mobile friendly CSS Framework. Build responsive websites for all screens with ease.</p>
+          <div class="one-fourth section">
+            <div class="media">
+              <div class="thumbnail thumbnail-medium aligncenter"><svg class="icon icon-github" style="color: #444;"><use xlink:href="#icon-tablet"></use></svg></div>
+              <div class="media-body text-center">
+                <h3 class="h6">Easy Deploy</h3>
+                <p>
+                  Deploy to  free hosting offered
+                  by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+                  and <a href="https://pages.gitlab.io/" target="_blank">GitLab Pages</a>
+                  with a single command
+                  
+                </p>
               </div>
             </div>
           </div>
-          <div class="one-third section">
-            <div class="media media-left">
-              <div class="thumbnail thumbnail-small thumbnail-rounded" style="background-color:#ffd54f"><svg class="icon icon-github"><use xlink:href="#icon-thumbs-o-up"></use></svg></div>
-              <div class="media-body">
-                <h4 class="h5">Vanilla JavaScript</h4>
-                <p>No dependency on heavy JavaScript libraries. MMCSS rely on plain JavaScript code.</p>
-              </div>
-            </div>
-          </div>
-          <div class="one-third section">
-            <div class="media media-left">
-              <div class="thumbnail thumbnail-small thumbnail-rounded" style="background-color:#0087be"><svg class="icon icon-github"><use xlink:href="#icon-wordpress"></use></svg></div>
-              <div class="media-body">
-                <h4 class="h5">WordPress Compatible</h4>
-                <p>MMCSS is 100% compatible with WordPress. No need of writing nav-walkers or other workarounds.</p>
-              </div>
-            </div>
-          </div>
-          <div class="one-third section">
-            <div class="media media-left">
-              <div class="thumbnail thumbnail-small thumbnail-rounded" style="background-color:#2ab9b3"><svg class="icon icon-github"><use xlink:href="#icon-check"></use></svg></div>
-              <div class="media-body">
-                <h4 class="h5">MIT License</h4>
-                <p>Open source code with open and friendly MIT License. Free for personal as well as commercial use.</p>
+          <div class="one-fourth section">
+            <div class="media">
+              <div class="thumbnail thumbnail-medium aligncenter"><svg class="icon icon-github" style="color: #444;"><use xlink:href="#icon-thumbs-o-up"></use></svg></div>
+              <div class="media-body text-center">
+                <h3 class="h6">Fast Builds</h3>
+                <p>MMPilot can watch for and build incrmental changes. Test sites on localhost, browser auto reloads on changes like magic!</p>
               </div>
             </div>
           </div>
@@ -185,20 +172,14 @@
     </div>
     <div class="section-large" id="quickstart">
       <div class="container-readable">
-        <h3 class="text-center">Quickstart Guide</h3>
-        <ul>
-          <li><a href="/demos/text.html">Text</a></li>
-          <li><a href="/demos/markup-and-formatting.html">Markup and Formatting</a></li>
-          <li><a href="/demos/lists.html">Lists</a></li>
-          <li><a href="/demos/forms.html">Forms</a></li>
-          <li><a href="/demos/buttons.html">Buttons</a></li>
-          <li><a href="/demos/grid.html">Grid</a></li>
-          <li><a href="/demos/searchform.html">Search Form</a></li>
-        </ul>
+        <h3 class="text-center">Quickstart Guide</h3><code style="font-size:120%; padding: 5px 32px; display: inline-block; margin: 16px 16px 32px 0">Coming Soon..</code>
       </div>
     </div>
     <footer class="footer">
       <div class="container-content section-large text-center">
+        <div class="thumbnail-medium aligncenter"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 410.00001 410.00001"><g><path fill="#171f26" fill-rule="evenodd" d="M77 10v391h43V84.24L205 231l84-146.17V401h43V10h-43l-84 146-85-146H77z"/><path fill="none" d="M0 0h410v410H0z"/><path fill="#1abc9c" fill-rule="evenodd" d="M26 10v391h52V99.77L205 319l126-218.73V401h52V10h-52L205 230 78 10H26z"/></g></svg>
+
+        </div>
         <p>Built for the modern web by <a href="http://kunruchcreations.com/">KunRuch Creations</a>.<br>Licensed under the <a href="blob/master/LICENSE.md" target="blank">MIT License</a>.</p>
         <div><a class="button button-text" href="https://github.com/kunruch/mmpilot/" target="_blank"><svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg><span>GitHub</span></a><a class="button button-text" href="https://twitter.com/kanishkkunal" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg><span>Twitter</span></a></div>
       </div>
