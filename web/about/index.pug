@@ -1,6 +1,25 @@
-doctype
-html(lang='en')
-head
-  title MMPilot
-body
-  h1 About Page
+extends ./../layouts/_layout-main.pug
+
+block vars
+    - var title = 'About'
+    - var description = 'Learn about MMPilot, get to know people behind this tool and find out guidelines for using MMPilot logos and name.'
+
+block content
+  article
+    header.sub-header-dark.section-large.text-center
+      .container-readable
+        h1.section-title About
+        p.text-muted Learn about MMPilot, get to know people behind this tool and find out guidelines for using MMPilot logos and name.
+    .section-medium.container-readable
+        p MMPilot is an open-source static site generator build with Node.js. It allows you to write in Pug and Sass to build static websites.
+        h2 Who is behind MMPilot
+        p MMPilot is maintained by KunRuch Creations team.
+        h2 Colors
+        p Following colors represent MMPilot and can be used in relation with it.
+        div.section
+          div(style="display:inline-block;")
+            div(style="background-color:#171f26;width:120px;height:120px;border-radius:3px;")
+            div.text-small.text-center #171f26
+          div(style="display:inline-block;")
+            div(style="background-color:#1abc9c;width:120px;height:120px;border-radius:3px;")
+            div.text-small.text-center #1abc9c

@@ -16,7 +16,10 @@ exports.init = function () {
 	}
 }
 
-exports.processFile = function(templateInPath, templateOutPath, incremental) {
+exports.processFile = function(templateInPath, templateOutPath, page, incremental) {
+
+		pugParams.page = page;
+
     try {
 				var html = pug.renderFile(templateInPath, pugParams);
 				fs.writeFileSync(templateOutPath, html);

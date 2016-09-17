@@ -53,6 +53,8 @@ function processDir(incremental) {
 function executeTransform(filepath, incremental) {
     logger.info("Processing HTML template: " + filepath);
 
+    var page = {}; //Info about page passed to the template file
+
     var templateInPath = filepath;
     var templateRelativePath = path.relative(config.html.src, templateInPath);
     var templateOutDir = path.dirname(path.join(config.html.dest, templateRelativePath));
@@ -64,7 +66,10 @@ function executeTransform(filepath, incremental) {
     logger.debug("Template In Path: " + templateInPath);
     logger.debug("Template Out Path: " + templateOutPath);
 
-    transform.processFile(templateInPath, templateOutPath, incremental);
+    page.path = sitemap.getRelativePath(templateRelativePath, templateOutName);
+    page.url = sitemap.getPageURL(page.path);
+
+    transform.processFile(templateInPath, templateOutPath, page, incremental);
 
     if (!incremental) {
         sitemap.addToSitemap(templateRelativePath, templateOutName, templateInPath);

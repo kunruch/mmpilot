@@ -26,7 +26,7 @@ exports.init = function () {
   });
 }
 
-exports.processFile = function(templateInPath, templateOutPath, incremental) {
+exports.processFile = function(templateInPath, templateOutPath, page, incremental) {
 
 		if(incremental) {
 			//Allow marko to reload file if modified
@@ -40,7 +40,7 @@ exports.processFile = function(templateInPath, templateOutPath, incremental) {
             encoding: 'utf8'
         });
 
-        var data = {};
+        var data = { page: page, site: config.site };
         template.render(data, out);
 
     } catch (e) {
