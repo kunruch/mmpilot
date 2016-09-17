@@ -1,0 +1,10 @@
+extends ./_layout-main.pug
+
+block content
+    article
+        .sub-header-dark.section-large.text-center
+            .container-readable
+                h1.section-title #{title}
+                p.text-muted.text-large #{description}
+        .section-medium.container-readable
+            block page-content
