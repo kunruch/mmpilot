@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+// Make sure line ending is LF when changing this file as the above line won't work
+// on Linux if the line ending is not LF.
+
 var program = require('commander');
 var config = require('./../lib/config').config;
 
