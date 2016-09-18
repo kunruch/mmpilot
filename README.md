@@ -23,12 +23,12 @@ $ npm install mmpilot -g
 ### Build
 
 ```sh
-$ mm build
+$ mmpilot build
 ```
 ### Deploy to gh-pages
 
 ```sh
-$ mm deploy
+$ mmpilot deploy
 ```
 
 ## Learn More
