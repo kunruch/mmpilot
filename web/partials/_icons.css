@@ -7,6 +7,14 @@
   fill: currentColor;
 }
 
+.icon-magic {
+  width: 0.9436386581510305em;
+}
+
+.icon-upload {
+  width: 0.9285722896456718em;
+}
+
 .icon-thumbs-o-up {
   width: 0.8571465983986855em;
 }
@@ -19,14 +27,10 @@
   width: 0.8571436107158661em;
 }
 
+.icon-bars {
+  width: 0.857143547385931em;
+}
+
 .icon-desktop {
   width: 1.0714355893433094em;
-}
-
-.icon-tablet {
-  width: 0.6428584642708302em;
-}
-
-.icon-folder-o {
-  width: 0.9285712838172913em;
 }
