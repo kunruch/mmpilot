@@ -15,7 +15,7 @@
     "serve": "mm serve",
     "dev": "npm-run-all dev-build --parallel dev-watch serve",
     "deploy": "npm run clean && npm run build && mm deploy",
-    "dist-patch": "npm version patch -m \"Version %s\" && git push && git push --tags npm publish"
+    "dist-patch": "npm version patch -m \"Version %s\" && git push && git push --tags && npm publish"
   },
   "repository": {
     "type": "git",
