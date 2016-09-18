@@ -4,8 +4,8 @@
   "description": "A minimal modern static site generator",
   "main": "bin/mmpilot.js",
   "bin": {
-    "mm": "bin/mmpilot.js",
-    "mmpilot": "bin/mmpilot.js"
+    "mm": "./bin/mmpilot.js",
+    "mmpilot": "./bin/mmpilot.js"
   },
   "scripts": {
     "dev-build": "mm clean && mm build -c _mmpilot.yml,_mmpilot-dev.yml",
