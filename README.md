@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/kunruch/mmpilot.svg?branch=master)](https://travis-ci.org/kunruch/mmpilot)
+[![npm version](https://badge.fury.io/js/mmpilot.svg)](https://badge.fury.io/js/mmpilot)
 
 # MMPilot
 
