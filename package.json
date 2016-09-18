@@ -1,6 +1,6 @@
 {
   "name": "mmpilot",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A minimal modern static site generator",
   "main": "bin/mmpilot.js",
   "bin": {
