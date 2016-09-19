@@ -15,6 +15,8 @@ exports.processAll = function() {
     logger.start("Processing Assets");
 
     logger.info("Copying asset files from: " + config.assets.src + " to: " + config.assets.dest);
+    
+    shell.mkdir('-p', config.assets.dest);
 		shell.cp('-r', path.join(config.assets.src, "*"), config.assets.dest);
 
     logger.end("Processing Assets");
