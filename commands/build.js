@@ -2,7 +2,7 @@ var logger = require('./../lib/logger');
 var path = require('path');
 
 //Tasks required by this command
-var tasks = [require('./../tasks/assets'), require('./../tasks/html'), require('./../tasks/styles')];
+var tasks = [require('./../tasks/assets'), require('./../tasks/html'), require('./../tasks/styles'), require('./../tasks/scripts')];
 
 exports.execute = function() {
     logger.start("Build");

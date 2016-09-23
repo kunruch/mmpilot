@@ -5,6 +5,9 @@ styles:
   src: "web/styles"
 assets:
   src: "web/assets"
+scripts:
+  src: "web/scripts"
+  entries: ["main.js"]
 
 minify: true
 log: info

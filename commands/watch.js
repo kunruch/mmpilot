@@ -5,6 +5,7 @@ var chokidar = require('chokidar');
 
 //Tasks required by this command
 var tasks = [require('./../tasks/assets'), require('./../tasks/html'), require('./../tasks/styles')];
+var scriptsTask = require('./../tasks/scripts'); //separate task as it uses watchify internally to watch for incremental changes
 
 exports.execute = function() {
     logger.info("Setting up Watch..");
@@ -12,7 +13,7 @@ exports.execute = function() {
     tasks.forEach(function(task) {
         task.init();
         chokidar.watch(task.watch_pattern, {
-          
+
                 ignored: [config.html.dest, config.assets.dest, config.styles.dest, config.scripts.dest],
                 ignoreInitial: true,
                 cwd: task.watch_dir(),
@@ -42,4 +43,8 @@ exports.execute = function() {
 
             }).on('error', error => logger.error('Watcher error! A rebuild is recommended. Error: ' + error));
     });
+
+    //Setup watch for scripts
+    scriptsTask.init();
+    scriptsTask.ProcessAll(true);
 };
