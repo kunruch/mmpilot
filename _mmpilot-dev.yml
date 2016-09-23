@@ -1,6 +1,7 @@
 #Overrides when running on dev server
 
 minify: false
+sourcemaps: true
 log: debug
 
 site:

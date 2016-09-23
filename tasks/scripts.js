@@ -30,7 +30,8 @@ exports.processAll = function(isWatch) {
 
       b.add(sourcePath, {
         cache: {},
-        packageCache: {}
+        packageCache: {},
+        debug: config.sourcemaps
       });
 
       if(isWatch) {
