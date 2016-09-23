@@ -17,46 +17,56 @@ exports.init = function() {
 }
 
 exports.processAll = function(isWatch) {
-    if(config.scripts.entries.length < 1) {
-      return;
-    }
 
     logger.start("Processing Scripts");
 
-    var destPath = path.join(config.scripts.dest, config.scripts.out);
-    var destDir = path.dirname(destPath);
-    logger.debug("Out Path: " + destPath);
 
-    config.scripts.entries.forEach(function(entry) {
-      var sourcePath = path.join(config.scripts.src, entry);
+    if(config.scripts.browserify.entries.length < 1) {
+      // simply copy src scripts to dest
+      logger.info("Copying js files from: " + config.assets.src + " to: " + config.assets.dest);
 
-      logger.info("Processing script: " + sourcePath);
+      shell.mkdir('-p', config.assets.dest);
+  		shell.cp('-r', path.join(config.scripts.src, "*"), config.scripts.dest);
 
-      b.add(sourcePath, {
-        cache: {},
-        packageCache: {},
-        debug: config.sourcemaps
-      });
-    });
-
-    shell.mkdir('-p', destDir);
-
-    if(isWatch) {
-      b.plugin(watchify);
-      b.on('update', function() {
-        bundle(destPath);
-      });
     }
+    else {
+      //Compile with browserify
+      var destPath = path.join(config.scripts.dest, config.scripts.browserify.out);
+      var destDir = path.dirname(destPath);
+      logger.debug("Out Path: " + destPath);
 
-    b.on('log', function(message) {
-      logger.info(destPath + " : " + message);
-    })
+      config.scripts.browserify.entries.forEach(function(entry) {
+        var sourcePath = path.join(config.scripts.src, entry);
 
-    bundle(destPath);
+        logger.info("Adding entry to browserify: " + sourcePath);
+
+        b.add(sourcePath, {
+          cache: {},
+          packageCache: {},
+          debug: config.sourcemaps
+        });
+      });
+
+      shell.mkdir('-p', destDir);
+
+      if(isWatch) {
+        b.plugin(watchify);
+        b.on('update', function() {
+          bundle(destPath);
+        });
+      }
+
+      b.on('log', function(message) {
+        logger.info(destPath + " : " + message);
+      })
+
+      bundle(destPath);
+    }
 
     logger.end("Processing Scripts");
 };
 
 function bundle(destPath) {
+  logger.info("Bundling to: " + destPath);
   b.bundle().pipe(fs.createWriteStream(destPath));
 }
