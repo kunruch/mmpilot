@@ -7,8 +7,6 @@ assets:
   src: "web/assets"
 scripts:
   src: "web/scripts"
-  browserify:
-    entries: ["main.js"]
 
 minify: true
 log: info

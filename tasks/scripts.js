@@ -23,9 +23,9 @@ exports.processAll = function(isWatch) {
 
     if(config.scripts.browserify.entries.length < 1) {
       // simply copy src scripts to dest
-      logger.info("Copying js files from: " + config.assets.src + " to: " + config.assets.dest);
+      logger.info("Copying js files from: " + config.scripts.src + " to: " + config.scripts.dest);
 
-      shell.mkdir('-p', config.assets.dest);
+      shell.mkdir('-p', config.scripts.dest);
   		shell.cp('-r', path.join(config.scripts.src, "*"), config.scripts.dest);
 
     }
