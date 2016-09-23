@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/kunruch/mmpilot/issues"
   },
-  "homepage": "https://github.com/kunruch/mmpilot#readme",
+  "homepage": "https://mmpilot.kunruchcreations.com",
   "dependencies": {
     "autoprefixer": "^6.4.1",
     "browser-sync": "^2.15.0",
