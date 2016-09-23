@@ -45,6 +45,7 @@
     "pug": "^2.0.0-beta6",
     "shelljs": "^0.7.4",
     "sitemap": "^1.8.1",
+    "watchify": "^3.7.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {

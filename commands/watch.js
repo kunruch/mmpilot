@@ -46,5 +46,5 @@ exports.execute = function() {
 
     //Setup watch for scripts
     scriptsTask.init();
-    scriptsTask.ProcessAll(true);
+    scriptsTask.processAll(true);
 };

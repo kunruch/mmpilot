@@ -4,6 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var shell = require('shelljs');
 var browserify = require('browserify');
+var watchify = require('watchify');
 var config = require('./../lib/config').config;
 
 var includePaths;
@@ -16,30 +17,43 @@ exports.init = function() {
 }
 
 exports.processAll = function(isWatch) {
+    if(config.scripts.entries.length < 1) {
+      return;
+    }
+
     logger.start("Processing Scripts");
+
+    var destPath = path.join(config.scripts.dest, config.scripts.out);
+    var destDir = path.dirname(destPath);
+    logger.debug("Out Path: " + destPath);
 
     config.scripts.entries.forEach(function(entry) {
       var sourcePath = path.join(config.scripts.src, entry);
-      var destPath = path.join(config.scripts.dest, entry);
-      var destDir = path.dirname(destPath);
 
       logger.info("Processing script: " + sourcePath);
-      logger.debug("Out Path: " + destPath);
-
-      shell.mkdir('-p', destDir);
 
       b.add(sourcePath, {
         cache: {},
         packageCache: {},
         debug: config.sourcemaps
       });
-
-      if(isWatch) {
-        //b.plugin(watchify);
-        //b.on('update', bundle);
-      }
-      bundle(destPath);
     });
+
+    shell.mkdir('-p', destDir);
+
+    if(isWatch) {
+      b.plugin(watchify);
+      b.on('update', function() {
+        bundle(destPath);
+      });
+    }
+
+    b.on('log', function(message) {
+      logger.info(destPath + " : " + message);
+    })
+
+    bundle(destPath);
+
     logger.end("Processing Scripts");
 };
 
