@@ -58,7 +58,15 @@ function executeTransform(filepath, incremental) {
     var templateInPath = filepath;
     var templateRelativePath = path.relative(config.html.src, templateInPath);
     var templateOutDir = path.dirname(path.join(config.html.dest, templateRelativePath));
-    var templateOutName = path.parse(templateInPath).name + ".html";
+    var templateName = path.parse(templateInPath).name;
+
+    if(config.html.prettyurls && templateName != "index") {
+      //convert out files like about.html to about/index.html
+      templateOutDir = path.join(templateOutDir, templateName);
+      templateName = "index";
+    }
+
+    var templateOutName =  templateName + ".html";
     var templateOutPath = path.join(templateOutDir, templateOutName);
 
     shell.mkdir('-p', templateOutDir);
