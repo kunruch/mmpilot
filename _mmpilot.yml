@@ -16,3 +16,9 @@ site:
   github: "https://github.com/kunruch/mmpilot/"
   twitter: "https://twitter.com/kanishkkunal"
   analytics: "UA-37350394-13"
+
+## overrides when built with -d or --development option
+development:
+  site:
+    url: "http://localhost:3000/"
+    analytics: "" #don't count hits from localhost in analytics
