@@ -56,6 +56,9 @@ exports.processAll = function(isWatch) {
           _: 'purge',
           NODE_ENV: config.env
         }));
+        bundler.transform({
+          global: true
+        }, 'uglifyify');
       }
 
       if(isWatch) {
