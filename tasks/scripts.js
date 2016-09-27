@@ -8,12 +8,12 @@ var watchify = require('watchify');
 var config = require('./../lib/config').config;
 
 var includePaths;
-var b; //browserify instance
+var bundler;
 
 exports.init = function() {
     includePaths = ["node_modules/"]; //Add project's node_modules in include paths
 
-    b = browserify();
+    bundler = browserify({ debug: config.sourcemaps });
 }
 
 exports.processAll = function(isWatch) {
@@ -28,6 +28,7 @@ exports.processAll = function(isWatch) {
       shell.mkdir('-p', config.scripts.dest);
   		shell.cp('-r', path.join(config.scripts.src, "*"), config.scripts.dest);
 
+      logger.end("Processing Scripts");
     }
     else {
       //Compile with browserify
@@ -40,10 +41,9 @@ exports.processAll = function(isWatch) {
 
         logger.info("Adding entry to browserify: " + sourcePath);
 
-        b.add(sourcePath, {
+        bundler.add(sourcePath, {
           cache: {},
-          packageCache: {},
-          debug: config.sourcemaps
+          packageCache: {}
         });
       });
 
@@ -56,17 +56,20 @@ exports.processAll = function(isWatch) {
         });
       }
 
-      b.on('log', function(message) {
+      bundler.on('log', function(message) {
         logger.info(destPath + " : " + message);
       })
 
       bundle(destPath);
     }
 
-    logger.end("Processing Scripts");
 };
 
 function bundle(destPath) {
   logger.info("Bundling to: " + destPath);
-  b.bundle().pipe(fs.createWriteStream(destPath));
+  var writeStream = fs.createWriteStream(destPath);
+  bundler.bundle().pipe(writeStream);
+  writeStream.on("finish", function() {
+    logger.end("Processing Scripts");
+  });
 }
