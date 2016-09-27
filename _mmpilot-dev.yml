@@ -1,5 +1,6 @@
 #Overrides when running on dev server
 
+env: 'development'
 minify: false
 sourcemaps: true
 log: debug

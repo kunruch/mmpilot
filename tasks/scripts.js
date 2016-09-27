@@ -5,6 +5,7 @@ var path = require('path');
 var shell = require('shelljs');
 var browserify = require('browserify');
 var watchify = require('watchify');
+var envify = require('envify/custom');
 var config = require('./../lib/config').config;
 
 var includePaths;
@@ -49,9 +50,17 @@ exports.processAll = function(isWatch) {
 
       shell.mkdir('-p', destDir);
 
+      //envify and uglify on production builds
+      if(config.env == 'production') {
+        bundler.transform(envify({
+          _: 'purge',
+          NODE_ENV: config.env
+        }));
+      }
+
       if(isWatch) {
-        b.plugin(watchify);
-        b.on('update', function() {
+        bundler.plugin(watchify);
+        bundler.on('update', function() {
           bundle(destPath);
         });
       }

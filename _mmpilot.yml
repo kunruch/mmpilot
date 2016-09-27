@@ -1,4 +1,4 @@
-## data for building project
+## data for building web project
 html:
   src: "web/html"
 styles:
@@ -7,9 +7,8 @@ assets:
   src: "web/assets"
 scripts:
   src: "web/scripts"
-
-minify: true
-log: info
+  browserify:
+    entries: ["main.js"]
 
 ## additional data for site available as site.{key} in pug templates
 site:
