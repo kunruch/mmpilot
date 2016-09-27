@@ -83,10 +83,10 @@ function processScssFile(scssPath) {
         logger.debug("Included: " + includePaths);
         result = sass.renderSync({
             file: scssInPath,
-            outputStyle: config.minify ? 'compressed' : 'expanded',
+            outputStyle: (config.env == 'production') ? 'compressed' : 'expanded',
             includePaths: includePaths,
             outFile: scssOutPath,
-            sourceMap: true, // or an absolute or relative (to outFile) path
+            sourceMap: (config.env == 'development'), // or an absolute or relative (to outFile) path
         });
     } catch (error) {
         logger.error(error);
@@ -94,23 +94,28 @@ function processScssFile(scssPath) {
 
     // Post CSS processing
     if (result.css) {
+        var map = false;
+
+        if(config.env == 'development' && result.map) {
+          map = {
+              inline: true,
+              prev: result.map.toString()
+          }
+        }
+
         try {
             postcssProcessor
                 .process(result.css, {
                     from: scssInPath,
                     to: scssOutPath,
-                    map: {
-                        inline: false,
-                        prev: result.map.toString()
-                    },
+                    map: map
                 })
                 .then(function(result) {
                     fs.writeFileSync(scssOutPath, result.css);
-                    if (result.map) fs.writeFileSync(scssMapOutPath, result.map);
                 });
 
         } catch (error) {
-            logger.debug(error);
+            logger.error(error);
         }
     }
 

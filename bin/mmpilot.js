@@ -10,6 +10,7 @@ function list(val) {
 program
     .version(config.package.version)
     .option('-c, --config <paths>', 'Specify custom config file(s) to use instead of looking for _mmpilot.yml in current direcory', list)
+    .option('-d, --development', 'Specify a development build. This disables minification, generates sourcemaps and increases logging by mmpilot.');
 
 var command;
 
@@ -53,7 +54,7 @@ program.parse(process.argv);
 if (!program.args.length) program.help();
 
 if (command) {
-    if (config.load(program.config)) {
+    if (config.load(program.config, program.development)) {
         command.execute();
     }
 }

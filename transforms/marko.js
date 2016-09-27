@@ -22,7 +22,7 @@ exports.init = function () {
   markoc.configure({
       checkUpToDate: false,
       writeToDisk: false,
-      preserveWhitespace: !config.minify
+      preserveWhitespace: config.env == 'development'
   });
 }
 

@@ -14,7 +14,7 @@ var bundler;
 exports.init = function() {
     includePaths = ["node_modules/"]; //Add project's node_modules in include paths
 
-    bundler = browserify({ debug: config.sourcemaps });
+    bundler = browserify({ debug: (config.env == 'development') }); //debug = true enables sourcemaps
 }
 
 exports.processAll = function(isWatch) {
