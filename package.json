@@ -36,6 +36,7 @@
     "browserify": "^13.1.0",
     "chokidar": "^1.6.0",
     "commander": "^2.9.0",
+    "connect-logger": "0.0.1",
     "envify": "^3.4.1",
     "gh-pages": "^0.11.0",
     "glob": "^7.0.6",
