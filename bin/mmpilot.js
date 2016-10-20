@@ -15,7 +15,7 @@ program
 var command
 
 program
-    .command('new [projecttype]')
+    .command('new <projecttype>')
     .description('Creates a new mmpilot project with the given project type')
     .option('-b, --bare", "Skip setting up git and nodejs files')
     .action(function (projecttype, options) {

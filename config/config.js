@@ -63,13 +63,13 @@ config.load = function (customConfig, isDevelopment) {
     configFiles = customConfig
   }
 
-  logger.info('Using configuration files: ' + configFiles)
+  logger.debug('Using configuration files: ' + configFiles)
 
   if (isDevelopment) {
     config.env = 'development'
   }
 
-  logger.info('Using env as: ' + config.env)
+  logger.debug('Using env as: ' + config.env)
 
   try {
     configFiles.forEach(function (configFile) {
