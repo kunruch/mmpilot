@@ -46,6 +46,7 @@
     "gh-pages": "^0.11.0",
     "glob": "^7.0.6",
     "js-yaml": "^3.6.1",
+    "loadash": "0.0.1",
     "node-sass": "^3.9.3",
     "postcss": "^5.2.0",
     "pug": "^2.0.0-beta6",

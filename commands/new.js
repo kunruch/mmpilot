@@ -1,5 +1,5 @@
 var logger = require('./../lib/logger')
-
+var _ = require('lodash')
 var projecttype = 'web'
 var projectname = 'mmpilot-web-project'
 var isBare = false
@@ -7,7 +7,7 @@ var projectRoot = './'
 
 exports.init = function (p, n, o) {
   projecttype = p
-  projectname = n
+  projectname = _.kebabCase(n)
   isBare = !!o.bare
   projectRoot = process.cwd()
 }
