@@ -15,19 +15,19 @@ program
 var command
 
 program
-    .command('new <projecttype>')
-    .description('Creates a new mmpilot project with the given project type')
+    .command('new <projecttype> <projectname>')
+    .description('Creates a new mmpilot project with the given project type and project name')
     .option('-b, --bare', 'Skip setting up git and nodejs files')
-    .action(function (projecttype, options) {
+    .action(function (projecttype, projectname, options) {
       command = require('./../commands/new')
-      command.init(projecttype, options)
+      command.init(projecttype, projectname, options)
     }).on('--help', function () {
       console.log('  Examples:')
       console.log()
-      console.log('    $ mmpilot new site')
-      console.log('    $ mmpilot new blog')
-      console.log('    $ mmpilot new app')
-      console.log('    $ mmpilot new vueapp')
+      console.log('    $ mmpilot new web myweb')
+      console.log('    $ mmpilot new blog myblog')
+      console.log('    $ mmpilot new app myapp')
+      console.log('    $ mmpilot new vueapp myvueapp')
       console.log()
     })
 
