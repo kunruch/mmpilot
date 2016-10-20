@@ -4,7 +4,7 @@ var path = require('path')
 
 var projecttype = 'web'
 var projectname = 'mmpilot-web-project'
-var mmpilotRoot = path.dirname(path.resolve(__dirname))
+var mmpilotRoot = path.join(path.dirname(path.resolve(__dirname)), 'bootstrap-files')
 var isBare = false
 var projectRoot = './'
 
