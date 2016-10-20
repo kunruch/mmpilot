@@ -15,6 +15,22 @@ program
 var command
 
 program
+    .command('new [projecttype]')
+    .description('Creates a new mmpilot project with the given project type')
+    .option('-b, --bare", "Skip setting up git and nodejs files')
+    .action(function (projecttype, options) {
+      command = require('./../commands/new')
+    }).on('--help', function () {
+      console.log('  Examples:')
+      console.log()
+      console.log('    $ mmpilot new site')
+      console.log('    $ mmpilot new blog')
+      console.log('    $ mmpilot new app')
+      console.log('    $ mmpilot new vueapp')
+      console.log()
+    })
+
+program
     .command('clean')
     .description('Cleans output directories')
     .action(function () {
