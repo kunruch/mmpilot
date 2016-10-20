@@ -17,9 +17,10 @@ var command
 program
     .command('new <projecttype>')
     .description('Creates a new mmpilot project with the given project type')
-    .option('-b, --bare", "Skip setting up git and nodejs files')
+    .option('-b, --bare', 'Skip setting up git and nodejs files')
     .action(function (projecttype, options) {
       command = require('./../commands/new')
+      command.init(projecttype, options)
     }).on('--help', function () {
       console.log('  Examples:')
       console.log()
