@@ -1,5 +1,5 @@
 var logger = require('./../lib/logger');
-var config = require('./../lib/config').config;
+var config = require('./../config/config').config;
 var path = require('path');
 var fs = require('fs');
 var browserSync = require("browser-sync").create();

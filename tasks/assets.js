@@ -1,7 +1,7 @@
 var logger = require('./../lib/logger');
 var path = require('path');
 var shell = require('shelljs');
-var config = require('./../lib/config').config;
+var config = require('./../config/config').config;
 
 exports.watch_pattern = '**/*';
 exports.watch_dir = function () {

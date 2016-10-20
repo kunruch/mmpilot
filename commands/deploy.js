@@ -1,5 +1,5 @@
 var logger = require('./../lib/logger');
-var config = require('./../lib/config').config;
+var config = require('./../config/config').config;
 var ghpages = require('gh-pages');
 
 

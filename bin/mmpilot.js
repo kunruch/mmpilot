@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var program = require('commander');
-var config = require('./../lib/config').config;
+var config = require('./../config/config').config;
 
 function list(val) {
   return val.split(',');

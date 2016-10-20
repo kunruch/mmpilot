@@ -3,7 +3,7 @@ branches:
   - master
 language: node_js
 node_js:
-- '4'
+- '6'
 before_script:
 - npm link
 - git remote set-url origin "https://${GH_TOKEN}@github.com/kunruch/mmpilot.git"

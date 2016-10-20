@@ -1,7 +1,7 @@
 var yaml = require('js-yaml');
 var fs = require('fs');
 var path = require('path');
-var logger = require('./logger');
+var logger = require('./../lib/logger');
 var shell = require('shelljs');
 
 // this can be overriden via command line param (-c)

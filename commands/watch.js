@@ -1,6 +1,6 @@
 var logger = require('./../lib/logger');
 var path = require('path');
-var config = require('./../lib/config').config;
+var config = require('./../config/config').config;
 var chokidar = require('chokidar');
 
 //Tasks required by this command

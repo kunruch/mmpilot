@@ -6,7 +6,7 @@ var shell = require('shelljs');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var envify = require('envify/custom');
-var config = require('./../lib/config').config;
+var config = require('./../config/config').config;
 
 var includePaths;
 var bundler;

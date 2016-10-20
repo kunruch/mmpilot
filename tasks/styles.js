@@ -6,7 +6,7 @@ var shell = require('shelljs');
 var sass = require('node-sass');
 var postcss = require('postcss');
 var autoprefixer = require('autoprefixer');
-var config = require('./../lib/config').config;
+var config = require('./../config/config').config;
 
 var postcssProcessor = postcss([autoprefixer({
     browsers: ['last 2 versions']

@@ -3,7 +3,7 @@ var sitemap = require('./../lib/sitemap')
 var glob = require("glob");
 var path = require('path');
 var shell = require('shelljs');
-var config = require('./../lib/config').config;
+var config = require('./../config/config').config;
 var transform = require('./../transforms/pug.js');
 
 exports.watch_pattern = transform.watch_pattern;

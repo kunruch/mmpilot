@@ -1,7 +1,7 @@
 var logger = require('./../lib/logger');
 var fs = require('fs');
 var path = require('path');
-var config = require('./../lib/config').config;
+var config = require('./../config/config').config;
 var pug = require('pug');
 
 exports.include_pattern = '/**/!(_)*.pug';

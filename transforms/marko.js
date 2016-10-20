@@ -3,7 +3,7 @@
 var logger = require('./../lib/logger');
 var fs = require('fs');
 var path = require('path');
-var config = require('./../lib/config').config;
+var config = require('./../config/config').config;
 
 var markoc = require('marko/compiler');
 var marko_hot_reload = require('marko/hot-reload');
