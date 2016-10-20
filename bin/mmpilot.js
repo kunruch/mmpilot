@@ -18,7 +18,7 @@ var skipConfigRead = false
 program
     .command('new <projecttype> <projectname>')
     .description('Creates a new mmpilot project with the given project type and project name')
-    .option('-b, --bare', 'Only setup bare necessary project files')
+    .option('-m, --mmcss', 'Include mmcss framework')
     .action(function (projecttype, projectname, options) {
       command = require('./../commands/new')
       command.init(projecttype, projectname, options)
