@@ -1,120 +1,115 @@
-var yaml = require('js-yaml');
-var fs = require('fs');
-var path = require('path');
-var logger = require('./../lib/logger');
-var shell = require('shelljs');
+var yaml = require('js-yaml')
+var fs = require('fs')
+var logger = require('./../lib/logger')
+var shell = require('shelljs')
 
 // this can be overriden via command line param (-c)
-var configFiles = ['_mmpilot.yml'];
+var configFiles = ['_mmpilot.yml']
 
 // these can be set via config file
 // paths are specified relative to root and converted to absolute path in load()
 var config = {
-    package: require('./../package.json'),
-    env: 'production', //or development. This is passed as NODE_ENV to envify
+  package: require('./../package.json'),
+  env: 'production', // or development. This is passed as NODE_ENV to envify
 
-    clean: ["public"],
+  clean: ['public'],
 
-    html: {
-        src: "html",
-        dest: "public",
-        sitemap: "sitemap.xml",
-        prettyurls: true
-    },
+  html: {
+    src: 'html',
+    dest: 'public',
+    sitemap: 'sitemap.xml',
+    prettyurls: true
+  },
 
-    assets: {
-        src: "assets",
-        dest: "public"
-    },
+  assets: {
+    src: 'assets',
+    dest: 'public'
+  },
 
-    styles: {
-        src: "styles",
-        dest: "public/styles"
-    },
+  styles: {
+    src: 'styles',
+    dest: 'public/styles'
+  },
 
-    scripts: {
-        src: "scripts",
-        dest: "public/scripts",
-        browserify: {
-          entries: [],
-          out: "main.js"
-        }
-    },
-
-    serve: {
-      mode: "web",
-      proxy: "",
-      delay: 0
-    },
-
-    publish: {
-        src: "public",
-        dest: "gh-pages",
-        temp: ".publish"
-    },
-
-    site: {
-        url: "http://localhost/" //needed to generate sitemap
-        //Additional data can be specified in config file
+  scripts: {
+    src: 'scripts',
+    dest: 'public/scripts',
+    browserify: {
+      entries: [],
+      out: 'main.js'
     }
-};
+  },
 
-config.load = function(customConfig, isDevelopment) {
+  serve: {
+    mode: 'web',
+    proxy: '',
+    delay: 0
+  },
 
-    if (customConfig) {
-        configFiles = customConfig;
-    }
+  publish: {
+    src: 'public',
+    dest: 'gh-pages',
+    temp: '.publish'
+  },
 
-    logger.info("Using configuration files: " + configFiles);
-
-    if(isDevelopment) {
-      config.env = "development";
-    }
-
-    logger.info("Using env as: " + config.env);
-
-    try {
-        configFiles.forEach(function(configFile) {
-
-            var userConfig = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
-            var devConfig = userConfig.development ? userConfig.development : {};
-            userConfig.development = {}; //blank out for avoiding unecessary nesting.
-
-            //merge with custom config
-            config = deep_merge(config, userConfig);
-
-            if(config.env == "development") {
-              //merge with dev config
-              config = deep_merge(config, devConfig);
-            }
-
-        });
-    } catch (e) {
-        logger.error(e);
-        return false;
-    }
-
-    //Set log level options
-    if(config.env == "development") {
-      logger.SetLevel('debug');
-      shell.config.verbose = true;
-    }
-
-    return true;
-};
-
-// Recusrsively merge config and custom, overriding the base value with custom values
-function deep_merge(base, custom) {
-
-    Object.keys(custom).forEach(function(key) {
-        if (!base.hasOwnProperty(key) || typeof base[key] !== 'object') {
-            base[key] = custom[key];
-        } else {
-            base[key] = deep_merge(base[key], custom[key]);
-        }
-    });
-
-    return base;
+  site: {
+    url: 'http://localhost/' // needed to generate sitemap
+    // Additional data can be specified in config file
+  }
 }
 
-exports.config = config;
+config.load = function (customConfig, isDevelopment) {
+  if (customConfig) {
+    configFiles = customConfig
+  }
+
+  logger.info('Using configuration files: ' + configFiles)
+
+  if (isDevelopment) {
+    config.env = 'development'
+  }
+
+  logger.info('Using env as: ' + config.env)
+
+  try {
+    configFiles.forEach(function (configFile) {
+      var userConfig = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'))
+      var devConfig = userConfig.development ? userConfig.development : {}
+      userConfig.development = {} // blank out for avoiding unecessary nesting.
+
+      // merge with custom config
+      config = deepMerge(config, userConfig)
+
+      if (config.env === 'development') {
+        // merge with dev config
+        config = deepMerge(config, devConfig)
+      }
+    })
+  } catch (e) {
+    logger.error(e)
+    return false
+  }
+
+  // Set log level options
+  if (config.env === 'development') {
+    logger.SetLevel('debug')
+    shell.config.verbose = true
+  }
+
+  return true
+}
+
+// Recusrsively merge config and custom, overriding the base value with custom values
+function deepMerge (base, custom) {
+  Object.keys(custom).forEach(function (key) {
+    if (!base.hasOwnProperty(key) || typeof base[key] !== 'object') {
+      base[key] = custom[key]
+    } else {
+      base[key] = deepMerge(base[key], custom[key])
+    }
+  })
+
+  return base
+}
+
+exports.config = config
