@@ -13,6 +13,7 @@ program
     .option('-d, --development', 'Specify a development build. This disables minification, generates sourcemaps and increases logging by mmpilot.')
 
 var command
+var skipConfigRead = false
 
 program
     .command('new <projecttype> <projectname>')
@@ -21,6 +22,7 @@ program
     .action(function (projecttype, projectname, options) {
       command = require('./../commands/new')
       command.init(projecttype, projectname, options)
+      skipConfigRead = true
     }).on('--help', function () {
       console.log('  Examples:')
       console.log()
@@ -71,7 +73,7 @@ program.parse(process.argv)
 if (!program.args.length) program.help()
 
 if (command) {
-  if (config.load(program.config, program.development)) {
+  if (config.load(program.config, program.development, skipConfigRead)) {
     command.execute()
   }
 }

@@ -58,7 +58,8 @@ var config = {
   }
 }
 
-config.load = function (customConfig, isDevelopment) {
+config.load = function (customConfig, isDevelopment, skipConfigRead) {
+
   if (customConfig) {
     configFiles = customConfig
   }
@@ -71,23 +72,25 @@ config.load = function (customConfig, isDevelopment) {
 
   logger.debug('Using env as: ' + config.env)
 
-  try {
-    configFiles.forEach(function (configFile) {
-      var userConfig = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'))
-      var devConfig = userConfig.development ? userConfig.development : {}
-      userConfig.development = {} // blank out for avoiding unecessary nesting.
+  if (!skipConfigRead) {
+    try {
+      configFiles.forEach(function (configFile) {
+        var userConfig = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'))
+        var devConfig = userConfig.development ? userConfig.development : {}
+        userConfig.development = {} // blank out for avoiding unecessary nesting.
 
-      // merge with custom config
-      config = deepMerge(config, userConfig)
+        // merge with custom config
+        config = deepMerge(config, userConfig)
 
-      if (config.env === 'development') {
-        // merge with dev config
-        config = deepMerge(config, devConfig)
-      }
-    })
-  } catch (e) {
-    logger.error(e)
-    return false
+        if (config.env === 'development') {
+          // merge with dev config
+          config = deepMerge(config, devConfig)
+        }
+      })
+    } catch (e) {
+      logger.error(e)
+      return false
+    }
   }
 
   // Set log level options

@@ -1,7 +1,10 @@
 var logger = require('./../lib/logger')
 var _ = require('lodash')
+var path = require('path')
+
 var projecttype = 'web'
 var projectname = 'mmpilot-web-project'
+var mmpilotRoot = path.dirname(path.resolve(__dirname))
 var isBare = false
 var projectRoot = './'
 
@@ -13,8 +16,9 @@ exports.init = function (p, n, o) {
 }
 
 exports.execute = function () {
-  logger.info('Project: ' + projecttype)
-  logger.info('Name: ' + projectname)
-  logger.info('IsBare: ' + isBare)
-  logger.info('Project Root: ' + projectRoot)
+  logger.debug('Project: ' + projecttype)
+  logger.debug('Name: ' + projectname)
+  logger.debug('IsBare: ' + isBare)
+  logger.debug('Project Root: ' + projectRoot)
+  logger.debug('MMPilot Root: ' + mmpilotRoot)
 }
