@@ -13,7 +13,8 @@
     "dev-watch": "mmpilot watch -d",
     "dev": "npm-run-all clean dev-build --parallel dev-watch serve",
     "deploy": "npm-run-all clean build && mmpilot deploy",
-    "dist-patch": "npm version patch -m \"Version %s\" && git push && git push --tags && npm publish"
+    "dist-patch": "npm version patch -m \"Version %s\" && git push && git push --tags && npm publish",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -55,6 +56,10 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "eslint": "^3.8.1",
+    "eslint-config-standard": "^6.2.0",
+    "eslint-plugin-promise": "^3.3.0",
+    "eslint-plugin-standard": "^2.0.1",
     "mmcss": "^0.2.1",
     "npm-run-all": "^3.1.0"
   }
