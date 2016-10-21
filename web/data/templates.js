@@ -1,1 +1,3 @@
-exports.data = ['at', 'bt']
+exports.data = function () {
+  return ['at', 'bt']
+}

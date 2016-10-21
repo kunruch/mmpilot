@@ -107,7 +107,7 @@ function loadData () {
         var dataFile = fs.readFileSync(datapath, 'utf8')
 
         if (ext === '.js') {
-          data[name] = requireFromString(dataFile, datapath).data
+          data[name] = requireFromString(dataFile, datapath).data()
         } else if (ext === '.yml' || ext === '.yaml') {
           data[name] = yaml.safeLoad(dataFile).data
         }
