@@ -40,6 +40,8 @@ var config = {
     }
   },
 
+  data: 'data',
+
   serve: {
     mode: 'web',
     proxy: '',

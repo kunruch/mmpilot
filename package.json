@@ -50,6 +50,7 @@
     "node-sass": "^3.9.3",
     "postcss": "^5.2.0",
     "pug": "^2.0.0-beta6",
+    "require-from-string": "^1.2.1",
     "shelljs": "^0.7.4",
     "sitemap": "^1.8.1",
     "uglifyify": "^3.0.3",
