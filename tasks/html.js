@@ -63,7 +63,7 @@ function executeTransform (filepath, incremental) {
   var templateOutDir = path.dirname(path.join(config.html.dest, templateRelativePath))
   var templateName = path.parse(templateInPath).name
 
-  if (config.html.prettyurls && templateName != 'index' && templateName != '404') {
+  if (config.html.prettyurls && templateName !== 'index' && templateName !== '404') {
     // convert out files like about.html to about/index.html
     templateOutDir = path.join(templateOutDir, templateName)
     templateName = 'index'
@@ -126,6 +126,6 @@ function loadData (dataroot) {
     }
   }
 
-  console.log('DATA: ' + JSON.stringify(data))
+  // console.log('DATA: ' + JSON.stringify(data))
   return data
 }
