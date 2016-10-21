@@ -11,6 +11,6 @@ mixin submenu(item)
         +menuitem(subitem)
 
 mixin menuitem(item)
-  li.menu-item
+  li(class=['menu-item'], class={'current-menu-item': page.path == item.url})
     a(href=item.url)&attributes(item.attributes) #{item.title}
     +submenu(item)

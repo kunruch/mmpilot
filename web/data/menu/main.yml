@@ -1,11 +1,11 @@
 - title: "Docs"
-  url: "/docs/"
+  url: "/docs"
 - title: "Guides"
-  url: "/guies/"
+  url: "/guides"
 - title: "Templates"
-  url: "/templates/"
+  url: "/templates"
 - title: "Showcase"
-  url: "/showcase/"
+  url: "/showcase"
 - title: "Help"
   url: "#"
   children:
@@ -29,7 +29,7 @@
           attributes:
             target: "_blank"
     - title: "Contact"
-      url: "/contact/"
+      url: "/contact"
     - title: "About"
-      url: "/about/"
+      url: "/about"
  

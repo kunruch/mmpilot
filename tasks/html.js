@@ -66,6 +66,9 @@ function executeTransform (filepath, incremental) {
   if (config.html.prettyurls && templateName !== 'index' && templateName !== '404') {
     // convert out files like about.html to about/index.html
     templateOutDir = path.join(templateOutDir, templateName)
+    templateRelativePath = path.join(path.dirname(templateRelativePath), templateName, 'index.pug')
+
+    // logger.debug('Template Relative Path: ' + templateRelativePath)
     templateName = 'index'
   }
 
