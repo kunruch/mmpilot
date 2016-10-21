@@ -6,15 +6,15 @@ block vars
 
 block page-content
     .container-content
-      .section
-        .grid
-          each site in data.showcase
-            .one-half
-              .media
-                .browser-mockup.with-tab
-                  img(src="http://placehold.it/500x300")
-                .media-body
-                  p.text-center
-                    a(href=site.url, target='_blank')= site.name
+      .grid
+        each site in data.showcase
+          .one-half.section
+            .media
+              a(href=site.url, target='_blank', title=site.name)
+                .browser-mockup.with-tab.aligncenter
+                  img(src=site.image, width='500', height='300', alt=site.name)
+              .media-body
+                p.text-center.entry-title
+                  a(href=site.url, target='_blank')= site.name
       .section
         p.text-center Want to submit your site to showcase?<br><a href="http://kunruchcreations.com/about-us/contact/" target="_blank">Get in touch</a>
