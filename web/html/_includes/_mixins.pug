@@ -1,0 +1,16 @@
+mixin menu(list)
+  nav(role="navigation")
+    ul.menu
+      each item in list
+        +menuitem(item)
+
+mixin submenu(item)
+  if item.children
+    ul.submenu
+      each subitem in item.children
+        +menuitem(subitem)
+
+mixin menuitem(item)
+  li.menu-item
+    a(href=item.url)&attributes(item.attributes) #{item.title}
+    +submenu(item)
