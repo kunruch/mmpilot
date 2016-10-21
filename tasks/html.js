@@ -16,7 +16,7 @@ exports.watch_dir = function () {
 }
 
 exports.init = function () {
-  transform.init(loadData())
+  transform.init(loadData(config.data))
 }
 
 exports.processAll = function () {
@@ -87,29 +87,38 @@ function executeTransform (filepath, incremental) {
   }
 }
 
-function loadData () {
+function loadData (dataroot) {
   var data = {}
 
   // iterate through files
-  if (config.data.length !== 0) {
-    logger.debug('Loading data from ' + config.data)
+  if (dataroot.length !== 0) {
+    logger.debug('Loading data from ' + dataroot)
     try {
-      var files = fs.readdirSync(config.data)
+      var files = fs.readdirSync(dataroot)
       logger.debug('Found: ' + files.length + ' data iles')
       files.forEach(function (file, index) {
         var parsedPath = path.parse(file)
         var name = parsedPath.name
         var ext = parsedPath.ext
-        var datapath = path.join(config.data, file)
+        var datapath = path.join(dataroot, file)
 
-        logger.debug('Loading data file: ' + datapath)
+        if (name.charAt(0) === '_') {
+          logger.debug('Skipping data file/folder: ' + datapath)
+        } else {
+          if (fs.lstatSync(datapath).isDirectory()) {
+            // recursively load data from this directory
+            data[name] = loadData(datapath)
+          } else {
+            logger.debug('Loading data file: ' + datapath)
 
-        var dataFile = fs.readFileSync(datapath, 'utf8')
+            var dataFile = fs.readFileSync(datapath, 'utf8')
 
-        if (ext === '.js') {
-          data[name] = requireFromString(dataFile, datapath).data()
-        } else if (ext === '.yml' || ext === '.yaml') {
-          data[name] = yaml.safeLoad(dataFile).data
+            if (ext === '.js') {
+              data[name] = requireFromString(dataFile, datapath).data()
+            } else if (ext === '.yml' || ext === '.yaml') {
+              data[name] = yaml.safeLoad(dataFile)
+            }
+          }
         }
       })
     } catch (e) {
@@ -117,6 +126,6 @@ function loadData () {
     }
   }
 
-  // console.log('DATA: ' + JSON.stringify(data))
+  console.log('DATA: ' + JSON.stringify(data))
   return data
 }
