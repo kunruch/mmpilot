@@ -9,11 +9,12 @@ block page-content
       .section
         .grid
           each site in data.showcase
-            .one-third
+            .one-half
               .media
-                img(src="http://placehold.it/320x245")
+                .browser-mockup.with-tab
+                  img(src="http://placehold.it/500x300")
                 .media-body
-                  .text-center
+                  p.text-center
                     a(href=site.url, target='_blank')= site.name
       .section
         p.text-center Want to submit your site to showcase?<br><a href="http://kunruchcreations.com/about-us/contact/" target="_blank">Get in touch</a>
