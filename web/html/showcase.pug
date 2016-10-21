@@ -5,10 +5,15 @@ block vars
     - var description = 'Find here some of the best static sites built using MMPilot'
 
 block page-content
-    .section-large
-      ul
-        each val in data.showcase
-          li= val
-    .section
-      p.text-center While you wait, check out this site itself which has been built using MMPilot.
-      p.text-center Want to submit a site to showcase? <a href="http://kunruchcreations.com/about-us/contact/" target="_blank">Get in touch</a>
+    .container-content
+      .section
+        .grid
+          each site in data.showcase
+            .one-third
+              .media
+                img(src="http://placehold.it/320x245")
+                .media-body
+                  .text-center
+                    a(href=site.url, target='_blank')= site.name
+      .section
+        p.text-center Want to submit your site to showcase?<br><a href="http://kunruchcreations.com/about-us/contact/" target="_blank">Get in touch</a>

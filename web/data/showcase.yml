@@ -1,3 +1,7 @@
 data:
-  - a
-  - b
+- name: "KunRuch Status"
+  url: "https://status.kunruchcreations.com/"
+  image: "img/image.jpg"
+- name: "SDR News"
+  url: "https://news.superdevresources.com/reddit"
+  image: "img/image.jpg"
