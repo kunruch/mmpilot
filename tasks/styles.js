@@ -117,5 +117,5 @@ function processScssFile (scssPath) {
     }
   }
 
-  logger.debug(result.stats)
+  // logger.debug(result.stats)
 }
