@@ -1,1 +1,0 @@
-exports.data = ['a', 'b']

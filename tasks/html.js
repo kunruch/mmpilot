@@ -5,6 +5,7 @@ var fs = require('fs')
 var path = require('path')
 var shell = require('shelljs')
 var requireFromString = require('require-from-string')
+var yaml = require('js-yaml')
 
 var config = require('./../config/config').config
 var transform = require('./../transforms/pug.js')
@@ -103,11 +104,12 @@ function loadData () {
 
         logger.debug('Loading data file: ' + datapath)
 
+        var dataFile = fs.readFileSync(datapath, 'utf8')
+
         if (ext === '.js') {
-          var dataFile = fs.readFileSync(datapath, 'utf8')
           data[name] = requireFromString(dataFile, datapath).data
         } else if (ext === '.yml' || ext === '.yaml') {
-
+          data[name] = yaml.safeLoad(dataFile).data
         }
       })
     } catch (e) {
@@ -115,6 +117,6 @@ function loadData () {
     }
   }
 
-  console.log('DATA: ' + JSON.stringify(data))
+  // console.log('DATA: ' + JSON.stringify(data))
   return data
 }
