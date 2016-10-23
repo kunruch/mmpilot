@@ -23,7 +23,9 @@ exports.processAll = function () {
   logger.start('Processing HTML')
 
   processDir(false)
-  sitemap.generateSiteMap(path.join(config.html.dest, config.html.sitemap))
+  if (config.html.sitemap.length > 0) {
+    sitemap.generateSiteMap(path.join(config.html.dest, config.html.sitemap))
+  }
 
   logger.end('Processing HTML')
 }
