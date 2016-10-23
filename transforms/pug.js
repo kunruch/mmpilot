@@ -12,6 +12,7 @@ exports.init = function (data) {
   pugParams = {
     pretty: (config.env === 'development'),
     site: config.site,
+    env: config.env,
     data: data
   }
 }
