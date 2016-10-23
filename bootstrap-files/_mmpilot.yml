@@ -7,12 +7,10 @@ assets:
   src: "assets"
 scripts:
   src: "scripts"
-  browserify:
-    entries: ["main.js"]
 
 ## additional data for site available as site.{key} in pug templates
 site:
-  url: ""
+  url: "http://localhost:3000/"
 
 ## overrides when built with -d or --development option
 development:
