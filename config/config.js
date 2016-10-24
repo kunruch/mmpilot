@@ -95,6 +95,10 @@ config.load = function (customConfig, isDevelopment, skipConfigRead) {
     }
   }
 
+  if (config.scripts.browserify.entries.length >= 1) {
+    config.isBrowserify = true
+  }
+
   // Set log level options
   if (config.env === 'development') {
     logger.SetLevel('debug')
