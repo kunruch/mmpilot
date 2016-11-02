@@ -6,6 +6,12 @@
   position: relative;
   border-radius: 3px 3px 0 0;
   max-width: 500px;
+  transition: opacity 0.2s linear;
+}
+
+
+.browser-mockup:hover {
+  opacity: 0.75;
 }
 
 .browser-mockup:before {
