@@ -33,9 +33,10 @@ $ mmpilot deploy
 
 ## Learn More
 
-- [Docs](https://mmpilot.kunruchcreations.com/docs/)
-- [Guides](https://mmpilot.kunruchcreations.com/guides/)
-- [Showcase](https://mmpilot.kunruchcreations.com/showcase/)
+- [Docs](https://mmpilot.kunruchcreations.com/docs/) - Learn how to use MMPilot to build your web projects.
+- [Guides](https://mmpilot.kunruchcreations.com/guides/) - Tutorials for using MMPilot to build your websites.
+- [Templates](https://mmpilot.kunruchcreations.com/templates/) - Ready made templates to help you get started quickly with your own Web Design projects.
+- [Showcase](https://mmpilot.kunruchcreations.com/showcase/) - See how other sites are using MMPilot.
 
 ## Credits
 
