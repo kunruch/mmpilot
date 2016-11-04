@@ -52,4 +52,27 @@ block content
     #quickstart.section-medium
         .container-readable
             h2.section-title.text-center Quickstart Guide
-            code(style="font-size:120%; padding: 5px 32px; display: inline-block; margin: 16px 16px 32px 0;") Coming Soon..
+            h3.h4 Install
+            p Usually you only need to install MMPilot local to your porject, however we recommend installing globally too, as it will help you create new projects.
+            pre npm install mmpilot -g
+
+            h3.h4 Create New Project
+            p You can use MMPilot to create a new project using the <code>mmpilot new web</code>command followed by your project name. For example:
+            pre mmpilot new web mywebsite
+
+            h3.h4 Build Project
+            p Projects can be built by simply issuing the following command
+            pre mmpilot build
+            p To specify a debug environment use the following:
+            pre mmpilot build -d
+
+            h3.h4 Deploy to gh-pages
+            p Deploy your built sites to gh-pages on GitHub automatically using the following command:
+            pre mmpilot deploy
+            
+            h3.h4 Next Steps
+            ul.bare
+              li <a href="/docs">View Documentation</a> - Learn how to use MMPilot to build your web projects.
+              li <a href="/guides">Read Guides</a> - Tutorials for using MMPilot to build your websites.
+              li <a href="/templates">Templates</a> - Ready made templates to help you get started quickly with your own Web Design projects.
+              li <a href="/showcase">Showcase</a> - See how other sites are using MMPilot.
