@@ -1,9 +1,15 @@
-extends ./../_layouts/_layout-page.pug
+extends ./../_layouts/_layout-docs.pug
 
 block vars
-    - var title = 'Documentation'
+    - var title = 'Introduction'
     - var description = 'Learn about MMPilot\'s command line params, structuring your projects and more..'
 
-block page-content
-    .section-large
-      p.text-large.text-center Coming Soon..
+block docs-content
+    p.
+        MMPilot is an open-source static site generator powered by <a href="https://nodejs.org/" target="_blank">Node.js</a>.
+        You can write HTML templates in <a href="https://pugjs.org/" target="_blank">Pug</a> and CSS styles using <a href="http://sass-lang.com/" target="_blank">Sass</a>.
+        Support for deploying static sites to GitHub Pages or GitLab Pages is also built-in.
+
+    p.
+      MMPilot's primary goal is to be a fast and easy to learn static site generator.
+      Licensed under <a href="#{site.github}blob/master/LICENSE.md" target="_blank">MIT license</a>, you are free to use this tool for your personal as well as commercial projects.
