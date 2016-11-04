@@ -14,6 +14,8 @@ data: "web/data"
 ## additional data for site available as site.{key} in pug templates
 site:
   url: "https://mmpilot.kunruchcreations.com/"
+  github: "https://github.com/kunruch/mmpilot/"
+  twitter: "https://twitter.com/kanishkkunal"
   analytics: "UA-37350394-13"
 
 ## overrides when built with -d or --development option
