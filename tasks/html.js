@@ -62,6 +62,8 @@ function executeTransform (filepath, incremental) {
 
   var templateInPath = filepath
   var templateRelativePath = path.relative(config.html.src, templateInPath)
+  page.source = templateRelativePath
+
   var templateOutDir = path.dirname(path.join(config.html.dest, templateRelativePath))
   var templateName = path.parse(templateInPath).name
 
