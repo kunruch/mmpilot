@@ -1,14 +1,13 @@
 var logger = require('./../lib/logger')
 var sitemap = require('./../lib/sitemap')
 var glob = require('glob')
-var fs = require('fs')
 var path = require('path')
 var shell = require('shelljs')
-var requireFromString = require('require-from-string')
-var yaml = require('js-yaml')
 
 var config = require('./../config/config').config
 var transform = require('./../transforms/pug.js')
+var data = require('./../lib/data')
+var blogs = require('./../lib/blogs')
 
 exports.watch_pattern = transform.watch_pattern
 exports.watch_dir = function () {
@@ -16,16 +15,14 @@ exports.watch_dir = function () {
 }
 
 exports.init = function () {
-  transform.init(loadData(config.data))
+  blogs.init()
+  transform.init(data.loadData(config.data))
 }
 
 exports.processAll = function () {
   logger.start('Processing HTML')
 
-  processDir(false)
-  if (config.html.sitemap.length > 0) {
-    sitemap.generateSiteMap(path.join(config.html.dest, config.html.sitemap))
-  }
+  processDir(config.html.src, false)
 
   logger.end('Processing HTML')
 }
@@ -35,7 +32,7 @@ exports.processFile = function (filepath) {
     // In case of files starting with '_', compile entire dir as they can be included from multiple sources
     // We can improve this to compile only files that are needed.
     logger.info('Partial file has been changed.. Processing all files.')
-    processDir(true)
+    processDir(config.html.src, true)
   } else {
     executeTransform(path.join(config.html.src, filepath), true)
   }
@@ -45,9 +42,9 @@ exports.processFileDeleted = function (filepath) {
   // Do nothing for now, a fresh build should not generate this file anyways
 }
 
-function processDir (incremental) {
+function processDir (dir, incremental) {
   var templateFiles = glob.sync(transform.include_pattern, {
-    root: config.html.src
+    root: dir
   })
 
   templateFiles.forEach(function (templatePath) {
@@ -89,50 +86,7 @@ function executeTransform (filepath, incremental) {
 
   transform.processFile(templateInPath, templateOutPath, page, incremental)
 
-  if (!incremental) {
+  if (!incremental && templateName !== '404') {
     sitemap.addToSitemap(templateRelativePath, templateOutName, templateInPath)
   }
-}
-
-function loadData (dataroot) {
-  var data = {}
-
-  // iterate through files
-  if (dataroot.length !== 0) {
-    logger.debug('Loading data from ' + dataroot)
-    try {
-      var files = fs.readdirSync(dataroot)
-      logger.debug('Found: ' + files.length + ' data iles')
-      files.forEach(function (file, index) {
-        var parsedPath = path.parse(file)
-        var name = parsedPath.name
-        var ext = parsedPath.ext
-        var datapath = path.join(dataroot, file)
-
-        if (name.charAt(0) === '_') {
-          logger.debug('Skipping data file/folder: ' + datapath)
-        } else {
-          if (fs.lstatSync(datapath).isDirectory()) {
-            // recursively load data from this directory
-            data[name] = loadData(datapath)
-          } else {
-            logger.debug('Loading data file: ' + datapath)
-
-            var dataFile = fs.readFileSync(datapath, 'utf8')
-
-            if (ext === '.js') {
-              data[name] = requireFromString(dataFile, datapath).data()
-            } else if (ext === '.yml' || ext === '.yaml') {
-              data[name] = yaml.safeLoad(dataFile)
-            }
-          }
-        }
-      })
-    } catch (e) {
-      logger.debug('Error loading data: ' + e)
-    }
-  }
-
-  // console.log('DATA: ' + JSON.stringify(data))
-  return data
 }

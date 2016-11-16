@@ -1,0 +1,3 @@
+dest: 'public/guides'
+layout: '_layout-post.pug'
+permalink: 'default'
