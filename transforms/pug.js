@@ -5,12 +5,13 @@ var pug = require('pug')
 
 var pugParams = {}
 
-exports.init = function (data) {
+exports.init = function (data, blogs) {
   pugParams = {
     pretty: (config.env === 'development'),
     site: config.site,
     env: config.env,
-    data: data
+    data: data,
+    blogs: blogs
   }
 }
 
