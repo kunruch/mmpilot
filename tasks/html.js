@@ -15,7 +15,7 @@ exports.watch_dir = function () {
 }
 
 exports.init = function () {
-  blogs.init()
+  blogs.init(config.html.src)
   transform.init(data.loadData(config.data))
 }
 
