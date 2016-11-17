@@ -1,3 +1,19 @@
 dest: 'public/guides'
 layout: 'post'
 permalink: 'default'
+index:
+  layout: 'archive'
+  paginate: 2
+  title: 'Guides'
+  description: 'Learn MMPilot and start building static sites by following these tutorials'
+  dest: 'public/guides'
+tags:
+  layout: 'archive'
+  paginate: 2
+  title: 'Articles tagged %s'
+  dest: 'public/guides/tag'
+categories:
+  layout: 'archive'
+  paginate: 2
+  title: '%s Archive'
+  dest: 'public/guides'

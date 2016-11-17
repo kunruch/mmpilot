@@ -4,7 +4,10 @@ description: 'Learn MMPilot and start building static sites by following these t
 layout: 'archive'
 ---
 
-.section-large
-  p.text-large.text-center Coming Soon..
+.section
+  each post in blogs.guides.posts
+    div
+      a(href=post.url)
+        h2.h3= post.title
 .section
   p.text-center Want us to write a guide on a topic you don't see here? <a href="/contact/">Get in touch</a>
