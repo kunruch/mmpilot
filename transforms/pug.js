@@ -17,8 +17,9 @@ exports.init = function (data) {
   }
 }
 
-exports.processString = function (inString, page) {
+exports.processString = function (inString, filename, page) {
   pugParams.page = page
+  pugParams.filename = filename
   var html = ''
 
   try {

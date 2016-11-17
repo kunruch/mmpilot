@@ -98,7 +98,7 @@ function executeTransform (filepath, incremental) {
     fileContents = fm(fileContents)
 
     page = utils.deepMerge(page, fileContents.attributes)
-    page.content = transform.processString(fileContents.body, page)
+    page.content = transform.processString(fileContents.body, fileInPath, page)
 
     // logger.debug(JSON.stringify(page))
 
