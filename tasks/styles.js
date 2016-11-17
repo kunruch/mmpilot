@@ -1,5 +1,5 @@
 var logger = require('./../lib/logger')
-var glob = require('glob')
+var utils = require('./../lib/utils')
 var fs = require('fs')
 var path = require('path')
 var shell = require('shelljs')
@@ -48,14 +48,8 @@ exports.processFileDeleted = function (filepath) {
 }
 
 function processDir (src) {
-  var globMatch = '/**/!(_)*.scss'
-  var scssFiles = glob.sync(globMatch, {
-    root: config.styles.src
-  })
-
-  scssFiles.forEach(function (scssPath) {
-    logger.debug('Processing Stylesheet: ' + scssPath)
-    processScssFile(scssPath)
+  utils.iterateFiles(src, {ext: ['.scss']}, function (file, name, ext) {
+    processScssFile(file)
   })
 }
 
