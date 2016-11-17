@@ -1,5 +1,6 @@
 var logger = require('./../lib/logger')
 var sitemap = require('./../lib/sitemap')
+var utils = require('./../lib/utils')
 var glob = require('glob')
 var path = require('path')
 var shell = require('shelljs')
@@ -8,6 +9,8 @@ var config = require('./../config/config').config
 var transform = require('./../transforms/pug.js')
 var data = require('./../lib/data')
 var blogs = require('./../lib/blogs')
+var fs = require('fs')
+var fm = require('front-matter')
 
 exports.watch_pattern = transform.watch_pattern
 exports.watch_dir = function () {
@@ -52,41 +55,63 @@ function processDir (dir, incremental) {
   })
 }
 
+// 1. Extract front matter
+// 2. Transform content (pug or markdown) based on file extension
+// 3. Transform layout, pass page.content and other front matter data.
+// 4. Save file to destination
 function executeTransform (filepath, incremental) {
-  logger.info('Processing HTML template: ' + filepath)
+  logger.info('Processing HTML file: ' + filepath)
 
   var page = {} // Info about page passed to the template file
 
-  var templateInPath = filepath
-  var templateRelativePath = path.relative(config.html.src, templateInPath)
-  page.source = templateRelativePath
+  var fileInPath = filepath
+  var fileRelativePath = path.relative(config.html.src, fileInPath)
+  page.source = fileRelativePath
 
-  var templateOutDir = path.dirname(path.join(config.html.dest, templateRelativePath))
-  var templateName = path.parse(templateInPath).name
+  var fileOutDir = path.dirname(path.join(config.html.dest, fileRelativePath))
+  var fileParsedPath = path.parse(fileInPath)
+  var fileName = fileParsedPath.name
+  var fileExt = fileParsedPath.ext
 
-  if (config.html.prettyurls && templateName !== 'index' && templateName !== '404') {
+  if (config.html.prettyurls && fileName !== 'index' && fileName !== '404') {
     // convert out files like about.html to about/index.html
-    templateOutDir = path.join(templateOutDir, templateName)
-    templateRelativePath = path.join(path.dirname(templateRelativePath), templateName, 'index.pug')
+    fileOutDir = path.join(fileOutDir, fileName)
+    fileRelativePath = path.join(path.dirname(fileRelativePath), fileName, 'index' + fileExt)
 
-    // logger.debug('Template Relative Path: ' + templateRelativePath)
-    templateName = 'index'
+    logger.debug('File Relative Path: ' + fileRelativePath)
+    fileName = 'index'
   }
 
-  var templateOutName = templateName + '.html'
-  var templateOutPath = path.join(templateOutDir, templateOutName)
+  var fileOutName = fileName + '.html'
+  var fileOutPath = path.join(fileOutDir, fileOutName)
 
-  shell.mkdir('-p', templateOutDir)
+  shell.mkdir('-p', fileOutDir)
 
-  logger.debug('Template In Path: ' + templateInPath)
-  logger.debug('Template Out Path: ' + templateOutPath)
+  logger.debug('File In Path: ' + fileInPath)
+  logger.debug('File Out Path: ' + fileOutPath)
 
-  page.path = sitemap.getRelativePath(templateRelativePath, templateOutName)
+  page.path = sitemap.getRelativePath(fileRelativePath, fileOutName)
   page.url = sitemap.getPageURL(page.path)
 
-  transform.processFile(templateInPath, templateOutPath, page, incremental)
+  try {
+    var fileContents = fs.readFileSync(fileInPath, 'utf8')
+    fileContents = fm(fileContents)
 
-  if (!incremental && templateName !== '404') {
-    sitemap.addToSitemap(templateRelativePath, templateOutName, templateInPath)
+    page = utils.deepMerge(page, fileContents.attributes)
+    page.content = transform.processString(fileContents.body, page)
+
+    // logger.debug(JSON.stringify(page))
+
+    var templateInPath = path.join(config.layouts, '_layout-' + page.layout + '.pug')
+    logger.debug('Layout is: ' + templateInPath)
+
+    transform.processFile(templateInPath, fileOutPath, page, incremental)
+
+    if (!incremental && fileName !== '404') {
+      sitemap.addToSitemap(fileRelativePath, fileOutName, fileInPath)
+    }
+  } catch (e) {
+    logger.error('Error processing file: ' + e)
+    process.exit(1)
   }
 }

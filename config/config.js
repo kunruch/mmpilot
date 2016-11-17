@@ -1,6 +1,7 @@
 var yaml = require('js-yaml')
 var fs = require('fs')
 var logger = require('./../lib/logger')
+var utils = require('./../lib/utils')
 var shell = require('shelljs')
 
 // this can be overriden via command line param (-c)
@@ -85,11 +86,11 @@ config.load = function (customConfig, isDevelopment, skipConfigRead) {
         userConfig.development = {} // blank out for avoiding unecessary nesting.
 
         // merge with custom config
-        config = deepMerge(config, userConfig)
+        config = utils.deepMerge(config, userConfig)
 
         if (config.env === 'development') {
           // merge with dev config
-          config = deepMerge(config, devConfig)
+          config = utils.deepMerge(config, devConfig)
         }
       })
     } catch (e) {
@@ -109,19 +110,6 @@ config.load = function (customConfig, isDevelopment, skipConfigRead) {
   }
 
   return true
-}
-
-// Recusrsively merge config and custom, overriding the base value with custom values
-function deepMerge (base, custom) {
-  Object.keys(custom).forEach(function (key) {
-    if (!base.hasOwnProperty(key) || typeof base[key] !== 'object') {
-      base[key] = custom[key]
-    } else {
-      base[key] = deepMerge(base[key], custom[key])
-    }
-  })
-
-  return base
 }
 
 exports.config = config

@@ -1,10 +1,9 @@
-extends ./_layout-main.pug
+extends ./_layout-root.pug
 
 block content
-    article
-        .sub-header-dark.section-large.text-center
-            .container-readable
-                h1.section-title #{title}
-                p.text-muted.text-large #{description}
-        .section-medium
-            block page-content
+  article
+    .sub-header-dark.section-large.text-center
+      .container-readable
+        h1.section-title #{page.title}
+        p.text-muted.text-large #{page.description}
+    .section-medium!= page.content

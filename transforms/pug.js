@@ -17,6 +17,20 @@ exports.init = function (data) {
   }
 }
 
+exports.processString = function (inString, page) {
+  pugParams.page = page
+  var html = ''
+
+  try {
+    html = pug.render(inString, pugParams)
+  } catch (e) {
+    logger.error('Cant compile' + e)
+    process.exit(1)
+  }
+
+  return html
+}
+
 exports.processFile = function (templateInPath, templateOutPath, page, incremental) {
   pugParams.page = page
 
