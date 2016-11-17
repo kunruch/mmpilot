@@ -2,6 +2,7 @@
 title: How to build your first Website with MMPilot
 date: 2016-11-16
 draft: true
+layout: post
 categories: 
    - beginner
 ---

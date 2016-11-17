@@ -3,9 +3,6 @@ var fs = require('fs')
 var config = require('./../config/config').config
 var pug = require('pug')
 
-exports.include_pattern = '/**/!(_)*.pug'
-exports.watch_pattern = '**/*.pug'
-
 var pugParams = {}
 
 exports.init = function (data) {

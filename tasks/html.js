@@ -1,25 +1,26 @@
 var logger = require('./../lib/logger')
 var sitemap = require('./../lib/sitemap')
 var utils = require('./../lib/utils')
-var glob = require('glob')
 var path = require('path')
 var shell = require('shelljs')
 
 var config = require('./../config/config').config
-var transform = require('./../transforms/pug.js')
+var pug = require('./../transforms/pug.js')
+var markdown = require('./../transforms/markdown.js')
 var data = require('./../lib/data')
 var blogs = require('./../lib/blogs')
 var fs = require('fs')
 var fm = require('front-matter')
 
-exports.watch_pattern = transform.watch_pattern
+exports.watch_pattern = '**/(*.pug|*.md)'
 exports.watch_dir = function () {
   return config.html.src // export as function to get loaded result
 }
 
 exports.init = function () {
   blogs.init(config.html.src)
-  transform.init(data.loadData(config.data))
+  pug.init(data.loadData(config.data))
+  markdown.init()
 }
 
 exports.processAll = function () {
@@ -46,13 +47,30 @@ exports.processFileDeleted = function (filepath) {
 }
 
 function processDir (dir, incremental) {
-  var templateFiles = glob.sync(transform.include_pattern, {
-    root: dir
-  })
+  try {
+    var srcFiles = fs.readdirSync(dir)
 
-  templateFiles.forEach(function (templatePath) {
-    executeTransform(templatePath, incremental)
-  })
+    srcFiles.forEach(function (srcPath) {
+      var parsedPath = path.parse(srcPath)
+      var name = parsedPath.name
+      var ext = parsedPath.ext
+      srcPath = path.join(dir, srcPath)
+
+      if (name.charAt(0) === '_') {
+        logger.debug('Skipping file/folder: ' + srcPath)
+      } else {
+        if (fs.lstatSync(srcPath).isDirectory()) {
+          // recursively process files from this directory
+          processDir(srcPath, incremental)
+        } else if (ext === '.pug' || ext === '.md') {
+          executeTransform(srcPath, incremental)
+        }
+      }
+    })
+  } catch (e) {
+    logger.error('Error processing directory: ' + e)
+    process.exit(1)
+  }
 }
 
 // 1. Extract front matter
@@ -60,7 +78,7 @@ function processDir (dir, incremental) {
 // 3. Transform layout, pass page.content and other front matter data.
 // 4. Save file to destination
 function executeTransform (filepath, incremental) {
-  logger.info('Processing HTML file: ' + filepath)
+  logger.info('Processing file: ' + filepath)
 
   var page = {} // Info about page passed to the template file
 
@@ -98,14 +116,19 @@ function executeTransform (filepath, incremental) {
     fileContents = fm(fileContents)
 
     page = utils.deepMerge(page, fileContents.attributes)
-    page.content = transform.processString(fileContents.body, fileInPath, page)
+
+    if (fileExt === '.pug') {
+      page.content = pug.processString(fileContents.body, fileInPath, page)
+    } else {
+      page.content = markdown.processString(fileContents.body)
+    }
 
     // logger.debug(JSON.stringify(page))
 
     var templateInPath = path.join(config.layouts, '_layout-' + page.layout + '.pug')
     logger.debug('Layout is: ' + templateInPath)
 
-    transform.processFile(templateInPath, fileOutPath, page, incremental)
+    pug.processFile(templateInPath, fileOutPath, page, incremental)
 
     if (!incremental && fileName !== '404') {
       sitemap.addToSitemap(fileRelativePath, fileOutName, fileInPath)
