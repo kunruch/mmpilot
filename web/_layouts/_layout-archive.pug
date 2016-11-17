@@ -4,6 +4,13 @@ block content
   .sub-header-dark.section-large.text-center
     .container-readable
       h1.section-title #{page.title}
-      p.text-muted.text-large #{page.description}
+      if page.description
+        p.text-muted.text-large #{page.description}
   .section-medium
-    .container-content!= page.content
+    .container-content    
+      each post in page.paginated
+        div
+          a(href=post.url)
+            h2.h3= post.title
+      .section
+        p.text-center Want us to write a guide on a topic you don't see here? <a href="/contact/">Get in touch</a>

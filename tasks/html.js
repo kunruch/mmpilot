@@ -25,10 +25,16 @@ exports.init = function () {
 
 exports.processAll = function () {
   logger.start('Processing HTML')
-
+  // Process all files and transform to HTML
   processDir(config.html.src, false)
-
   logger.end('Processing HTML')
+
+  logger.start('Processing Blogs')
+  // Generate index, tag and category archives for Blogs
+  Object.keys(blogs.blogs).forEach(function (key) {
+    processBlogsArchive(blogs.blogs[key])
+  })
+  logger.end('Processing Blogs')
 }
 
 exports.processFile = function (filepath) {
@@ -74,7 +80,7 @@ function executeTransform (filepath, incremental) {
   var blog = getBlog(fileRelativePath, fileName)
 
   if (blog) {
-    fileOutDir = blog.dest
+    fileOutDir = blog.config.dest
   }
 
   if (config.html.prettyurls && fileName !== 'index' && fileName !== '404') {
@@ -114,7 +120,7 @@ function executeTransform (filepath, incremental) {
     // logger.debug(JSON.stringify(page))
 
     if (!page.layout) {
-      page.layout = blog ? blog.layout : 'default'
+      page.layout = blog ? blog.config.layout : 'default'
     }
 
     var templateInPath = path.join(config.layouts, '_layout-' + page.layout + '.pug')
@@ -140,4 +146,52 @@ function getBlog (filepath, fileName) {
   })
 
   return blog
+}
+
+function processBlogsArchive (blog) {
+  logger.info('Processing main archive..')
+  processArchive(blog, blog.config['index'], false)
+  Object.keys(blog.tags).forEach(function (tag) {
+    logger.info('Processing tags archive for: ' + tag)
+    processArchive(blog.tags[tag], blog.config['tags'], true)
+  })
+  Object.keys(blog.categories).forEach(function (category) {
+    logger.info('Processing categories archive: ' + category)
+    processArchive(blog.categories[category], blog.config['categories'], true)
+  })
+}
+
+function processArchive (blog, archiveConfig, isTaxanomy) {
+  var templateInPath = path.join(config.layouts, '_layout-' + archiveConfig.layout + '.pug')
+  logger.debug('Layout is: ' + templateInPath)
+
+  var pages = blog.posts.length / archiveConfig.paginate
+  logger.debug('Total pages: ' + pages)
+
+  for (var i = 0; i < pages; i++) {
+    var fileOutDir = archiveConfig.dest
+    if (isTaxanomy) {
+      fileOutDir = path.join(fileOutDir, blog.slug)
+    }
+    if (i !== 0) {
+      fileOutDir = path.join(archiveConfig.dest, (i + 1) + '')
+    }
+    var fileOutPath = path.join(fileOutDir, 'index.html')
+
+    shell.mkdir('-p', fileOutDir)
+
+    logger.debug('File out path: ' + fileOutPath)
+    // TODO
+    var page = { source: templateInPath, path: '', url: '' }
+    page = utils.deepMerge(page, archiveConfig)
+    page.paginated = []
+    for (var j = 0; j < archiveConfig.paginate; j++) {
+      var index = (i * archiveConfig.paginate) + j
+      if (index < blog.posts.length) {
+        page.paginated.push(blog.posts[index])
+      }
+    }
+    pug.processFile(templateInPath, fileOutPath, page, false)
+    // TODO sitemap.addToSitemap(fileRelativePath, fileOutName, fileInPath)
+  }
 }
