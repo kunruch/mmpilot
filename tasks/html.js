@@ -47,30 +47,9 @@ exports.processFileDeleted = function (filepath) {
 }
 
 function processDir (dir, incremental) {
-  try {
-    var srcFiles = fs.readdirSync(dir)
-
-    srcFiles.forEach(function (srcPath) {
-      var parsedPath = path.parse(srcPath)
-      var name = parsedPath.name
-      var ext = parsedPath.ext
-      srcPath = path.join(dir, srcPath)
-
-      if (name.charAt(0) === '_') {
-        logger.debug('Skipping file/folder: ' + srcPath)
-      } else {
-        if (fs.lstatSync(srcPath).isDirectory()) {
-          // recursively process files from this directory
-          processDir(srcPath, incremental)
-        } else if (ext === '.pug' || ext === '.md') {
-          executeTransform(srcPath, incremental)
-        }
-      }
-    })
-  } catch (e) {
-    logger.error('Error processing directory: ' + e)
-    process.exit(1)
-  }
+  utils.iterateFiles(dir, {ext: ['.pug', '.md']}, function (file, name, ext) {
+    executeTransform(file, incremental)
+  })
 }
 
 // 1. Extract front matter
