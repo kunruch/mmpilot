@@ -74,6 +74,7 @@ function processDir (dir, incremental) {
 }
 
 // 1. Extract front matter
+// 2. Determine out path based on whether it is a blog or regular html file
 // 2. Transform content (pug or markdown) based on file extension
 // 3. Transform layout, pass page.content and other front matter data.
 // 4. Save file to destination
@@ -91,14 +92,22 @@ function executeTransform (filepath, incremental) {
   var fileName = fileParsedPath.name
   var fileExt = fileParsedPath.ext
 
+  var blog = getBlog(fileRelativePath, fileName)
+
+  if (blog) {
+    fileOutDir = blog.dest
+  }
+
   if (config.html.prettyurls && fileName !== 'index' && fileName !== '404') {
     // convert out files like about.html to about/index.html
     fileOutDir = path.join(fileOutDir, fileName)
     fileRelativePath = path.join(path.dirname(fileRelativePath), fileName, 'index' + fileExt)
 
-    logger.debug('File Relative Path: ' + fileRelativePath)
     fileName = 'index'
   }
+
+  logger.debug('File Relative Path: ' + fileRelativePath)
+
 
   var fileOutName = fileName + '.html'
   var fileOutPath = path.join(fileOutDir, fileOutName)
@@ -125,6 +134,10 @@ function executeTransform (filepath, incremental) {
 
     // logger.debug(JSON.stringify(page))
 
+    if (!page.layout) {
+      page.layout = blog ? blog.layout : 'default'
+    }
+
     var templateInPath = path.join(config.layouts, '_layout-' + page.layout + '.pug')
     logger.debug('Layout is: ' + templateInPath)
 
@@ -137,4 +150,15 @@ function executeTransform (filepath, incremental) {
     logger.error('Error processing file: ' + e)
     process.exit(1)
   }
+}
+
+function getBlog (filepath, fileName) {
+  var blog = null
+  Object.keys(blogs.blogs).forEach(function (key) {
+    if (filepath.startsWith(key) && fileName !== 'index') {
+      blog = blogs.blogs[key]
+    }
+  })
+
+  return blog
 }
