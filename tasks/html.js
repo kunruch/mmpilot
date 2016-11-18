@@ -190,13 +190,13 @@ function processArchive (archive, archiveConfig, isTaxanomy) {
       fileOutDir = path.join(fileOutDir, archive.slug)
     }
     if (i !== (pages - 1)) {
-      nextPath = archivePath + '/' + (i + 2)
+      nextPath = archivePath + '/page/' + (i + 2)
     }
     if (i !== 0) {
-      fileOutDir = path.join(fileOutDir, (i + 1) + '')
-      prevPath = archivePath + '/' + (i === 1 ? '' : i)
-      archivePath = archivePath + '/' + (i + 1)
-      archiveURL = archiveURL + '/' + (i + 1)
+      fileOutDir = path.join(fileOutDir, 'page', (i + 1) + '')
+      prevPath = i === 1 ? archivePath : archivePath + '/page/' + i
+      archivePath = archivePath + '/page/' + (i + 1)
+      archiveURL = archiveURL + '/page/' + (i + 1)
     }
     var fileOutPath = path.join(fileOutDir, 'index.html')
 
@@ -218,6 +218,8 @@ function processArchive (archive, archiveConfig, isTaxanomy) {
     page.prevPath = prevPath
     page.nextPath = nextPath
     pug.processFile(templateInPath, fileOutPath, page, false)
-    sitemap.addURLToSitemap(archiveURL)
+    if (i === 0) {
+      sitemap.addURLToSitemap(archiveURL) // Only include first index page in sitemap
+    }
   }
 }

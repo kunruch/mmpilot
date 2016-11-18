@@ -15,8 +15,8 @@ var config = {
 
   clean: ['public'],
 
-  includes: '_incudes',
-  layouts: '_layouts',
+  includes: 'html/_incudes',
+  layouts: 'html/_layouts',
 
   html: {
     src: 'html',
