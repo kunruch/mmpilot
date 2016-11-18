@@ -19,6 +19,7 @@ block content
           each cateogry in post.categories
             a(href=cateogry.url)
               div= cateogry.title
+        div!= post.summary
       .grid.section
         .one-half
           if page.prevPath

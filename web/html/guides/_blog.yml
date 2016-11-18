@@ -2,6 +2,7 @@ dest: 'public/guides'
 layout: 'post'
 permalink: 'default'
 dateFormat: 'mmmm d, yyyy'
+summaryLength: 255
 index:
   layout: 'archive'
   paginate: 1

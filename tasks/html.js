@@ -18,8 +18,9 @@ exports.watch_dir = function () {
 }
 
 exports.init = function () {
-  blogs.init(config.html.src)
-  pug.init(data.loadData(config.data), blogs.blogs)
+  var d = data.loadData(config.data)
+  blogs.init(config.html.src, d)
+  pug.init(d, blogs.blogs)
   markdown.init()
 }
 
