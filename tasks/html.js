@@ -175,6 +175,9 @@ function processArchive (archive, archiveConfig, isTaxanomy) {
   logger.debug('Layout is: ' + templateInPath)
 
   var pages = archive.posts.length / archiveConfig.paginate
+  if (archive.posts.length === 0 && !isTaxanomy) {
+    pages = 1 // Generate the main idex page even when no posts are present
+  }
   logger.debug('Total pages: ' + pages)
 
   for (var i = 0; i < pages; i++) {
