@@ -112,6 +112,14 @@ function executeTransform (filepath, incremental) {
 
     page = utils.deepMerge(page, fileContents.attributes)
 
+    if (page.draft) {
+      if (config.env !== 'development') {
+        return // dont process drafts if this is not development build
+      } else {
+        page.title += ' - Draft'
+      }
+    }
+
     if (fileExt === '.pug') {
       page.content = pug.processString(fileContents.body, fileInPath, page)
     } else {
