@@ -19,5 +19,12 @@ block content
           each cateogry in post.categories
             a(href=cateogry.url)
               div= cateogry.title
+      .grid.section
+        .one-half
+          if page.prevPath
+            span.alignleft &larr; <a href="#{page.prevPath}">Newer</a>
+        .one-half
+          if page.nextPath
+            span.alignright <a href="#{page.nextPath}">Older</a> &rarr;
       .section
         p.text-center Want us to write a guide on a topic you don't see here? <a href="/contact/">Get in touch</a>

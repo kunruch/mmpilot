@@ -172,11 +172,17 @@ function processArchive (archive, archiveConfig, isTaxanomy) {
     var fileOutDir = archiveConfig.dest
     var archivePath = archive.path
     var archiveURL = archive.url
+    var nextPath = ''
+    var prevPath = ''
     if (isTaxanomy) {
       fileOutDir = path.join(fileOutDir, archive.slug)
     }
+    if (i !== (pages - 1)) {
+      nextPath = archivePath + '/' + (i + 2)
+    }
     if (i !== 0) {
       fileOutDir = path.join(fileOutDir, (i + 1) + '')
+      prevPath = archivePath + '/' + (i === 1 ? '' : i)
       archivePath = archivePath + '/' + (i + 1)
       archiveURL = archiveURL + '/' + (i + 1)
     }
@@ -197,6 +203,8 @@ function processArchive (archive, archiveConfig, isTaxanomy) {
         page.paginated.push(archive.posts[index])
       }
     }
+    page.prevPath = prevPath
+    page.nextPath = nextPath
     pug.processFile(templateInPath, fileOutPath, page, false)
     sitemap.addURLToSitemap(archiveURL)
   }
