@@ -1,6 +1,7 @@
 dest: 'public/guides'
 layout: 'post'
 permalink: 'default'
+dateFormat: 'mmmm d, yyyy'
 index:
   layout: 'archive'
   paginate: 1
