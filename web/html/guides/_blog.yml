@@ -10,10 +10,10 @@ index:
 tags:
   layout: 'archive'
   paginate: 1
-  title: 'Articles tagged %s'
+  title: 'Guides tagged %s'
   dest: 'public/guides/tag'
 categories:
   layout: 'archive'
   paginate: 1
-  title: '%s Archive'
-  dest: 'public/guides/category'
+  title: '%s Guides'
+  dest: 'public/guides'

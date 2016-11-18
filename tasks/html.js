@@ -161,37 +161,43 @@ function processBlogsArchive (blog) {
   })
 }
 
-function processArchive (blog, archiveConfig, isTaxanomy) {
+function processArchive (archive, archiveConfig, isTaxanomy) {
   var templateInPath = path.join(config.layouts, '_layout-' + archiveConfig.layout + '.pug')
   logger.debug('Layout is: ' + templateInPath)
 
-  var pages = blog.posts.length / archiveConfig.paginate
+  var pages = archive.posts.length / archiveConfig.paginate
   logger.debug('Total pages: ' + pages)
 
   for (var i = 0; i < pages; i++) {
     var fileOutDir = archiveConfig.dest
+    var archivePath = archive.path
+    var archiveURL = archive.url
     if (isTaxanomy) {
-      fileOutDir = path.join(fileOutDir, blog.slug)
+      fileOutDir = path.join(fileOutDir, archive.slug)
     }
     if (i !== 0) {
-      fileOutDir = path.join(archiveConfig.dest, (i + 1) + '')
+      fileOutDir = path.join(fileOutDir, (i + 1) + '')
+      archivePath = archivePath + '/' + (i + 1)
+      archiveURL = archiveURL + '/' + (i + 1)
     }
     var fileOutPath = path.join(fileOutDir, 'index.html')
 
     shell.mkdir('-p', fileOutDir)
 
     logger.debug('File out path: ' + fileOutPath)
-    // TODO
-    var page = { source: templateInPath, path: '', url: '' }
+    var page = { source: templateInPath, path: archivePath, url: archiveURL }
     page = utils.deepMerge(page, archiveConfig)
+    if (isTaxanomy) {
+      page.title = page.title.replace('%s', archive.title)
+    }
     page.paginated = []
     for (var j = 0; j < archiveConfig.paginate; j++) {
       var index = (i * archiveConfig.paginate) + j
-      if (index < blog.posts.length) {
-        page.paginated.push(blog.posts[index])
+      if (index < archive.posts.length) {
+        page.paginated.push(archive.posts[index])
       }
     }
     pug.processFile(templateInPath, fileOutPath, page, false)
-    // TODO sitemap.addToSitemap(fileRelativePath, fileOutName, fileInPath)
+    sitemap.addURLToSitemap(archiveURL)
   }
 }

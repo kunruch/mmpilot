@@ -12,5 +12,12 @@ block content
         div
           a(href=post.url)
             h2.h3= post.title
+          div= post.date
+          each tag in post.tags
+            a(href=tag.url)
+              div= tag.title
+          each cateogry in post.categories
+            a(href=cateogry.url)
+              div= cateogry.title
       .section
         p.text-center Want us to write a guide on a topic you don't see here? <a href="/contact/">Get in touch</a>
