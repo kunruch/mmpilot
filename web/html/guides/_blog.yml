@@ -1,4 +1,4 @@
-dest: 'public/guides'
+dest: 'guides'
 layout: 'post'
 permalink: 'default'
 dateFormat: 'mmmm d, yyyy'
@@ -8,14 +8,14 @@ index:
   paginate: 1
   title: 'Guides'
   description: 'Learn MMPilot and start building static sites by following these tutorials'
-  dest: 'public/guides'
+  dest: '/'
 tags:
   layout: 'archive'
   paginate: 1
   title: 'Guides tagged %s'
-  dest: 'public/guides/tag'
+  dest: 'tag'
 categories:
   layout: 'archive'
   paginate: 1
   title: '%s Guides'
-  dest: 'public/guides'
+  dest: '/'

@@ -1,5 +1,6 @@
 var yaml = require('js-yaml')
 var fs = require('fs')
+var path = require('path')
 var logger = require('./../lib/logger')
 var utils = require('./../lib/utils')
 var shell = require('shelljs')
@@ -13,6 +14,7 @@ var config = {
   package: require('./../package.json'),
   env: 'production', // or development. This is passed as NODE_ENV to envify
 
+  out: 'public',
   clean: ['public'],
 
   includes: 'html/_incudes',
@@ -20,24 +22,24 @@ var config = {
 
   html: {
     src: 'html',
-    dest: 'public',
+    dest: '/',
     sitemap: 'sitemap.xml',
     prettyurls: true
   },
 
   assets: {
     src: 'assets',
-    dest: 'public'
+    dest: '/'
   },
 
   styles: {
     src: 'styles',
-    dest: 'public/styles'
+    dest: 'styles'
   },
 
   scripts: {
     src: 'scripts',
-    dest: 'public/scripts',
+    dest: 'scripts',
     browserify: {
       entries: [],
       out: 'main.js'
@@ -98,6 +100,13 @@ config.load = function (customConfig, isDevelopment, skipConfigRead) {
       return false
     }
   }
+
+  // Generate dest directories
+  var conf = ['html', 'assets', 'styles', 'scripts']
+  conf.forEach(function (key) {
+    // store path relative to the out dir
+    config[key].dest = path.join(config.out, config[key].dest)
+  })
 
   if (config.scripts.browserify.entries.length >= 1) {
     config.isBrowserify = true
