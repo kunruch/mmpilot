@@ -1,5 +1,6 @@
 var logger = require('./../lib/logger')
 var sitemap = require('./../lib/sitemap')
+var redirects = require('./../lib/redirects')
 var utils = require('./../lib/utils')
 var path = require('path')
 var shell = require('shelljs')
@@ -36,6 +37,12 @@ exports.processAll = function () {
     processBlogsArchive(blogs.blogs[key])
   })
   logger.end('Processing Blogs')
+
+  if (config.redirected.length > 0) {
+    logger.start('Processing Redirects')
+    redirects.generateRedirections()
+    logger.end('Processing Redirects')
+  }
 }
 
 exports.processFile = function (filepath) {
