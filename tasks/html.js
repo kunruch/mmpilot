@@ -88,9 +88,14 @@ function executeTransform (filepath, incremental) {
   var fileExt = fileParsedPath.ext
 
   var blog = blogs.getBlog(fileRelativePath, fileName)
+  var post = null
 
   if (blog) {
     fileOutDir = blog.config.dest
+    post = blogs.getPost(blog, fileName)
+    if (post === null) {
+      return // most probably a draft in production build
+    }
   }
 
   if (config.html.prettyurls && fileName !== 'index' && fileName !== '404') {
@@ -116,30 +121,36 @@ function executeTransform (filepath, incremental) {
   page.url = sitemap.getPageURL(page.path)
 
   try {
-    var fileContents = fs.readFileSync(fileInPath, 'utf8')
-    fileContents = fm(fileContents)
+    if (!blog) {
+      var fileContents = fs.readFileSync(fileInPath, 'utf8')
+      fileContents = fm(fileContents)
 
-    page = utils.deepMerge(page, fileContents.attributes)
+      page = utils.deepMerge(page, fileContents.attributes)
 
-    if (page.draft) {
-      if (config.env !== 'development') {
-        return // dont process drafts if this is not development build
+      if (page.draft) {
+        if (config.env !== 'development') {
+          return // dont process drafts if this is not development build
+        }
+      }
+
+      if (fileExt === '.pug') {
+        page.content = pug.processString(fileContents.body, fileInPath, page)
       } else {
-        page.title += ' - Draft'
+        page.content = markdown.processString(fileContents.body)
+      }
+    } else {
+      if (!incremental) {
+        page = post
+      } else {
+        page = blogs.processPost(fileInPath, blog)
       }
     }
-
-    if (fileExt === '.pug') {
-      page.content = pug.processString(fileContents.body, fileInPath, page)
-    } else {
-      page.content = markdown.processString(fileContents.body)
-    }
-
-    // logger.debug(JSON.stringify(page))
 
     if (!page.layout) {
       page.layout = blog ? blog.config.layout : 'default'
     }
+
+    // logger.debug(JSON.stringify(page))
 
     var templateInPath = path.join(config.layouts, '_layout-' + page.layout + '.pug')
     logger.debug('Layout is: ' + templateInPath)

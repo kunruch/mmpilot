@@ -8,4 +8,4 @@ tags:
    - 'Web App'
 ---
 
-Here is how you can build your first web app with MMPilot
+Here is how you can build your first web app with MMPilot.
