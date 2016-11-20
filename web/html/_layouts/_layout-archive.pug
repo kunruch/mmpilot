@@ -16,12 +16,14 @@ block content
           a(href=post.url)
             h2.h3= post.title
           div= post.date
-          each tag in post.tags
-            a(href=tag.url)
-              div= tag.title
-          each cateogry in post.categories
-            a(href=cateogry.url)
-              div= cateogry.title
+          if post.tags
+            each tag in post.tags
+              a(href=tag.url)
+                div= tag.title
+          if post.categories
+            each cateogry in post.categories
+              a(href=cateogry.url)
+                div= cateogry.title
         div!= post.summary
       .grid.section
         .one-half

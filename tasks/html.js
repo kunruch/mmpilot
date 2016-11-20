@@ -40,7 +40,7 @@ exports.processAll = function () {
   })
   logger.end('Processing Blogs')
 
-  if (config.redirected.length > 0) {
+  if (config.redirected && config.redirected.length > 0) {
     logger.start('Processing Redirects')
     redirects.generateRedirections()
     logger.end('Processing Redirects')
