@@ -2,6 +2,7 @@ var logger = require('./../lib/logger')
 var sitemap = require('./../lib/sitemap')
 var redirects = require('./../lib/redirects')
 var utils = require('./../lib/utils')
+var rss = require('./../lib/rss')
 var path = require('path')
 var shell = require('shelljs')
 
@@ -32,9 +33,10 @@ exports.processAll = function () {
   logger.end('Processing HTML')
 
   logger.start('Processing Blogs')
-  // Generate index, tag and category archives for Blogs
+  // Generate index, tag and category archives as well as rss feed for Blogs
   Object.keys(blogs.blogs).forEach(function (key) {
     processBlogsArchive(blogs.blogs[key])
+    rss.generateFeed(blogs.blogs[key])
   })
   logger.end('Processing Blogs')
 

@@ -54,6 +54,7 @@
     "postcss": "^5.2.5",
     "pug": "^2.0.0-beta6",
     "require-from-string": "^1.2.1",
+    "rss": "^1.2.1",
     "shelljs": "^0.7.5",
     "sitemap": "^1.8.2",
     "striptags": "^2.1.1",

@@ -6,7 +6,7 @@ summaryLength: 255
 index:
   layout: 'archive'
   paginate: 1
-  title: 'Guides'
+  title: 'MMPilot Guides'
   description: 'Learn MMPilot and start building static sites by following these tutorials'
   dest: '/'
 tags:
@@ -19,3 +19,6 @@ categories:
   paginate: 1
   title: '%s Guides'
   dest: '/'
+feed:
+  content: 'full'
+  entries: 10
