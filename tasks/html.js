@@ -35,7 +35,7 @@ exports.processAll = function () {
   logger.start('Processing Blogs')
   // Generate index, tag and category archives as well as rss feed for Blogs
   Object.keys(blogs.blogs).forEach(function (key) {
-    processBlogsArchive(blogs.blogs[key])
+    blogs.processBlogsArchive(blogs.blogs[key])
     rss.generateFeed(blogs.blogs[key])
   })
   logger.end('Processing Blogs')
@@ -87,7 +87,7 @@ function executeTransform (filepath, incremental) {
   var fileName = fileParsedPath.name
   var fileExt = fileParsedPath.ext
 
-  var blog = getBlog(fileRelativePath, fileName)
+  var blog = blogs.getBlog(fileRelativePath, fileName)
 
   if (blog) {
     fileOutDir = blog.config.dest
@@ -152,83 +152,5 @@ function executeTransform (filepath, incremental) {
   } catch (e) {
     logger.error('Error processing file: ' + e)
     process.exit(1)
-  }
-}
-
-function getBlog (filepath, fileName) {
-  var blog = null
-  Object.keys(blogs.blogs).forEach(function (key) {
-    if (filepath.startsWith(key) && fileName !== 'index') {
-      blog = blogs.blogs[key]
-    }
-  })
-
-  return blog
-}
-
-function processBlogsArchive (blog) {
-  logger.info('Processing main archive..')
-  processArchive(blog, blog.config['index'], false)
-  Object.keys(blog.tags).forEach(function (tag) {
-    logger.info('Processing tags archive for: ' + tag)
-    processArchive(blog.tags[tag], blog.config['tags'], true)
-  })
-  Object.keys(blog.categories).forEach(function (category) {
-    logger.info('Processing categories archive: ' + category)
-    processArchive(blog.categories[category], blog.config['categories'], true)
-  })
-}
-
-function processArchive (archive, archiveConfig, isTaxanomy) {
-  var templateInPath = path.join(config.layouts, '_layout-' + archiveConfig.layout + '.pug')
-  logger.debug('Layout is: ' + templateInPath)
-
-  var pages = archive.posts.length / archiveConfig.paginate
-  if (archive.posts.length === 0 && !isTaxanomy) {
-    pages = 1 // Generate the main idex page even when no posts are present
-  }
-  logger.debug('Total pages: ' + pages)
-
-  for (var i = 0; i < pages; i++) {
-    var fileOutDir = archiveConfig.dest
-    var archivePath = archive.path
-    var archiveURL = archive.url
-    var nextPath = ''
-    var prevPath = ''
-    if (isTaxanomy) {
-      fileOutDir = path.join(fileOutDir, archive.slug)
-    }
-    if (i !== (pages - 1)) {
-      nextPath = archivePath + '/page/' + (i + 2)
-    }
-    if (i !== 0) {
-      fileOutDir = path.join(fileOutDir, 'page', (i + 1) + '')
-      prevPath = i === 1 ? archivePath : archivePath + '/page/' + i
-      archivePath = archivePath + '/page/' + (i + 1)
-      archiveURL = archiveURL + '/page/' + (i + 1)
-    }
-    var fileOutPath = path.join(fileOutDir, 'index.html')
-
-    shell.mkdir('-p', fileOutDir)
-
-    logger.debug('File out path: ' + fileOutPath)
-    var page = { source: templateInPath, path: archivePath, url: archiveURL }
-    page = utils.deepMerge(page, archiveConfig)
-    if (isTaxanomy) {
-      page.title = page.title.replace('%s', archive.title)
-    }
-    page.paginated = []
-    for (var j = 0; j < archiveConfig.paginate; j++) {
-      var index = (i * archiveConfig.paginate) + j
-      if (index < archive.posts.length) {
-        page.paginated.push(archive.posts[index])
-      }
-    }
-    page.prevPath = prevPath
-    page.nextPath = nextPath
-    pug.processFile(templateInPath, fileOutPath, page, false)
-    if (i === 0) {
-      sitemap.addURLToSitemap(archiveURL) // Only include first index page in sitemap
-    }
   }
 }
