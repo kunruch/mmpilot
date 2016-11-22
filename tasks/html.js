@@ -80,7 +80,7 @@ function executeTransform (filepath, incremental) {
 
   var fileInPath = filepath
   var fileRelativePath = path.relative(config.html.src, fileInPath)
-  page.source = fileRelativePath
+  page.source = fileRelativePath // fileRelativePath changes below hence we assign it here
 
   var fileOutDir = path.dirname(path.join(config.html.dest, fileRelativePath))
   var fileParsedPath = path.parse(fileInPath)
@@ -92,6 +92,7 @@ function executeTransform (filepath, incremental) {
 
   if (blog) {
     fileOutDir = blog.config.dest
+    fileRelativePath = path.join(path.relative(config.out, blog.config.dest), (fileName + '.' + fileExt))
     post = blogs.getPost(blog, fileName)
     if (post === null) {
       return // most probably a draft in production build
