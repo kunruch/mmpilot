@@ -5,18 +5,18 @@ dateFormat: 'mmmm d, yyyy'
 summaryLength: 255
 index:
   layout: 'archive'
-  paginate: 1
+  paginate: 10
   title: 'MMPilot Guides'
   description: 'Learn MMPilot and start building static sites by following these tutorials'
   dest: '/'
 tags:
   layout: 'archive'
-  paginate: 1
+  paginate: 10
   title: 'Guides tagged %s'
   dest: 'tag'
 categories:
   layout: 'archive'
-  paginate: 1
+  paginate: 10
   title: '%s Guides'
   dest: '/'
 feed:
