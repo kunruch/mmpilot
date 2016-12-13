@@ -50,19 +50,26 @@ layout: 'page'
       change the colors as the same logo with different colors could mean a different project (See: <a href="http://mmcss.kunruchcreations.com/" target="_blank">MMCSS</a>)
 
     p.text-center
-      a(href="/img/mmpilot.svg")
-        span.thumbnail-medium.aligncenter
-          include ./_includes/icons/_mmpilot.svg
-        span.text-small Download SVG
+      span.thumbnail-medium.aligncenter
+          img(src="/img/mmpilot-180x180.png")
+      .grid.text-small
+        .one-half
+          a.button.button-ghost(href="/img/mmpilot-180x180.png", target="_blank", style="width:100%;", download)
+            strong Download PNG
+        .one-half
+          a.button.button-ghost(href="/img/mmpilot.svg", target="_blank", style="width:100%;", download)
+            strong Download SVG
     h3#branding-colors Colors
     p Following colors represent MMPilot and can be used in relation with it.
     div.section.text-center
       div(style="display:inline-block;")
-        div(style="background-color:#171f26;width:120px;height:120px;border-radius:3px;margin-right:3px;")
-        div.text-small.text-center #171f26
+          a(href="https://tools.superdevresources.com/color-converter/#171f26", target="_blank")
+            div(style="background-color:#171f26;width:120px;height:120px;border-radius:3px;margin-right:3px;")
+            p.text-small.text-center #171f26
       div(style="display:inline-block;")
-        div(style="background-color:#1abc9c;width:120px;height:120px;border-radius:3px;margin-left:3px;")
-        div.text-small.text-center #1abc9c
+        a(href="https://tools.superdevresources.com/color-converter/#1abc9c", target="_blank")
+          div(style="background-color:#1abc9c;width:120px;height:120px;border-radius:3px;margin-left:3px;")
+          p.text-small.text-center #1abc9c
     p.text-center
     span.label MMPilot
     |  and #[span.label.label-primary MMPilot]
