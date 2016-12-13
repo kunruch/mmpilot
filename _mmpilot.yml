@@ -21,6 +21,8 @@ redirected:
 ## additional data for site available as site.{key} in pug templates
 site:
   url: "https://mmpilot.kunruchcreations.com/"
+  title: MMPilot
+  icon: mmpilot
   github: "https://github.com/kunruch/mmpilot/"
   twitter: "https://twitter.com/kanishkkunal"
   analytics: "UA-37350394-13"

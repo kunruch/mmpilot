@@ -4,50 +4,21 @@ block vars
 html(lang='en-US')
   head
     meta(charset='UTF-8')
-    meta(http-equiv='x-ua-compatible', content='ie=edge')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title #{page.title} - MMPilot
-    meta(name='description', content=page.description)
-    meta(property='og:title', content=page.title)
-    meta(property='og:type', content='website')
-    meta(property='og:url', content=page.url)
-    meta(property='og:image', content=site.url + 'img/mmpilot-featured.png')
+    +titlemeta(page.title, site.title)
+    +opengraph(page)
     link(rel='canonical', href=page.url)
     link(href='/styles/main.css', rel='stylesheet')
     style
       include ./../_includes/icons/_icons.css
     block styles
-    link(rel='icon', href=site.url + 'img/mmpilot-logo-32x32.png', sizes='32x32')
-    link(rel='icon', href=site.url + 'img/mmpilot-logo-192x192.png', sizes='192x192')
-    link(rel='apple-touch-icon-precomposed', href=site.url + 'img/mmpilot-logo-180x180.png')
-    meta(name='msapplication-TileImage', content=site.url + 'img/mmpilot-logo-270x270.png')
+    if(site.icon)
+      +favicons(site.icon)
   body#top
     include ./../_includes/icons/_icons.svg
-    header.header-dark
-      .container
-        .header-left
-          a(href='/').site-branding
-            h1.title MMPilot
-        .menu-toggle
-          input(type="checkbox")#menu-toggle
-          label(for="menu-toggle").header-right
-            span.css-icon-hamburger
-              span Toggle
-            span Menu
-          .menu-toggle-content
-            +menu(data.menu.main, 'menu')
-            .header-right
-              +social(data.menu.social)
-
+    block header
     block content
-    footer.footer
-      .container-content.section-large.text-center
-        div.thumbnail-medium.aligncenter
-          include ./../_includes/icons/_mmpilot.svg
-        p Built with <a href="#{site.url}">MMPilot</a> for the modern web by <a href="http://kunruchcreations.com/">KunRuch Creations</a>.
-          br
-          | Licensed under the <a href="https://github.com/kunruch/mmpilot/blob/master/LICENSE.md" target="blank">MIT License</a>.
-        div                
-          +social(data.menu.social)
+    block footer
   block scripts
   include ./../_includes/_analytics.pug

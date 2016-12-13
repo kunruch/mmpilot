@@ -1,7 +1,7 @@
-extends ./_layout-root.pug
+extends ./_layout-default.pug
 
 block content
-  .sub-header-dark.section-large.text-center
+  .sub-header.section-large.text-center
     .container-readable
       h1.section-title #{page.title}
       if page.description
@@ -14,7 +14,7 @@ block content
       each post in page.paginated
         div
           a(href=post.url)
-            h2.h3= post.title
+            h2.h3.entry-title= post.title
           div= post.date
           if post.tags
             each tag in post.tags

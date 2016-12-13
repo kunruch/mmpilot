@@ -1,3 +1,16 @@
 @import 'vars';
 @import 'mmcss/src/mm';
 @import 'browser-mockups';
+
+.header {
+  border-bottom: 0;
+}
+
+.sub-header h2,
+.sub-header h1 {
+  color: inherit;
+}
+
+.menu-toggle-content {
+  background-color: $color-header-default-background;
+}

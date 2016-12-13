@@ -1,4 +1,4 @@
-extends ./_layout-root.pug
+extends ./_layout-default.pug
 
 block styles
   block docs-styles
@@ -38,7 +38,7 @@ block content
       .one-half
         .container-readable
           article
-            .sub-header.section-medium.text-center
+            .section-medium.text-center
               h1.section-title #{page.title}
               p.text-muted.text-small #{page.description}
             != page.content

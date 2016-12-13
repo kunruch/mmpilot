@@ -37,21 +37,21 @@
   },
   "homepage": "https://mmpilot.kunruchcreations.com",
   "dependencies": {
-    "autoprefixer": "^6.5.1",
-    "browser-sync": "^2.17.5",
+    "autoprefixer": "^6.5.4",
+    "browser-sync": "^2.18.5",
     "browserify": "^13.1.1",
     "chokidar": "^1.6.1",
     "commander": "^2.9.0",
     "connect-logger": "0.0.1",
-    "dateformat": "^1.0.12",
-    "envify": "^3.4.1",
-    "front-matter": "^2.1.0",
-    "gh-pages": "^0.11.0",
-    "js-yaml": "^3.6.1",
+    "dateformat": "^2.0.0",
+    "envify": "^4.0.0",
+    "front-matter": "^2.1.1",
+    "gh-pages": "^0.12.0",
+    "js-yaml": "^3.7.0",
     "loadash": "0.0.1",
     "marked": "^0.3.6",
-    "node-sass": "^3.11.1",
-    "postcss": "^5.2.5",
+    "node-sass": "^4.0.0",
+    "postcss": "^5.2.6",
     "pug": "^2.0.0-beta6",
     "require-from-string": "^1.2.1",
     "rss": "^1.2.1",
@@ -63,11 +63,11 @@
     "winston": "^2.3.0"
   },
   "devDependencies": {
-    "eslint": "^3.9.1",
+    "eslint": "^3.12.1",
     "eslint-config-standard": "^6.2.1",
-    "eslint-plugin-promise": "^3.3.0",
+    "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
-    "mmcss": "^0.3.2",
-    "npm-run-all": "^3.1.1"
+    "mmcss": "^0.3.3",
+    "npm-run-all": "^3.1.2"
   }
 }
