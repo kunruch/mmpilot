@@ -2,10 +2,10 @@
     <channel>
         <title><![CDATA[MMPilot Guides]]></title>
         <description><![CDATA[Learn MMPilot and start building static sites by following these tutorials]]></description>
-        <link>https://mmpilot.kunruchcreations.com/</link>
+        <link>https://mmpilot.kunruchcreations.com</link>
         <generator>mmpilot v0.6.3</generator>
-        <lastBuildDate>Tue, 13 Dec 2016 18:26:57 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 01 Jan 2017 13:54:36 GMT</lastBuildDate>
         <atom:link href="https://mmpilot.kunruchcreations.com/guides/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 13 Dec 2016 18:26:57 GMT</pubDate>
+        <pubDate>Sun, 01 Jan 2017 13:54:36 GMT</pubDate>
     </channel>
 </rss>
