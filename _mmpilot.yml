@@ -20,7 +20,7 @@ redirected:
 
 ## additional data for site available as site.{key} in pug templates
 site:
-  url: "https://mmpilot.kunruchcreations.com/"
+  url: "https://mmpilot.kunruchcreations.com"
   title: MMPilot
   icon: mmpilot
   github: "https://github.com/kunruch/mmpilot/"
@@ -30,5 +30,5 @@ site:
 ## overrides when built with -d or --development option
 development:
   site:
-    url: "http://localhost:3000/"
+    url: "http://localhost:3000"
     analytics: "" #don't count hits from localhost in analytics
