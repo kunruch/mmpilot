@@ -2,10 +2,18 @@ var logger = require('./../lib/logger')
 var path = require('path')
 var config = require('./../config/config').config
 var chokidar = require('chokidar')
+var shell = require('shelljs')
 
 // Tasks required by this command
 var tasks = [require('./../tasks/assets'), require('./../tasks/html'), require('./../tasks/styles')]
 var scriptsTask = require('./../tasks/scripts') // separate task as it uses watchify internally to watch for incremental changes
+
+var customCommand = ''
+
+exports.init = function (options) {
+  customCommand = options.run
+  logger.error(options.run)
+}
 
 exports.execute = function () {
   logger.info('Setting up Watch..')
@@ -29,6 +37,15 @@ exports.execute = function () {
     }).on('change', (filepath) => {
       logger.info(filepath + ' changed..')
       task.processFile(filepath)
+      
+      if (customCommand !== '') {
+        // Run custom_command synchronously
+        logger.error(customCommand)
+        if (shell.exec(customCommand).code !== 0) {
+          logger.error('Error: failed to execute ' + customCommand)
+          process.exit(1)
+        }
+      }
     }).on('unlink', (filepath) => {
       logger.info(filepath + ' deleted..')
       task.processFileDeleted(filepath)

@@ -49,9 +49,11 @@ program
 
 program
     .command('watch')
+    .option('-r, --run <script>', 'Runs given script after incremental build succeeds')
     .description('Watch for file changes and do incremental build')
-    .action(function () {
+    .action(function (options) {
       command = require('./../commands/watch')
+      command.init(options)
     })
 
 program
