@@ -49,6 +49,7 @@ var config = {
   data: 'data',
 
   serve: {
+    src: '',
     mode: 'web',
     proxy: '',
     delay: 0

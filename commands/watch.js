@@ -11,8 +11,9 @@ var scriptsTask = require('./../tasks/scripts') // separate task as it uses watc
 var customCommand = ''
 
 exports.init = function (options) {
-  customCommand = options.run
-  logger.error(options.run)
+  if (options.run) {
+    customCommand = options.run
+  }
 }
 
 exports.execute = function () {
@@ -37,7 +38,7 @@ exports.execute = function () {
     }).on('change', (filepath) => {
       logger.info(filepath + ' changed..')
       task.processFile(filepath)
-      
+
       if (customCommand !== '') {
         // Run custom_command synchronously
         logger.error(customCommand)
