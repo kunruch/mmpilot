@@ -1,11 +1,11 @@
 ---
 title: 'Project Structure'
-description: 'Recommended way to structure your project when using MMPilot static site generato.'
+description: 'Recommended way to structure your project when using MMPilot static site generator.'
 layout: 'docs'
 ---
 
 p.
-  When building with MMPilot, you can refer to the following project structure for placing your files. Note that this is just a recommanded project structure and you can override this using the <code>_mmpilot.yml</code> configuration file.
+  When building with MMPilot, you can refer to the following project structure for placing your files. Note that this is just a recommended project structure and you can override this using the <code>_mmpilot.yml</code> configuration file.
 
 h2.h4 assets
 p This folder contains all your static assets such as images, favicon and anything else that you want to be copied directly (without modifying) to the output folder.
@@ -16,7 +16,7 @@ p You can place site specific data in this folder. Both <code>yml</code> as well
 
 h2.h4 html
 
-p Your HTML source files goes here. You can either write <code>.pug</code> (<A href="https://pugjs.org/api/getting-started.html">PugJS</a>) files or <code>.md</code> (markdown) files and they will get compiled into html files. URL structre is maintained same as folder strucutre. Moreover if you can clean URL's turned on, a files like <code>about.md</code> will produce a file at <code>/public/about/index.html</code>
+p Your HTML source files go here. You can either write <code>.pug</code> (<A href="https://pugjs.org/api/getting-started.html">PugJS</a>) files or <code>.md</code> (markdown) files and they will get compiled into html files. URL structre is maintained same as folder strucutre. Moreover if you have clean URLs turned on, a file like <code>about.md</code> will produce a file at <code>/public/about/index.html</code>
 
 h2.h4 html/_includes
 
@@ -46,7 +46,7 @@ h2.h4 _mmpilot.yml
 
 p If you need to override the default project structure then they can be specifed in the <code>_mmpilot.yml</code> which is the main configuration file for MMPilot. This config file can also contain data in YML format which gets passed onto the pug templates.
 
-p Additonally, this config file can specify redirected URL's. An equivalent HTML file will be generated automatically for the given redirect paths using the <code>meta http-equiv="refresh"</code> tag.
+p Additionally, this config file can specify redirected URLs. An equivalent HTML file will be generated automatically for given redirect paths using the <code>meta http-equiv="refresh"</code> tag.
   
 p A sample configuration is show below which overrides most of the project's default path, setup redirects and specified additional data in production as well as development environment.
 
