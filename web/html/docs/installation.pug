@@ -4,5 +4,46 @@ description: 'Learn how to install MMPilot and use it in your web projects.'
 layout: 'docs'
 ---
 
-.section-medium
-  p.text-large.text-center Docs are being written..
+p MMPilot can be installed either as a global command line utility or as a dev dependency in your Node.js project. A global installation is not required unless you want to use mmpilot commands for creating a new project.
+
+h2.h3 Pre-requisites
+
+p Before installing MMPilot, please make sure that Node.js is installed on your system. Head over to the <a href="https://nodejs.org/" target="_blank">Node.js</a> website to download and install latest version of Node.js utility.
+
+p To ensure Node.js is correctly installed and <code>npm</code> is available in your PATH, run the following command in a terminal
+
+pre
+  code.
+    node -v
+
+p This should output a version number similar to <code>3.10.8</code>
+
+h2.h3 Install Globally
+
+p To install <code>mmpilot</code> globally, run the following command in your terminal.
+
+pre
+  code.
+    npm install mmpilot -g
+
+p Once <code>mmpilot</code> installs, you would be able to run <code>mmpilot</code> commands from your terminal such as the following:
+
+pre
+  code.
+    mmpilot new web mywebsite
+
+
+h2.h3 Install as Project Dependency
+
+p To install <code>mmpilot</code> as your project dependency, run the following command inside your Node.js projects root.
+
+
+pre
+  code.
+    npm install mmpilot --save-dev
+
+p This will add an entry in devDependencies of your project's <code>package.json</code> file.
+
+p Once you have installed <code>mmpilot</code> in your project you can get started by learning about setting up the <a href="/docs/project-structure">project structure</a>.
+
+p Alternatively, use the <a href="/templates/">MMPilot starter templates</a> to get started faster with your project.
