@@ -4,13 +4,5 @@ branches:
 language: node_js
 node_js:
 - '6'
-before_script:
-- npm link
-- git remote set-url origin "https://${GH_TOKEN}@github.com/kunruch/mmpilot.git"
-- git config --global user.email "kanishk.kunal@hotmail.com"
-- git config --global user.name "Travis-CI"
 script:
-- npm run deploy
-env:
-  global:
-    secure: Vzv7tO2rEzhYmKLUNL7B30La5UMohihT4Ie++TDMcB2msNO1Yexmdg7Ial2zunePaDMkWZ1e0BT/A8DZ13T4AE20+fVmuIG1Xz1nipHfwb2h19ujolq1tTLPg1zVlEjEOchZT1C69j8rWdFeb6E1hgWkhz9i3dzpYZxTGZ5E0VJMwdNrBSlMIJ0B0fO6Ct8Y83L5argFcFUQrfoXFYiniqxUunp1ZuG74qPmdHNGdfftosUvfxeTSG9azeqpFcheAH0XCa61KcOiqIg9wbYq96LarLy3Yno7choy3PjeSl9x4WqgvKbHk/iX8rcm1PyykhiRwFoCgXuaNMYrHhLm33R5BICOZbcen/ztulLxMVILWqg8thWze7e31IU4OVTFeBqlqnXw/bxQkmLbDzNZqmNtaS8sWNRgJ1xV73tCqmtV+BbO1txRDu0Y6cr/yr8S/Ud8CbIMx7HhsUJbzMAyMc3jQFVYrpHTtCwFKRNuj76i4xSigNoBYlJRFjjrYOELWuYdwIGTT/MOe2EywfueaNQ0iEmvlCKdpEwKsilplqti+5dx/yNZHZMFyrw6m4yt0oBme2pa8Ms1tZ8uRrkXNXXj5pCl4Zs44LcXOyqvFPU8C64g1DcfDp8RUWnJY2MVjOGedq0tdQx2hXPO6RzorHUtIujMydnkgELRo/viyxU=
+- npm run build
