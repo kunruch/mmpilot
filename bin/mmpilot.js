@@ -18,7 +18,6 @@ var skipConfigRead = false
 program
     .command('new <projecttype> <projectname>')
     .description('Creates a new mmpilot project with the given project type and project name')
-    .option('-m, --mmcss', 'Include mmcss framework')
     .action(function (projecttype, projectname, options) {
       command = require('./../commands/new')
       command.init(projecttype, projectname, options)
@@ -26,10 +25,9 @@ program
     }).on('--help', function () {
       console.log('  Examples:')
       console.log()
-      console.log('    $ mmpilot new web myweb')
-      console.log('    $ mmpilot new blog myblog')
-      console.log('    $ mmpilot new app myapp')
-      console.log('    $ mmpilot new vueapp myvueapp')
+      console.log('    $ mmpilot new basic myproject')
+      console.log('    $ mmpilot new mmcss myproject')
+      console.log('    $ mmpilot new bootstrap myproject')
       console.log()
     })
 

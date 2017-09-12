@@ -3,32 +3,37 @@ var _ = require('lodash')
 var path = require('path')
 var shell = require('shelljs')
 
-var projecttype = 'web'
-var projectname = 'mmpilot-web-project'
+var projecttype = 'basic'
+var projectdir = '.'
 var bootstrapRoot = path.join(path.dirname(path.resolve(__dirname)), 'bootstrap-files')
-var includeMMCSS = false
 var projectRoot = './'
 
 exports.init = function (p, n, o) {
   projecttype = p
-  projectname = _.kebabCase(n)
-  includeMMCSS = !!o.mmcss
-  projectRoot = path.join(process.cwd(), projectname)
+  projectdir = _.kebabCase(n)
+  projectRoot = path.join(process.cwd(), projectdir)
 }
 
 exports.execute = function () {
   logger.start('Creating Project')
 
-  logger.debug('Project: ' + projecttype)
-  logger.debug('Name: ' + projectname)
-  logger.debug('Include MMCSS: ' + includeMMCSS)
+  logger.debug('Project Type: ' + projecttype)
+  logger.debug('Directory: ' + projectdir)
   logger.debug('Project Root: ' + projectRoot)
   logger.debug('MMPilot Root: ' + bootstrapRoot)
 
-  logger.info('Copying files from: ' + bootstrapRoot + ' to: ' + projectRoot)
+  var gitRepoToClone = 'https://github.com/kunruch/mmpilot-basic-template.git'
+  var gitCommand = 'git clone ' + gitRepoToClone + ' "' + projectRoot + '"'
+  logger.info('Running: ' + gitCommand)
 
-  shell.mkdir('-p', projectRoot)
-  shell.cp('-r', path.join(bootstrapRoot, '*'), projectRoot)
-
+  if (shell.exec(gitCommand).code !== 0) {
+    shell.echo('Error: Git clone failed')
+    shell.exit(1);
+  }
+  else {
+    shell.cd(projectdir)
+    shell.exec('git remote rm origin') //delete origin to preven accidental push
+    shell.rm('-rf', '.git')
+  }
   logger.end('Creating Project')
 }
