@@ -20,6 +20,12 @@ MMPilot's primary goal is to be a fast and easy to learn static site generator. 
 $ npm install mmpilot -g
 ```
 
+### Create New Project
+```sh
+$ mmpilot new basic <proj-name>
+```
+Alternateively, you can use `mmcss` or `bootstrap` instead of `basic`.
+
 ### Build
 
 ```sh
