@@ -23,16 +23,22 @@ exports.execute = function () {
   logger.debug('MMPilot Root: ' + bootstrapRoot)
 
   var gitRepoToClone = 'https://github.com/kunruch/mmpilot-basic-template.git'
+
+  if (projecttype === 'bootstrap') {
+    gitRepoToClone = 'https://github.com/kunruch/mmpilot-bootstrap-template.git'
+  } else if (projecttype === 'mmcss') {
+    gitRepoToClone = 'https://github.com/kunruch/mmpilot-mmcss-template.git'
+  }
+
   var gitCommand = 'git clone ' + gitRepoToClone + ' "' + projectRoot + '"'
   logger.info('Running: ' + gitCommand)
 
   if (shell.exec(gitCommand).code !== 0) {
     shell.echo('Error: Git clone failed')
-    shell.exit(1);
-  }
-  else {
+    shell.exit(1)
+  } else {
     shell.cd(projectdir)
-    shell.exec('git remote rm origin') //delete origin to preven accidental push
+    shell.exec('git remote rm origin') // delete origin to prevent accidental push
     shell.rm('-rf', '.git')
   }
   logger.end('Creating Project')
