@@ -79,7 +79,7 @@ function processScssFile (scssPath) {
       outputStyle: (config.env === 'production') ? 'compressed' : 'expanded',
       includePaths: includePaths,
       outFile: scssOutPath,
-      sourceMap: (config.env === 'development') // or an absolute or relative (to outFile) path
+      sourceMap: (config.env === 'development' && config.styles.sourcemap === true) // or an absolute or relative (to outFile) path
     })
   } catch (error) {
     logger.error(error)

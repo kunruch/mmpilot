@@ -16,7 +16,7 @@ exports.watch_dir = function () {
 
 exports.init = function () {
   if (config.isBrowserify) {
-    bundler = browserify({ debug: (config.env === 'development') }) // debug = true enables sourcemaps
+    bundler = browserify({ debug: (config.env === 'development' && config.html.sourcemap === true) }) // debug = true enables sourcemaps
   }
 }
 

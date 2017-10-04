@@ -34,12 +34,14 @@ var config = {
 
   styles: {
     src: 'styles',
-    dest: 'styles'
+    dest: 'styles',
+    sourcemap: true  // sourcemaps are generated only on dev builds, specifying false here will disable it
   },
 
   scripts: {
     src: 'scripts',
     dest: 'scripts',
+    sourcemap: true,  // sourcemaps are generated only on dev builds, specifying false here will disable it
     browserify: {
       entries: [],
       out: 'main.js'

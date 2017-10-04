@@ -109,7 +109,6 @@ function executeTransform (filepath, incremental) {
 
   logger.debug('File Relative Path: ' + fileRelativePath)
 
-
   var fileOutName = fileName + '.html'
   var fileOutPath = path.join(fileOutDir, fileOutName)
 
