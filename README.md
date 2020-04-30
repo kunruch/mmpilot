@@ -50,6 +50,7 @@ $ mmpilot deploy
 - [GraphicFlip](https://graphicflip.com/) - for providing MMCSS logo
 
 ## Alternatives
+- [11ty](https://www.11ty.dev/) - A simpler static site generator powered by Node.js.
 - [Jekyll](https://jekyllrb.com/) - Simple blog aware static sites.
 - [Hexo](https://hexo.io/) - A fast, simple & powerful blog framework, powered by Node.js.
 
