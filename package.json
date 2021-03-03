@@ -52,7 +52,7 @@
     "marked": "^0.3.12",
     "node-sass": "^4.7.2",
     "postcss": "^6.0.16",
-    "pug": "^2.0.0-rc.4",
+    "pug": "^3.0.1",
     "require-from-string": "^2.0.1",
     "rss": "^1.2.2",
     "shelljs": "^0.8.1",
